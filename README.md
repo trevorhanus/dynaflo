@@ -2,42 +2,15 @@
 
 Dynanode is a wrapper around the AWS DynamoDB sdk for node. There are 
 a lot of similar libraries out there, but they all seem to try to 
-conform DynamoDB into a more familiar database, such as Mongo. This
-api's goal is to make it easier to work with the AWS sdk and stay true to the 
-DynamoDB way of doing things. So we will use the termonology set forth from the sdk. For every
+transform DynamoDB into a more familiar database, such as Mongo. This
+api's goal is to make it easier to work with the AWS sdk while staying true to the 
+DynamoDB way of doing things. We will use the termonology set forth in the sdk. For every
 method, we will show you how to do it with the sdk, and then how you do it
 with dynanode.
 
 Dynanode also returns Promises instead of using callbacks.
 
 Here is a link to the related [AWS SDK Docs](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB/DocumentClient.html)
-
-## Config
-
-Dynanode is just a wrapper around the AWS SDK. So it uses the credentials you have store at ~/.aws/credentials
-But you can override these credentials. 
-
-#### AWS SDK
-
-```javascript
-var AWS = require("aws-sdk");
-
-AWS.config.update({
-  region: "us-west-2",
-  endpoint: "http://localhost:8000" // Pointing to a locally running dynamodb instance
-});
-```
-
-#### Dynanode
-
-```javascript
-// You could use the method above or, use dynanode's method below
-
-dynanode.awsConfig({
-  region: 'us-west-2',
-  endpoint: 'http://localhost:8000' 
-})
-```
 
 ## Tables
 
@@ -552,4 +525,31 @@ function onScan(movies, data) {
         .then(onScan);
     }
 }
+```
+
+## Config
+
+Dynanode is just a wrapper around the AWS SDK. So it uses the credentials you have store at ~/.aws/credentials
+But you can override these credentials. 
+
+#### AWS SDK
+
+```javascript
+var AWS = require("aws-sdk");
+
+AWS.config.update({
+  region: "us-west-2",
+  endpoint: "http://localhost:8000" // Pointing to a locally running dynamodb instance
+});
+```
+
+#### Dynanode
+
+```javascript
+// You could use the method above or, use dynanode's method below
+
+dynanode.awsConfig({
+  region: 'us-west-2',
+  endpoint: 'http://localhost:8000' 
+})
 ```
