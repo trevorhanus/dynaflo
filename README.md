@@ -1,16 +1,19 @@
 # Dynanode
 
-Dynanode is a wrapper around the AWS DynamoDB sdk for node. There are 
-a lot of similar libraries out there, but they all seem to try to 
-transform DynamoDB into a more familiar database, such as Mongo. This
-api's goal is to make it easier to work with the AWS sdk while staying true to the 
-DynamoDB way of doing things. We will use the termonology set forth in the sdk. For every
-method, we will show you how to do it with the sdk, and then how you do it
-with dynanode.
+Dynanode is a wrapper around the AWS DynamoDB SDK for node. There are 
+similar libraries out there, but they all seem to attempt to make DynamoDB
+do something it wasn't built to do. Dynanode's goal is to make it easier to 
+work with the AWS SDK while staying true to the DynamoDB way of doing things. It uses
+the termonology set forth by AWS. For every method, we will show you how to do it with 
+the sdk, and then how you can do it with dynanode.
 
-Dynanode also returns Promises instead of using callbacks.
+All Dynanode methods return Promises instead of using callbacks.
 
 Here is a link to the related [AWS SDK Docs](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB/DocumentClient.html)
+
+[AWS DynamoDB Docs](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
+
+[DynamoDB API](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/Welcome.html)
 
 ## Tables
 
@@ -49,11 +52,11 @@ dynamodb.createTable(params, function(err, data) {
 #### Dynanode
 
 ```javascript
-import dynanode from 'dynanode';
+import dn from 'dynanode';
 
 const cloudFormationTemplate = require('myCloudFormationTemplate.json');
 
-dynanode.createTable(cloudFormationTemplate)
+dn.createTable(cloudFormationTemplate)
   .then(data => {
     console.log(data);
   })
@@ -85,9 +88,9 @@ dynamodb.deleteTable(params, function(err, data) {
 #### Dynanode
 
 ```javascript
-import dynanode from 'dynanode';
+import dn from 'dynanode';
 
-dynanode.deleteTable('Movies')
+dn.deleteTable('Movies')
   .then(data => {
     // table is deleted
   });
@@ -133,8 +136,10 @@ docClient.put(params, function(err, data) {
 #### Dynanode
 
 ```javascript
-const movies = new dynanode.Table('Movies');
-movies.put({
+import dn from 'dynanode';
+const movies = new dn.Table('Movies');
+movies
+  .put({
     year: 2013,
     title: 'Turn It Down, Or Else!',
     info: {
@@ -142,7 +147,8 @@ movies.put({
       rating: 0
     }
   })
-  .then(data => {
+  .run()
+  .then((oldMovie, metadata) => {
     // Inserted a new item
   });
 ```
@@ -174,7 +180,6 @@ var params = {
     ReturnValues:"UPDATED_NEW"
 };
 
-console.log("Updating the item...");
 docClient.update(params, function(err, data) {
     if (err) {
         console.error("Unable to update item. Error JSON:", JSON.stringify(err, null, 2));
@@ -187,22 +192,23 @@ docClient.update(params, function(err, data) {
 #### Dynanode
 
 ```javascript
-const movies = new dynanode.Table('Movies');
-movies.update({year: 2015, title: 'The Big New Movie'}, {
-    _set: {
-      info: {
-        rating: 5.5,
-        plot: 'Everything happens all at once',
-        actors: ['Larry', 'Moe', 'Curly']
-      }
+import dn from 'dynanode';
+const movies = new dn.Table('Movies');
+movies.update({year: 2015, title: 'The Big New Movie'})
+  .set({
+    info: {
+      rating: 5.5,
+      plot: 'Everything happens all at once',
+      actors: ['Larry', 'Moe', 'Curly']
     }
   })
-  .then(updatedMovie => {
+  .run()
+  .then((updatedMovie, metadata) => {
     console.log(updatedMovie);
   });
 ```
 
-### Increment a Counter
+### Increment a Counter (Not Supported Currently)
 
 #### AWS SDK
 
@@ -239,14 +245,14 @@ docClient.update(params, function(err, data) {
 #### Dynanode
 
 ```javascript
-const movies = new dynanode.Table('Movies');
-movies.update({year: 2015, title: 'The Big New Movie'}, {
-    _inc: {
-      info: {
-        rating: 1
-      }
+const movies = new dn.Table('Movies');
+movies.update({year: 2015, title: 'The Big New Movie'})
+  .inc({
+    info: {
+      rating: 1
     }
   })
+  .run()
   .then(updatedMovie => {
     console.log(updatedMovie);
   });
@@ -292,19 +298,17 @@ docClient.update(params, function(err, data) {
 #### Dynanode
 
 ```javascript
-const movies = new dynanode.Table('Movies');
-movies.update({year: 2015, title: 'The Big New Movie'}, {
-    _del: {
-      info: {
-        actors: ['0']
-      }
-    },
-    _when: 'size(info.actors) > 3'
-  })
-  .then(updatedMovie => {
+const movies = new dn.Table('Movies');
+movies.update({year: 2015, title: 'The Big New Movie'})
+  .delete({ info: { actors: { _indexes: [0] }}})
+  .if('size(info.actors) > 3')
+  .run()
+  .then((updatedMovie, metadata) => {
     console.log(updatedMovie);
   });
 ```
+
+UpdateExpression is currently not supported.
 
 ### Conditionally Delete an Item
 
@@ -342,13 +346,19 @@ docClient.delete(params, function(err, data) {
 #### Dynanode
 
 ```javascript
-const movies = new dynanode.Table('Movies');
-movies.delete({year: 2015, title: 'The Big New Movie'}, {
-    _when: 'info.rating <= 5'
-  })
-  .then(data => {
-    console.log(data);
-  });
+const movies = dynanode.table('Movies');
+
+movies.delete({year: 2015, title: 'The Big New Movie'})
+    .if({
+        info: { rating: 5 }
+    })
+    .run()
+    .then((deleted, metadata) => {
+      // do more stuff
+    })
+    .catch(err => {
+      // item was not deleted
+    });
 ```
 
 ### Query - All movies released in a year
@@ -384,25 +394,22 @@ docClient.query(params, function(err, data) {
 #### Dynanode
 
 ```javascript
-const movies = new dynanode.Table('Movies');
-movies.query({
-    _where: {
-      year: 1985
-    }
-  })
-  .then(data => {
-    console.log(data);
-  });
+import * as dn from 'dynanode';
+dn.table('Movies')
+    .query()
+    .where({year: 1985})
+    .run()
+    .then((movies, data) => {
+        
+    });
 ```
 
-### Query - All movies released in a year with Certain Titles
+### Query - All movies released in a year with Certain Titles (Not Supported Currently)
 
 #### AWS SDK
 
 ```javascript
 var docClient = new AWS.DynamoDB.DocumentClient();
-
-console.log("Querying for movies from 1992 - titles A-L, with genres and lead actor");
 
 var params = {
     TableName : "Movies",
@@ -435,6 +442,16 @@ docClient.query(params, function(err, data) {
 #### Dynanode
 
 ```javascript
+import * as dn from 'dynanode';
+dn.table('Movies')
+    .query()
+    .where({year: 1985})
+    .between('A', 'L', {key: 'title'})
+    .run()
+    .then((movies, data) => {
+        
+    });
+
 const movies = new dynanode.Table('Movies');
 movies.query({
     _where: {
@@ -527,6 +544,19 @@ function onScan(movies, data) {
 }
 ```
 
+### batchWrite
+
+not currently supported. pull requests welcome
+
+### batchGet
+
+not currently supported. pull requests welcome
+
+### createSet
+
+not currently supported. pull requests welcome
+
+
 ## Config
 
 Dynanode is just a wrapper around the AWS SDK. So it uses the credentials you have store at ~/.aws/credentials
@@ -552,4 +582,15 @@ dynanode.awsConfig({
   region: 'us-west-2',
   endpoint: 'http://localhost:8000' 
 })
+```
+
+### Set Defaults
+
+```javascript
+dynanode.defaults()
+    .return('NONE | ALL_OLD | UPDATED_OLD | ALL_NEW | UPDATED_NEW')
+    .select('ALL_ATTRIBUTES | ALL_PROJECTED_ATTRIBUTES | SPECIFIC_ATTRIBUTES | COUNT')
+    .consumedCapacity('INDEXES | TOTAL | NONE')
+    .itemCollectionMetrics('SIZE | NONE')
+    .consistentRead(boolean);
 ```

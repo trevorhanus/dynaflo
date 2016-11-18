@@ -1,0 +1,31 @@
+{
+  "name": "dynanode",
+  "version": "1.0.0",
+  "description": "Dynanode is a wrapper around the AWS DynamoDB sdk for node. There are  a lot of similar libraries out there, but they all seem to try to  transform DynamoDB into a more familiar database, such as Mongo. This api's goal is to make it easier to work with the AWS sdk while staying true to the  DynamoDB way of doing things. We will use the termonology set forth in the sdk. For every method, we will show you how to do it with the sdk, and then how you do it with dynanode.",
+  "main": "index.js",
+  "scripts": {
+    "test": "NODE_ENV=test; jest --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/trevorhanus/dynanode.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/trevorhanus/dynanode/issues"
+  },
+  "homepage": "https://gitlab.com/trevorhanus/dynanode#README",
+  "devDependencies": {
+    "jest-cli": "^17.0.3",
+    "typescript": "^2.0.10"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ],
+    "scriptPreprocessor": "<rootDir>/preprocessor.js",
+    "testRegex": "__test__/.*\\.(ts|js)$"
+  }
+}
