@@ -1,6 +1,7 @@
 **.get()**
 
-Returns a set of attributes for the item with the given primary key.
+Returns a set of attributes for the item with the given primary key by delgating to
+[AWS.DynamoDB.DocumentClient.get()](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB/DocumentClient.html#get-property)
 
 **Usage**
 
@@ -9,18 +10,15 @@ import dn from 'dynanode';
 
 dn.table('Movies')
   .get({year: 2015, title: 'The Big New Movie'})
-  .attrs('year, title, rating')
+  .attrs('year, title, rating') // optional. defaults to everything
   .run()
-  .then((movie, metadata) => {
+  .then(data => {
     console.log(movie.title);
   });
 ```
 
 **Available Modifiers**
 
-[.attrs()](/modifiers/attrs.md) <br>
-[.consistentRead()](/modifiers/consistentRead.md)
-
-**AWS Document Client reference**
-
-[AWS.DynamoDB.DocumentClient.get()](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB/DocumentClient.html#get-property)
+[.attrs()](/params/attrs.md) <br>
+[.consistentRead()](/params/consistentRead.md) <br>
+[.returnConsumedCapacity()](/params/consumedCapacity.md)

@@ -2,22 +2,26 @@ site_name: Dynanode
 theme: readthedocs
 pages:
   - Home: index.md
+  - Getting Started:
+    - Install: getting-started/install.md
+    - Use: getting-started/use.md
+  - Working with Items:
+    - Overview: items/overview.md
+    - Get: items/getItem.md
+    - Put: items/putItem.md
+    - Update: items/updateItem.md
+    - Conditionally Update: items/conditionallyUpdate.md
+    - Increment a Counter (future): items/incrementCounter.md
+    - Batch Write (future): items/batchWrite.md
+    - Batch Get (future): items/batchGet.md
+    - Create Set (future): items/createSet.md
+  - Params:
+    - Overview: params/overview.md
+    - .attrs(): params/attrs.md
+    - .where(): params/where.md
+    - .consistentRead(): params/consistentRead.md
+    - .returnConsumedCapacity(): params/consumedCapacity.md
   - Tables:
     - Create Table: tables/createTable.md
     - Delete Table: tables/deleteTable.md
     - Describe Table: tables/describeTable.md
-  - Working with Items:
-    - Overview: items/overview.md
-    - Get: items/getItem.md
-    - Insert: items/insertItem.md
-    - Update: items/updateItem.md
-    - Conditionally Update: items/conditionallyUpdate.md
-    - Increment a Counter (na): items/incrementCounter.md
-    - Batch Write (na): items/batchWrite.md
-    - Batch Get (na): items/batchGet.md
-    - Create Set (na): items/createSet.md
-  - Params:
-    - Overview: params/overview.md
-    - .attrs(): params/attrs.md
-    - .if(): params/if.md
-    - .consistentRead(): params/consistentRead.md

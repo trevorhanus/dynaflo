@@ -1,1 +1,1 @@
-An overview of the method modifiers.
+All of the Table methods (.get(), .put(), .query(), etc) have certian modifiers that can be applied after the call to the method. These modifiers link directly to a dynamoDb parameter. The available modifiers are listed and explained here. Each explanation has a link back to the AWS docs where it is defined.

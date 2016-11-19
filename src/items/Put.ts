@@ -5,6 +5,7 @@ import Base from './Base';
 
 export default class Put extends Base {
   Item: p.Item;
+  ReturnItemCollectionMetrics: p.ReturnItemCollectionMetrics = new p.ReturnItemCollectionMetrics();
   // ConditionExpression: string;
 
   constructor(tableName: string, item: Object) {
@@ -12,8 +13,12 @@ export default class Put extends Base {
     this.Item = new p.Item(item);
   }
 
-  // ConditionExpression
-  if(expression: string | Object) { // some_key >= some_other_key + 2
+  where(expression: string | Object) { // some_key >= some_other_key + 2
+    return this;
+  }
+
+  returnItemCollectionMetrics(value: string): Put {
+    this.ReturnItemCollectionMetrics.set(value);
     return this;
   }
 

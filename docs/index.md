@@ -1,13 +1,10 @@
-Dynanode is a wrapper around the AWS DynamoDB SDK for node. There are 
-similar libraries out there, but they all seem to attempt to make DynamoDB
-do something it wasn't built to do. Dynanode's goal is to make it easier to 
-work with the AWS SDK while staying true to the DynamoDB way of doing things. It uses
-the termonology set forth by AWS. For every method, we will show you how to do it with 
-the sdk, and then how you can do it with dynanode.
+WTF was AWS doing when they wrote the node SDK for DynamoDB? Working with it feels like stepping back in time 10 years. Dynanode is how AWS should have built their SDK. It was built by JavaScript Developer's for JavaScipt Developer's. It's api will feel much more natural to those who are used to lightweight and intuitive libraries.
 
-All Dynanode methods return Promises instead of using callbacks.
+Dynanode is a wrapper for the [AWS DynamoDB DocumentClient SDK](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB/DocumentClient.html) for node. Dynanode's goal is to make it easier to work with DynamoDB in node.
 
-Here is a link to the related [AWS SDK Docs](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB/DocumentClient.html)
+One simple way Dynanode makes things easier is that all methods return Promises instead of using callbacks.
+
+**Useful Links**
 
 [AWS DynamoDB Docs](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 

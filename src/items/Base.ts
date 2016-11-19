@@ -11,15 +11,15 @@ export default class Base {
     this.TableName = new p.TableName(tableName);
   }
 
-  consumedCapacity(value: string) {
+  consumedCapacity(value: string): Base {
     this.ReturnConsumedCapacity.set(value);
+    return this;
   }
 
   get _params() {
     let params = {};
     Object.keys(this).forEach(key => {
       const paramType: Param = this[key].paramType;
-
       if (this.accepts(paramType)) {
         params[key] = this[key].toJS();
       }
