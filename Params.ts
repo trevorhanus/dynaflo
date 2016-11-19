@@ -87,7 +87,6 @@ movies
   .inc() // increments a number, not supported yet
   .delete(Params.AttributeUpdates)
   .if(Params.ConditionExpression)
-  // settings
   .consumedCapacity('INDEXES | TOTAL | NONE')
   .itemCollectionMetrics('SIZE | NONE')
   .return('NONE | ALL_OLD')

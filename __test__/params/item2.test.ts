@@ -1,3 +1,5 @@
+// @tch - Had to name this file item2.test.ts 
+// because jest wasn't processing it as item.test.ts
 import {Param} from '../../src/params/ParamEnum';
 import {Item} from '../../src/params';
 

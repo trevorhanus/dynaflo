@@ -5,16 +5,15 @@ import Base from './Base';
 
 export default class Put extends Base {
   Item: p.Item;
-  ConditionExpression: string;
+  // ConditionExpression: string;
 
   constructor(tableName: string, item: Object) {
     super(tableName);
-    this.Item = item;
+    this.Item = new p.Item(item);
   }
 
   // ConditionExpression
   if(expression: string | Object) { // some_key >= some_other_key + 2
-
     return this;
   }
 
@@ -24,7 +23,7 @@ export default class Put extends Base {
         if (err) {
           reject(err);
         } else {
-          resolve(data.Attributes, data.ConsumedCapacity);
+          resolve(data);
         }
       });
     });

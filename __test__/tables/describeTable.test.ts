@@ -1,6 +1,6 @@
 import {createTable, describeTable, deleteTable} from '../../src/tables';
 
-xdescribe('describeTable', () => {
+describe('describeTable', () => {
   it('Can describe a table', () => {
     const cft = require('../fixtures/testTable.cloudFormationTemplate.json')
     return createTable(cft)

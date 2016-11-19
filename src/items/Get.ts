@@ -3,27 +3,17 @@ import {docClient} from '../dynamoDb';
 import Base from './Base';
 import * as p from '../params';
 
-const acceptedParamTypes: Param[] = [
-  Param.TableName,
-  Param.Key,
-  Param.ProjectionExpression,
-  Param.ExpressionAttributeNames,
-  Param.ExpressionAttributeValues,
-  Param.ConsistentRead,
-  Param.ReturnConsumedCapacity
-];
-
 export default class Get extends Base {
-  Key: Object;
-  ProjectionExpresssion: string;
+  Key: p.Key;
+  // ProjectionExpresssion: string;
 
   constructor(tableName: string, key: Object) {
     super(tableName);
-    this.Key = key;
+    this.Key = new p.Key(key);
   }
 
-  attrs(attributes: string[]) {
-    this.ProjectionExpression = attributes;
+  attrs(attributes: string) {
+    // this.ProjectionExpression = attributes;
     return this;
   }
 
@@ -33,9 +23,19 @@ export default class Get extends Base {
         if (err) {
           reject(err);
         } else {
-          resolve(data.Item, data.ConsumedCapacity);
+          resolve(data);
         }
       });
     });
   }
 }
+
+const acceptedParamTypes: Param[] = [
+  Param.TableName,
+  Param.Key,
+  Param.ProjectionExpression,
+  Param.ExpressionAttributeNames,
+  Param.ExpressionAttributeValues,
+  Param.ConsistentRead,
+  Param.ReturnConsumedCapacity
+];
