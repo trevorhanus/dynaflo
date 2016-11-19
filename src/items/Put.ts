@@ -1,16 +1,13 @@
 import {docClient} from '../dynamoDb';
+import Base from './Base';
 
-export default class Put {
-  TableName: string;
+export default class Put extends Base {
   Item: object;
   ConditionExpression: string;
-  ReturnValues: string = 'ALL_OLD';
-  ReturnConsumedCapacity: string = 'TOTAL';
-  ReturnItemCollectionMetrics: string = 'SIZE';
 
   constructor(tableName: string, item: object) {
+    super(tableName);
     this.Item = item;
-    this.TableName = tableName;
   }
 
   run(): Promise<any> {
@@ -23,15 +20,5 @@ export default class Put {
         }
       });
     });
-  }
-
-  get _params() {
-    let params = {};
-    Object.keys(this).forEach(key => {
-      if (this[key]) {
-        params[key] = this[key];
-      }
-    });
-    return params;
   }
 }

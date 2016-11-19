@@ -1,13 +1,13 @@
 import {docClient} from '../dynamoDb';
+import Base from './Base';
 
-export default class Get {
-  TableName: string;
+export default class Get extends Base {
   Key: object;
   ProjectionExpresssion: string;
 
   constructor(tableName: string, key: object) {
+    super(tableName);
     this.Key = key;
-    this.TableName = tableName;
   }
 
   attrs(attributes: string[]) {
@@ -25,15 +25,5 @@ export default class Get {
         }
       });
     });
-  }
-
-  get _params() {
-    let params = {};
-    Object.keys(this).forEach(key => {
-      if (this[key]) {
-        params[key] = this[key];
-      }
-    });
-    return params;
   }
 }
