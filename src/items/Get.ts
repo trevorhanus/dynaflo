@@ -1,11 +1,23 @@
+import {Param} from '../params/ParamEnum';
 import {docClient} from '../dynamoDb';
 import Base from './Base';
+import * as p from '../params';
+
+const acceptedParamTypes: Param[] = [
+  Param.TableName,
+  Param.Key,
+  Param.ProjectionExpression,
+  Param.ExpressionAttributeNames,
+  Param.ExpressionAttributeValues,
+  Param.ConsistentRead,
+  Param.ReturnConsumedCapacity
+];
 
 export default class Get extends Base {
-  Key: object;
+  Key: Object;
   ProjectionExpresssion: string;
 
-  constructor(tableName: string, key: object) {
+  constructor(tableName: string, key: Object) {
     super(tableName);
     this.Key = key;
   }

@@ -1,6 +1,6 @@
 import dn from '../../src/dynanode';
 
-describe('Put', () => {
+xdescribe('Put', () => {
   it('Can insert an Item', () => {
     return testTable()
       .then(() => {

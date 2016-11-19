@@ -12,11 +12,12 @@ pages:
     - Insert: items/insertItem.md
     - Update: items/updateItem.md
     - Conditionally Update: items/conditionallyUpdate.md
-    - Increment a Counter: items/incrementCounter.md
-    - Batch Write: items/batchWrite.md
-    - Batch Get: items/batchGet.md
-    - Create Set: items/createSet.md
-  - Method Modifiers:
-    - Overview: modifiers/overview.md
-    - .attrs(): modifiers/attrs.md
-    - .consistentRead(): modifiers/consistentRead.md
+    - Increment a Counter (na): items/incrementCounter.md
+    - Batch Write (na): items/batchWrite.md
+    - Batch Get (na): items/batchGet.md
+    - Create Set (na): items/createSet.md
+  - Params:
+    - Overview: params/overview.md
+    - .attrs(): params/attrs.md
+    - .if(): params/if.md
+    - .consistentRead(): params/consistentRead.md

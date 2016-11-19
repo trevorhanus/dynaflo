@@ -29,15 +29,9 @@ export class Params {
   // AttributeUpdates: Object; /* update */ // this is legacy param, use UpdateExpression 
 }
 
-const enum ReturnItemCollectionMetricsEnum {
-  Size,
-  None
-}
-
 movies
   .get(Params.Key)
-  .attrs(string[])
-  // settings
+  .attrs(string)
   .run()
   .then();
 
