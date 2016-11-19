@@ -1,5 +1,5 @@
-import {Table} from './Table';
-import * as tableMethods from './tableMethods';
+import {Table} from './items/Table';
+import * as tableMethods from './tables';
 
 class Dynanode {
 
@@ -9,25 +9,9 @@ class Dynanode {
     return new Table(tableName);
   }
 
-  createTable() {
-    return tableMethods.createTable();
-  }
-
-  deleteTable() {
-
-  }
-
-  describeTable() {
-
-  }
-
-  listTables() {
-
-  }
-
-  updateTable() {
-
-  }
+  createTable = tableMethods.createTable;
+  deleteTable = tableMethods.deleteTable;
+  describeTable = tableMethods.describeTable;
 
   defaults() {
     return new DefaultParams();

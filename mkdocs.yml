@@ -1,0 +1,22 @@
+site_name: Dynanode
+theme: readthedocs
+pages:
+  - Home: index.md
+  - Tables:
+    - Create Table: tables/createTable.md
+    - Delete Table: tables/deleteTable.md
+    - Describe Table: tables/describeTable.md
+  - Working with Items:
+    - Overview: items/overview.md
+    - Get: items/getItem.md
+    - Insert: items/insertItem.md
+    - Update: items/updateItem.md
+    - Conditionally Update: items/conditionallyUpdate.md
+    - Increment a Counter: items/incrementCounter.md
+    - Batch Write: items/batchWrite.md
+    - Batch Get: items/batchGet.md
+    - Create Set: items/createSet.md
+  - Method Modifiers:
+    - Overview: modifiers/overview.md
+    - .attrs(): modifiers/attrs.md
+    - .consistentRead(): modifiers/consistentRead.md

@@ -17,6 +17,9 @@
   },
   "homepage": "https://gitlab.com/trevorhanus/dynanode#README",
   "devDependencies": {
+    "@types/es6-promise": "0.0.32",
+    "@types/jest": "^16.0.0",
+    "@types/node": "^6.0.48",
     "jest-cli": "^17.0.3",
     "typescript": "^2.0.10"
   },
@@ -27,5 +30,8 @@
     ],
     "scriptPreprocessor": "<rootDir>/preprocessor.js",
     "testRegex": "__test__/.*\\.(ts|js)$"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.7.4"
   }
 }

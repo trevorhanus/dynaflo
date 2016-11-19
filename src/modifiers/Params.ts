@@ -1,6 +1,3 @@
-let KeyParam: Object;
-let TableNameParam: string;
-
 export class Params {
   Key: Object; /* get, update, delete, */ // passed as param in .get(key) .update(key) and .delete(key)
   TableName: string; /* get, put, query, scan, update, delete, */ // passed as param to the constructor, or .table(tableName) method
@@ -37,11 +34,8 @@ const enum ReturnItemCollectionMetricsEnum {
   None
 }
 
-const movies = dynanode.table('Movies');
-
 movies
   .get(Params.Key)
-  .project()
   .attrs(string[])
   // settings
   .run()
@@ -70,7 +64,12 @@ movies
   .consumedCapacity('INDEXES | TOTAL | NONE')
   .consistentRead(boolean)
   .run()
-  .then();
+  .then((items) => {
+
+  })
+  .catch(err => {
+
+  });
 
 movies
   .scan()
