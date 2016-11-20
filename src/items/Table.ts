@@ -1,5 +1,6 @@
 import Get from './Get';
 import Put from './Put';
+import Query from './Query';
 
 export class Table {
   private _tableName: string;
@@ -16,9 +17,9 @@ export class Table {
     return new Get(this._tableName, key);
   };
 
-  // query(): Params {
-  //   return new Params(); 
-  // };
+  query(): Query {
+    return new Query(this._tableName); 
+  };
 
   // scan(): Params {
   //   return new Params();

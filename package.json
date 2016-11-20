@@ -24,14 +24,17 @@
     "typescript": "^2.0.10"
   },
   "jest": {
+    "transform": {
+      ".*": "<rootDir>/preprocessor.js"
+    },
     "moduleFileExtensions": [
       "ts",
       "js"
     ],
-    "scriptPreprocessor": "<rootDir>/preprocessor.js",
     "testRegex": "__test__/.*\\.(ts|js)$"
   },
   "dependencies": {
-    "aws-sdk": "^2.7.4"
+    "aws-sdk": "^2.7.4",
+    "randomstring": "^1.1.5"
   }
 }

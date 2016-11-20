@@ -1,11 +1,10 @@
 import {Param} from '../params/ParamEnum';
+import {docClient} from '../dynamoDb';
 import * as p from '../params';
 
 export default class Base {
   TableName: p.TableName;
   ReturnConsumedCapacity: p.ReturnConsumedCapacity = new p.ReturnConsumedCapacity();
-  // ExpressionAttributeNames: p.ExpressionAttributeNames = new p.ExpressionAttributeNames();
-  // ExpressionAttributeValues: p.ExpressionAttributeValues = new p.ExpressionAttributeValues();
 
   constructor(tableName: string) {
     this.TableName = new p.TableName(tableName);
@@ -20,15 +19,20 @@ export default class Base {
     let params = {};
     Object.keys(this).forEach(key => {
       const paramType: Param = this[key].paramType;
-      if (this.accepts(paramType)) {
-        params[key] = this[key].toJS();
-      }
+      params[key] = this[key].toJS();
     });
     return params;
   }
 
-  accepts(paramType: Param): boolean {
-    // TODO: figure out if this method accepts the paramType
-    return true;
+  run(method: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      docClient[method](this._params, (err, data) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(data);
+        }
+      });
+    });
   }
 }

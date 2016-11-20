@@ -23,15 +23,7 @@ export default class Put extends Base {
   }
 
   run(): Promise<any> {
-    return new Promise((resolve, reject) => {
-      docClient.put(this._params, (err, data) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(data);
-        }
-      });
-    });
+    return super.run('put');
   }
 }
 

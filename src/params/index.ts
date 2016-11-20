@@ -6,6 +6,7 @@ import ReturnItemCollectionMetrics from './ReturnItemCollectionMetrics';
 import ReturnValues from './ReturnValues';
 import ExpressionAttributeNames from './ExpressionAttributeNames';
 import ExpressionAttributeValues from './ExpressionAttributeValues';
+import ProjectionExpression from './ProjectionExpression';
 
 export {
   TableName as TableName,
@@ -15,5 +16,6 @@ export {
   ReturnItemCollectionMetrics as ReturnItemCollectionMetrics,
   ReturnValues as ReturnValues,
   ExpressionAttributeNames as ExpressionAttributeNames,
-  ExpressionAttributeValues as ExpressionAttributeValues
+  ExpressionAttributeValues as ExpressionAttributeValues,
+  ProjectionExpression as ProjectionExpression
 }

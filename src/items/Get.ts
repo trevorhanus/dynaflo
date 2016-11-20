@@ -5,28 +5,24 @@ import * as p from '../params';
 
 export default class Get extends Base {
   Key: p.Key;
-  // ProjectionExpresssion: string;
+  ExpressionAttributeNames: p.ExpressionAttributeNames;
+  ProjectionExpression: p.ProjectionExpression;
 
   constructor(tableName: string, key: Object) {
     super(tableName);
     this.Key = new p.Key(key);
   }
 
-  attrs(attributes: string) {
-    // this.ProjectionExpression = attributes;
+  pluck(...attributes: (string | Object)[]): Get {
+    if (!this.ExpressionAttributeNames) {
+      this.ExpressionAttributeNames = new p.ExpressionAttributeNames();
+    }
+    this.ProjectionExpression = new p.ProjectionExpression(this.ExpressionAttributeNames, attributes);
     return this;
   }
 
   run(): Promise<any> {
-    return new Promise((resolve, reject) => {
-      docClient.get(this._params, (err, data) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(data);
-        }
-      });
-    });
+    return super.run('get');
   }
 }
 
