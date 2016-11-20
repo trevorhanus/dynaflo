@@ -2,6 +2,7 @@ import {Param} from '../params/ParamEnum';
 import {docClient} from '../dynamoDb';
 import Base from './Base';
 import * as p from '../params';
+import {pluck} from '../modifiers';
 
 export default class Get extends Base {
   Key: p.Key;
@@ -13,13 +14,7 @@ export default class Get extends Base {
     this.Key = new p.Key(key);
   }
 
-  pluck(...attributes: (string | Object)[]): Get {
-    if (!this.ExpressionAttributeNames) {
-      this.ExpressionAttributeNames = new p.ExpressionAttributeNames();
-    }
-    this.ProjectionExpression = new p.ProjectionExpression(this.ExpressionAttributeNames, attributes);
-    return this;
-  }
+  pluck = pluck.bind(this);
 
   run(): Promise<any> {
     return super.run('get');

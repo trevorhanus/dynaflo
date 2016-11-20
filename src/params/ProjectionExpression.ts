@@ -8,20 +8,18 @@ export default class ProjectionExpression {
   expressionNameMap: ExpressionAttributeNames;
 
 
-  constructor(expressionAttributeNames: ExpressionAttributeNames, attributes: (string | Object)[]) {
-    // ['My.Scalar.Key', {'MyMap': {'MyKey': true, 'MyKey2': true}}, 'MyArray[1]']
+  constructor(expressionAttributeNames: ExpressionAttributeNames) {
     this.expressionNameMap = expressionAttributeNames;
-    this.parseAttributes(attributes);
   }
 
-  private parseAttributes(attributes: (string | Object)[]): void {
+  private applyAttributes(attributes: (string | Object)[]): void {
     attributes.forEach(attribute => {
       switch (typeof attribute) {
         case 'string':
           this.createSafeKeyAndSetPairInExpressionMap(attribute);
           break;
         case 'object':
-
+          /* noop right now */
           break;
         default:
           throw new PluckError('Could not handle attribute: ' + JSON.stringify(attribute));

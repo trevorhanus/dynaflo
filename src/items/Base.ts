@@ -19,7 +19,9 @@ export default class Base {
     let params = {};
     Object.keys(this).forEach(key => {
       const paramType: Param = this[key].paramType;
-      params[key] = this[key].toJS();
+      if (paramType >= 0) {
+        params[key] = this[key].toJS();
+      }
     });
     return params;
   }
