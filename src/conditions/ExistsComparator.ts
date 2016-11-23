@@ -1,12 +1,11 @@
-import Comparator from './Comparator';
+export default class ExistsComparator implements IComparator {
 
-export default class ExistsComparator extends Comparator {
-
-  constructor() {
-    super(null);
+  str(safePath: string): string {
+    return 'attribute_exists(' + safePath + ')';
   }
 
-  string(safePath: string): string {
-    return 'attribute_exists(' + safePath + ')';
+  valueMap(): Object {
+    const noValueMap = {};
+    return noValueMap;
   }
 }

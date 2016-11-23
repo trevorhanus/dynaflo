@@ -1,12 +1,16 @@
 import Attribute from './Attribute';
-import Comparator from './Comparator';
 import SymbolComparator from './SymbolComparator';
 import ExistsComparator from './ExistsComparator';
+import TypeComparator from './TypeComparator';
+import ContainsComparator from './ContainsComparator';
+import BeginsWithComparator from './BeginsWithComparator';
+import BetweenComparator from './BetweenComparator';
+import InComparator from './InComparator';
 import {assign as _assign} from 'lodash';
 
 export default class Condition {
   attribute: Attribute;
-  comparator: Comparator;
+  comparator: IComparator;
   andCondition: Condition;
   orCondition: Condition;
 
@@ -38,7 +42,7 @@ export default class Condition {
 
   toExpressionString(): string {
     const safePath = this.attribute.safePath;
-    const expression = this.comparator.string(safePath);
+    const expression = this.comparator.str(safePath);
     const andExpression = this.andCondition && this.andCondition.toExpressionString();
     const orExpression = this.orCondition && this.orCondition.toExpressionString();
     return this.concatExpression(expression, andExpression, orExpression);
@@ -55,8 +59,26 @@ export default class Condition {
     }
   }
 
+  eq(operand: (number | boolean | string)) {
+    const symbol = ' = ';
+    this.comparator = new SymbolComparator(symbol, operand);
+    return this;
+  }
+
+  ne(operand: (number | boolean | string)) {
+    const symbol = ' <> ';
+    this.comparator = new SymbolComparator(symbol, operand);
+    return this;
+  }
+
   lt(operand: (number | boolean | string)) {
     const symbol = ' < ';
+    this.comparator = new SymbolComparator(symbol, operand);
+    return this;
+  }
+
+  le(operand: (number | boolean | string)) {
+    const symbol = ' <= ';
     this.comparator = new SymbolComparator(symbol, operand);
     return this;
   }
@@ -67,8 +89,39 @@ export default class Condition {
     return this;
   }
 
+  ge(operand: (number | boolean | string)) {
+    const symbol = ' >= ';
+    this.comparator = new SymbolComparator(symbol, operand);
+    return this;
+  }
+
+  between(lowOperand: (number | string), highOperand: (number | string)) {
+    this.comparator = new BetweenComparator(lowOperand, highOperand);
+    return this;
+  }
+
+  in(operands: (string | boolean | number | Condition)[]) {
+    this.comparator = new InComparator(operands);
+    return this;
+  }
+
   exists() {
     this.comparator = new ExistsComparator();
+    return this;
+  }
+
+  type(type: ('S' | 'SS' | 'N' | 'NS' | 'B' | 'BS' | 'BOOL' | 'NULL' | 'L' | 'M')) {
+    this.comparator = new TypeComparator(type);
+    return this;
+  }
+
+  contains(operand: string) {
+    this.comparator = new ContainsComparator(operand);
+    return this;
+  }
+
+  beginsWith(substring: string) {
+    this.comparator = new BeginsWithComparator(substring);
     return this;
   }
 }

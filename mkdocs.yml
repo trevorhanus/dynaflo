@@ -20,12 +20,17 @@ pages:
     - Overview: params/overview.md
     - .pluck(): modifiers/pluck.md
     - .where(): modifiers/where.md
-    - .hasField(): modifiers/hasField.md
     - .consistentRead(): params/consistentRead.md
     - .returnConsumedCapacity(): params/consumedCapacity.md
   - Comparators:
     - .eq(): conditions/eq.md
     - .exists(): conditions/exists.md
+    - .notExists(): conditions/notExists.md
+    - .type(): conditions/type.md
+    - .contains(): conditions/contains.md
+    - .beginsWith(): conditions/beginsWith.md
+    - .between(): conditions/between.md
+    - .in(): conditions/in.md
   - Tables:
     - Create Table: tables/createTable.md
     - Delete Table: tables/deleteTable.md

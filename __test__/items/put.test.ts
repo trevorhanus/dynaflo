@@ -1,6 +1,6 @@
 import dn from '../../src/dynanode';
 
-describe('Put', () => {
+xdescribe('Put', () => {
 
   beforeEach(done => {
     const cft = require('../fixtures/testTable.cloudFormationTemplate.json')

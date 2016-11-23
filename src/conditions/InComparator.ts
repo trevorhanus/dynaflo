@@ -1,13 +1,11 @@
-import Comparator from './Comparator';
 import Operand from './Operand';
 import Condition from './Condition';
 import {assign as _assign} from 'lodash';
 
-export default class InComparator extends Comparator {
+export default class InComparator implements IComparator {
   operands: Operand[] = [];
 
   constructor(operands: (string | boolean | number | Condition)[]) {
-    super(null);
     operands.forEach(operand => {
       this.operands.push(new Operand(operand));
     });
@@ -21,14 +19,14 @@ export default class InComparator extends Comparator {
     return map;
   }
 
-  string(safePath: string): string {
+  str(safePath: string): string {
     return safePath + ' IN ' + this._joinOperands();
   }
 
   private _joinOperands() {
     let strings: string[] = [];
     this.operands.forEach(operand => {
-      strings.push(operand.string());
+      strings.push(operand.str());
     });
     return strings.join(', ');
   }

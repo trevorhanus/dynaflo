@@ -5,7 +5,7 @@ import Attribute from './Attribute';
 export default class Operand {
   private safeValue: string;
   private attribute: Attribute;
-  private valueMap: Object;
+  valueMap: Object;
 
   constructor(value: (number | boolean | string | Condition)) {
     if (value instanceof Condition) {
@@ -17,7 +17,7 @@ export default class Operand {
     }
   }
 
-  string(): string {
+  str(): string {
     if (this.attribute) {
       return this.attribute.safePath;
     } else {

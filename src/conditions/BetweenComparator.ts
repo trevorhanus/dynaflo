@@ -1,13 +1,11 @@
-import Comparator from './Comparator';
 import Operand from './Operand';
 import {assign as _assign} from 'lodash';
 
-export default class BetweenComparator extends Comparator {
+export default class BetweenComparator implements IComparator {
   lowOperand: Operand;
   highOperand: Operand;
 
   constructor(lowOperand: (number | string), highOperand: (number | string)) {
-    super();
     this.lowOperand = new Operand(lowOperand);
     this.highOperand = new Operand(highOperand);
   }
@@ -19,7 +17,7 @@ export default class BetweenComparator extends Comparator {
     return map;
   }
 
-  string(safePath: string): string {
-    return safePath + ' BETWEEN ' + this.lowOperand.string() + ' AND ' + this.highOperand.string();
+  str(safePath: string): string {
+    return safePath + ' BETWEEN ' + this.lowOperand.str() + ' AND ' + this.highOperand.str();
   }
 }
