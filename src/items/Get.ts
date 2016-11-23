@@ -1,13 +1,11 @@
-import {Param} from '../params/ParamEnum';
 import {docClient} from '../dynamoDb';
 import Base from './Base';
-import * as p from '../params';
-import {pluck} from '../modifiers';
 import Attribute from '../conditions/Attribute';
 import {getAttributesForPluckParams} from '../utils';
+import {assign as _assign} from 'lodash';
 
-export default class Get extends Base {
-  key: Object;
+export default class Get extends Base 
+  implements dn.iExpressionMaps, dn.pluckable {
   pluckAttributes: Attribute[];
 
   constructor(tableName: string, key: Object) {
@@ -15,8 +13,36 @@ export default class Get extends Base {
     this.key = key;
   }
 
-  pluck(...topLevelOrNestedAttributes: (string|Object)[]) {
+  pluck(...topLevelOrNestedAttributes: (string | Object)[]) {
+    if (this.pluckAttributes) { 
+      throw new GetError('Cannot call pluck twice. Combined the calls into one.'); 
+    }
+    if (topLevelOrNestedAttributes.length === 0) { 
+      throw new GetError('Attributes must be passed to .pluck'); 
+    }
     this.pluckAttributes = getAttributesForPluckParams(topLevelOrNestedAttributes);
+    return this;
+  }
+
+  projectionExpression() {
+    const namePaths: string[] = [];
+    this.pluckAttributes.forEach(attr => {
+      namePaths.push(attr.safePath());
+    });
+    return namePaths.join(', ');
+  }
+
+  nameMap(): dn.NameMap {
+    let nameMap = {};
+    this.pluckAttributes && this.pluckAttributes.forEach(attr => {
+      _assign(nameMap, attr.nameMap());
+    });
+    return nameMap;
+  }
+
+  valueMap(): dn.ValueMap {
+    const noValueMap = {};
+    return noValueMap;
   }
 
   run(): Promise<any> {
@@ -24,12 +50,4 @@ export default class Get extends Base {
   }
 }
 
-const acceptedParamTypes: Param[] = [
-  Param.TableName,
-  Param.Key,
-  Param.ProjectionExpression,
-  Param.ExpressionAttributeNames,
-  Param.ExpressionAttributeValues,
-  Param.ConsistentRead,
-  Param.ReturnConsumedCapacity
-];
+export class GetError extends Error {}

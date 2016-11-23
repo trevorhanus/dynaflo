@@ -1,7 +1,7 @@
-import Operand from './Operand';
+import Operand from '../Operand';
 import {assign as _assign} from 'lodash';
 
-export default class BetweenComparator implements IComparator {
+export default class BetweenComparator implements dn.Comparator {
   lowOperand: Operand;
   highOperand: Operand;
 
@@ -10,14 +10,14 @@ export default class BetweenComparator implements IComparator {
     this.highOperand = new Operand(highOperand);
   }
 
-  valueMap() {
+  valueMap(): dn.ValueMap {
     let map = {};
     _assign(map, this.lowOperand.valueMap);
     _assign(map, this.highOperand.valueMap);
     return map;
   }
 
-  str(safePath: string): string {
-    return safePath + ' BETWEEN ' + this.lowOperand.str() + ' AND ' + this.highOperand.str();
+  exprString(safePath: string): string {
+    return safePath + ' BETWEEN ' + this.lowOperand.exprString() + ' AND ' + this.highOperand.exprString();
   }
 }

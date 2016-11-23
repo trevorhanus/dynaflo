@@ -9,7 +9,8 @@
     "outDir": "./build",
     "sourceMap": true,
     "typeRoots": [
-      "node_modules/@types"
+      "node_modules/@types",
+      "dynanode.d.ts"
     ]
   },
   "include": [

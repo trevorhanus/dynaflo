@@ -1,40 +1,37 @@
-import {Param} from '../params/ParamEnum';
-import * as p from '../params';
 import {docClient} from '../dynamoDb';
 import Base from './Base';
 
 export default class Put extends Base {
   item: Object;
-  ReturnItemCollectionMetrics: p.ReturnItemCollectionMetrics = new p.ReturnItemCollectionMetrics();
-  // ConditionExpression: string;
+  whereCondition: dn.Condition;
 
   constructor(tableName: string, item: Object) {
     super(tableName);
     this.item = item;
   }
 
-  where(expression: string | Object) { // some_key >= some_other_key + 2
+  where(condition: dn.Condition) {
+    this.whereCondition = condition;
     return this;
   }
 
-  returnItemCollectionMetrics(value: string): Put {
-    this.ReturnItemCollectionMetrics.set(value);
-    return this;
+  nameMap(): dn.NameMap {
+    if (this.whereCondition) {
+      return this.whereCondition.nameMap();
+    } else {
+      return {};
+    }
+  }
+
+  valueMap(): dn.ValueMap {
+    if (this.whereCondition) {
+      return this.whereCondition.valueMap();
+    } else {
+      return {};
+    }
   }
 
   run(): Promise<any> {
     return super.run('put');
   }
 }
-
-const acceptedParamTypes: Param[] = [
-  Param.TableName,
-  Param.Item,
-  Param.ConditionExpression,
-  Param.ConditionalOperator,
-  Param.ExpressionAttributeNames,
-  Param.ExpressionAttributeValues,
-  Param.ReturnConsumedCapacity,
-  Param.ReturnItemCollectionMetrics,
-  Param.ReturnValues
-];

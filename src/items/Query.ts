@@ -1,11 +1,9 @@
-import {Param} from '../params/ParamEnum';
 import {docClient} from '../dynamoDb';
 import Base from './Base';
-import * as p from '../params';
 import Condition from '../conditions/Condition';
 import Attribute from '../conditions/Attribute';
 import {assign as _assign} from 'lodash';
-import {getAttributesForPluckParmas} from '../utils';
+import {getAttributesForPluckParams} from '../utils';
 
 export default class Query extends Base {
   filterCondition: Condition;
@@ -29,14 +27,14 @@ export default class Query extends Base {
   }
 
   where(keyCondition: Condition) {
-    this.keyCondition = condition;
+    this.keyCondition = keyCondition;
   }
 
   filter(condition: Condition) {
     this.filterCondition = condition;
   }
 
-  pluck(...topLevelOrNestedAttributes: (string|Object)) {
+  pluck(...topLevelOrNestedAttributes: (string|Object)[]) {
     this.pluckAttributes = getAttributesForPluckParams(topLevelOrNestedAttributes);
   }
 
@@ -45,7 +43,7 @@ export default class Query extends Base {
     this.filterCondition && _assign(nameMap, this.filterCondition.nameMap());
     this.keyCondition && _assign(nameMap, this.keyCondition.nameMap());
     this.pluckAttributes.forEach(attribute => {
-      _assign(nameMap, attribute.tokenMap);
+      _assign(nameMap, attribute.nameMap());
     });
     return nameMap;
   }
@@ -61,20 +59,3 @@ export default class Query extends Base {
     return super.run('query');
   }
 }
-
-const acceptedParamTypes: Param[] = [
-  Param.TableName, // Base
-  Param.IndexName,
-  Param.KeyConditionExpression,
-  Param.FilterExpression,
-  Param.ProjectionExpression,
-  Param.ExpressionAttributeNames,
-  Param.ExpressionAttributeValues,
-  Param.ExclusiveStartKey,
-  Param.Limit,
-  Param.ConsistentRead,
-  Param.ReturnConsumedCapacity,
-  Param.ScanIndexForward,
-  Param.Select,
-  Param.ConditionalOperator
-];

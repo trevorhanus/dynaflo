@@ -1,16 +1,16 @@
 import Attribute from './Attribute';
-import SymbolComparator from './SymbolComparator';
-import ExistsComparator from './ExistsComparator';
-import TypeComparator from './TypeComparator';
-import ContainsComparator from './ContainsComparator';
-import BeginsWithComparator from './BeginsWithComparator';
-import BetweenComparator from './BetweenComparator';
-import InComparator from './InComparator';
 import {assign as _assign} from 'lodash';
+import SymbolComparator from './comparators/SymbolComparator';
+import ExistsComparator from './comparators/ExistsComparator';
+import TypeComparator from './comparators/TypeComparator';
+import ContainsComparator from './comparators/ContainsComparator';
+import BeginsWithComparator from './comparators/BeginsWithComparator';
+import BetweenComparator from './comparators/BetweenComparator';
+import InComparator from './comparators/InComparator';
 
-export default class Condition {
+export default class Condition implements dn.Condition {
   attribute: Attribute;
-  comparator: IComparator;
+  comparator: dn.Comparator;
   andCondition: Condition;
   orCondition: Condition;
 
@@ -18,14 +18,28 @@ export default class Condition {
     this.attribute = new Attribute(attribute);
   }
 
-  nameMap() {
+  nameMap(): dn.NameMap {
     const map = {};
-    _assign(map, this.attribute.tokenMap);
+    _assign(map, this.attribute.nameMap());
     if (this.andCondition) {
       _assign(map, this.andCondition.nameMap());
     }
     if (this.orCondition) {
       _assign(map, this.orCondition.nameMap());
+    }
+    return map;
+  }
+
+  valueMap(): dn.ValueMap {
+    const map: dn.ValueMap = {};
+    if (this.comparator) {
+      _assign(map, this.comparator.valueMap());
+    }
+    if (this.andCondition) {
+      _assign(map, this.andCondition.valueMap());
+    }
+    if (this.orCondition) {
+      _assign(map, this.orCondition.valueMap());
     }
     return map;
   }
@@ -40,11 +54,11 @@ export default class Condition {
     return this;
   }
 
-  toExpressionString(): string {
-    const safePath = this.attribute.safePath;
-    const expression = this.comparator.str(safePath);
-    const andExpression = this.andCondition && this.andCondition.toExpressionString();
-    const orExpression = this.orCondition && this.orCondition.toExpressionString();
+  exprString(): string {
+    const safePath = this.attribute.safePath();
+    const expression = this.comparator.exprString(safePath);
+    const andExpression = this.andCondition && this.andCondition.exprString();
+    const orExpression = this.orCondition && this.orCondition.exprString();
     return this.concatExpression(expression, andExpression, orExpression);
   }
 

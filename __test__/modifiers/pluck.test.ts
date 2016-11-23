@@ -1,6 +1,6 @@
 import dn from '../../src/dynanode';
 
-xdescribe('Pluck', () => {
+describe('Pluck', () => {
 
   beforeEach(done => {
     const testDoc = {
@@ -83,15 +83,13 @@ xdescribe('Pluck', () => {
   });
 
   it('Calling twice', () => {
-    return dn.table('Test')
-      .get({id: '1234'})
-      .pluck('my.scalar.key')
-      .pluck('myArray')
-      .run()
-      .then(data => {
-        expect(data.Item['my.scalar.key']).toBe(14);
-        expect(data.Item.myArray.length).toBe(2);
-      });
+    expect(() => {
+      return dn.table('Test')
+        .get({id: '1234'})
+        .pluck('my.scalar.key')
+        .pluck('myArray')
+        .run()
+    }).toThrow();
   });
 
   it('Nested object', () => {
@@ -133,7 +131,7 @@ xdescribe('Pluck', () => {
       });
   });
 
-  it('Deeply nested object using shorthand', () => {
+  xit('Deeply nested object using shorthand', () => {
     return dn.table('Test')
       .get({id: '1234'})
       .pluck({

@@ -1,9 +1,9 @@
 import {getSafeExpressionName} from '../utils';
 
-export default class Attribute {
+export default class Attribute implements dn.Attribute {
   tokens: string[] = [];
   safeTokens: string[] = [];
-  tokenMap: Object = {};
+  _nameMap: dn.NameMap = {};
 
   constructor(attribute: string | Object) {
     switch (typeof attribute) {
@@ -18,6 +18,14 @@ export default class Attribute {
       default:
         throw new AttributeError('Could not handle attribute: ' + JSON.stringify(attribute));
     }
+  }
+
+  safePath(): string {
+    return this.safeTokens.join('.');
+  }
+
+  nameMap(): dn.NameMap {
+    return this._nameMap;
   }
 
   extractTokensFromNestedObject(attributeMap: Object) {
@@ -42,12 +50,8 @@ export default class Attribute {
     this.tokens.forEach(token => {
       const safeName = getSafeExpressionName();
       this.safeTokens.push(safeName);
-      this.tokenMap[safeName] = token;
+      this._nameMap[safeName] = token;
     });
-  }
-
-  get safePath() {
-    return this.safeTokens.join('.');
   }
 }
 

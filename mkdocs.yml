@@ -23,14 +23,20 @@ pages:
     - .consistentRead(): params/consistentRead.md
     - .returnConsumedCapacity(): params/consumedCapacity.md
   - Comparators:
-    - .eq(): conditions/eq.md
-    - .exists(): conditions/exists.md
-    - .notExists(): conditions/notExists.md
-    - .type(): conditions/type.md
-    - .contains(): conditions/contains.md
-    - .beginsWith(): conditions/beginsWith.md
-    - .between(): conditions/between.md
-    - .in(): conditions/in.md
+    - .eq(): comparators/equal.md
+    - .ne(): comparators/notEqual.md
+    - .lt(): comparators/lessThan.md
+    - .le(): comparators/lessThanEqual.md
+    - .gt(): comparators/greaterThan.md
+    - .ge(): comparators/greaterThanEqual.md
+    - .between(): comparators/between.md
+    - .in(): comparators/in.md
+    - .exists(): comparators/exists.md
+    - .notExists(): comparators/notExists.md
+    - .type(): comparators/type.md
+    - .beginsWith(): comparators/beginsWith.md
+    - .contains(): comparators/contains.md
+    - .size() (future): comparators/size.md
   - Tables:
     - Create Table: tables/createTable.md
     - Delete Table: tables/deleteTable.md

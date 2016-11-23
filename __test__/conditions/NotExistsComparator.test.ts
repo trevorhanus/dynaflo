@@ -1,8 +1,8 @@
-import NotExistsComparator from '../../src/conditions/NotExistsComparator';
+import NotExistsComparator from '../../src/conditions/comparators/NotExistsComparator';
 
 describe('NotExistsComparator', () => {
   it('Works', () => {
     const comp = new NotExistsComparator();
-    expect(comp.str('#test')).toBe('attribute_not_exists(#test)');
+    expect(comp.exprString('#test')).toBe('attribute_not_exists(#test)');
   });
 });

@@ -1,0 +1,15 @@
+{
+  "id": "1234",
+  "genre": "Family",
+  "year": 2016,
+  "title": "Fantastic Beasts and Where to Find Them",
+  "info": {
+    "rating": 8.0,
+    "cast": [
+      "Eddie Redmayne",
+      "Sam Redford",
+      "Scott Goldman",
+      "Colin Ferrell"
+    ]
+  }
+}

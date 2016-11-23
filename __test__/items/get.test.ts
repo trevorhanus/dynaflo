@@ -1,6 +1,6 @@
 import dn from '../../src/dynanode';
 
-describe('Get', () => {
+xdescribe('Get', () => {
 
   beforeEach(done => {
     const testDoc = {

@@ -31,17 +31,62 @@ xdescribe('Put', () => {
       });
   });
 
-  xit('Can set the ReturnConsumedCapacity', () => {
-    const params = dn.table('Test')
-      .put({id: '1235', name: 'Little Foot'})
-      .consumedCapacity('INDEXES');
-    expect(params._params().ReturnConsumedCapacity).toBe('INDEXES');
+  it('Puts when condition is met', () => {
+    return dn.table('Test')
+      .put({id: '1234', name: 'Dino'})
+      .run()
+      .then(data => {
+        return dn.table('Test')
+          .put({
+            id: '1234',
+            neckLength: 20
+          })
+          .where(dn.attr('name').eq('Dino'))
+          .run();
+      })
+      .then(data => {
+        return dn.table('Test')
+          .get({id: '1234'})
+          .run();
+      })
+      .then(data => {
+        expect(data.Item.neckLength).toBe(20);
+      });
   });
 
-  xit('Can set the ReturnItemCollectionMetrics', () => {
-    const params = dn.table('Test')
-      .put({id: '12345'})
-      .returnItemCollectionMetrics('SIZE');
-    expect(params._params().ReturnItemCollectionMetrics).toBe('SIZE');
-  })
+  it('Throws when condition is not met', () => {
+    return dn.table('Test')
+      .put({id: '1234', name: 'Dino'})
+      .run()
+      .then(data => {
+        return dn.table('Test')
+          .put({
+            id: '1234',
+            neckLength: 20
+          })
+          .where(dn.attr('name').ne('Dino'))
+          .run();
+      })
+      .then(data => {
+        // should not have gotten here
+        expect(true).toBe(false);
+      })
+      .catch(err => {
+        expect(err.message).toBe('The conditional request failed');
+      });
+  });
+
+  it('Can put a scalar attribute', () => {
+    return dn.table('Test')
+      .put({id: '1234', 'my.scalar.key': 'Dino'})
+      .run()
+      .then(data => {
+        return dn.table('Test')
+          .get({id: '1234'})
+          .run();
+      })
+      .then(data => {
+        expect(data.Item['my.scalar.key']).toBe('Dino');
+      });
+  });
 });
