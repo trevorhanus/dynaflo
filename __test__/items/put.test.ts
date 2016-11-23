@@ -31,17 +31,17 @@ describe('Put', () => {
       });
   });
 
-  it('Can set the ReturnConsumedCapacity', () => {
+  xit('Can set the ReturnConsumedCapacity', () => {
     const params = dn.table('Test')
       .put({id: '1235', name: 'Little Foot'})
       .consumedCapacity('INDEXES');
-    expect(params._params.ReturnConsumedCapacity).toBe('INDEXES');
+    expect(params._params().ReturnConsumedCapacity).toBe('INDEXES');
   });
 
-  it('Can set the ReturnItemCollectionMetrics', () => {
+  xit('Can set the ReturnItemCollectionMetrics', () => {
     const params = dn.table('Test')
       .put({id: '12345'})
       .returnItemCollectionMetrics('SIZE');
-    expect(params._params.ReturnItemCollectionMetrics).toBe('SIZE');
+    expect(params._params().ReturnItemCollectionMetrics).toBe('SIZE');
   })
 });

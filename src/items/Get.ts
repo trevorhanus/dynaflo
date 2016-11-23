@@ -3,18 +3,21 @@ import {docClient} from '../dynamoDb';
 import Base from './Base';
 import * as p from '../params';
 import {pluck} from '../modifiers';
+import Attribute from '../conditions/Attribute';
+import {getAttributesForPluckParams} from '../utils';
 
 export default class Get extends Base {
-  Key: p.Key;
-  ExpressionAttributeNames: p.ExpressionAttributeNames;
-  ProjectionExpression: p.ProjectionExpression;
+  key: Object;
+  pluckAttributes: Attribute[];
 
   constructor(tableName: string, key: Object) {
     super(tableName);
-    this.Key = new p.Key(key);
+    this.key = key;
   }
 
-  pluck = pluck.bind(this);
+  pluck(...topLevelOrNestedAttributes: (string|Object)[]) {
+    this.pluckAttributes = getAttributesForPluckParams(topLevelOrNestedAttributes);
+  }
 
   run(): Promise<any> {
     return super.run('get');

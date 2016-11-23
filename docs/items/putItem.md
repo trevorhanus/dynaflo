@@ -24,5 +24,5 @@ movies
 
 **Available Modifiers**
 
-[.where()](/params/where.md) <br>
+[.where()](/modifiers/where.md) <br>
 [.returnConsumedCapacity()](/params/consumedCapacity.md) <br>

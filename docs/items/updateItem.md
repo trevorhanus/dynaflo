@@ -1,3 +1,53 @@
+**.update()**
+
+Update an item.
+
+**Usage**
+
+Update an item with partition key and sort key
+
+```javascript
+import dn from 'dynanode';
+const movies = new dn.Table('Movies');
+movies.update({year: 2015, title: 'The Big New Movie'})
+  .set({
+    info: {
+      rating: 5.5,
+      plot: 'Everything happens all at once',
+      actors: ['Larry', 'Moe', 'Curly']
+    }
+  })
+  .run()
+  .then((updatedMovie, metadata) => {
+    console.log(updatedMovie);
+  });
+```
+
+Update an item with a condition
+
+```javascript
+import dn, {key} from 'dynanode';
+const movies = new dn.Table('Movies');
+movies.update(key('year').eq(2015).and(
+    key('title').startsWith('A'))
+  )
+  .set({
+    info: {
+      rating: 5.5,
+      plot: 'Everything happens all at once',
+      actors: ['Larry', 'Moe', 'Curly']
+    }
+  })
+  .run()
+  .then((updatedMovie, metadata) => {
+    console.log(updatedMovie);
+  });
+```
+
+**Available Modifiers**
+
+??
+
 AWS SDK
 
 ```javascript
@@ -30,23 +80,4 @@ docClient.update(params, function(err, data) {
         console.log("UpdateItem succeeded:", JSON.stringify(data, null, 2));
     }
 });
-```
-
-Dynanode
-
-```javascript
-import dn from 'dynanode';
-const movies = new dn.Table('Movies');
-movies.update({year: 2015, title: 'The Big New Movie'})
-  .set({
-    info: {
-      rating: 5.5,
-      plot: 'Everything happens all at once',
-      actors: ['Larry', 'Moe', 'Curly']
-    }
-  })
-  .run()
-  .then((updatedMovie, metadata) => {
-    console.log(updatedMovie);
-  });
 ```

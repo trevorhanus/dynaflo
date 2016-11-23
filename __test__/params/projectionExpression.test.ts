@@ -20,5 +20,4 @@ describe('ProjectionExpression', () => {
       expect(map.toJS()[keyHash]).toBe(names[i]);
     });
   });
-
 });

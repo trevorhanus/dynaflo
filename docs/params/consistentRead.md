@@ -1,7 +1,7 @@
 Determines the read consistency model: If set to true, then the operation uses strongly consistent reads; 
 otherwise, the operation uses eventually consistent reads.
 
-Defaulted to ???
+**Example**
 
 ```javascript
 .consistentRead(true || false)
@@ -9,4 +9,4 @@ Defaulted to ???
 
 **AWS Documentation Link**
 
-[Projection Expression]()
+[]()

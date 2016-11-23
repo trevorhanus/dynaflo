@@ -6,21 +6,26 @@ pages:
     - Install: getting-started/install.md
     - Use: getting-started/use.md
   - Working with Items:
-    - Overview: items/overview.md
+    # - Overview: items/overview.md
     - Get: items/getItem.md
     - Put: items/putItem.md
     - Update: items/updateItem.md
-    - Conditionally Update: items/conditionallyUpdate.md
-    - Increment a Counter (future): items/incrementCounter.md
+    - Delete: items/deleteItem.md
+    # - Conditionally Update: items/conditionallyUpdate.md
+    # - Increment a Counter (future): items/incrementCounter.md
     - Batch Write (future): items/batchWrite.md
     - Batch Get (future): items/batchGet.md
     - Create Set (future): items/createSet.md
-  - Params:
+  - Modifiers:
     - Overview: params/overview.md
-    - .attrs(): params/attrs.md
-    - .where(): params/where.md
+    - .pluck(): modifiers/pluck.md
+    - .where(): modifiers/where.md
+    - .hasField(): modifiers/hasField.md
     - .consistentRead(): params/consistentRead.md
     - .returnConsumedCapacity(): params/consumedCapacity.md
+  - Comparators:
+    - .eq(): conditions/eq.md
+    - .exists(): conditions/exists.md
   - Tables:
     - Create Table: tables/createTable.md
     - Delete Table: tables/deleteTable.md

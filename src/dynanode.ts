@@ -1,4 +1,5 @@
 import {Table} from './items/Table';
+import Condition from './conditions/Condition';
 import * as tableMethods from './tables';
 
 class Dynanode {
@@ -13,12 +14,8 @@ class Dynanode {
   deleteTable = tableMethods.deleteTable;
   describeTable = tableMethods.describeTable;
 
-  defaults() {
-    return new DefaultParams();
-  }
-
-  awsConfig(options: Object) {
-
+  attr(attribute: (string | Object)): Condition {
+    return new Condition(attribute);
   }
 }
 

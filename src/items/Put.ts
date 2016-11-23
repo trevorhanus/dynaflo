@@ -4,13 +4,13 @@ import {docClient} from '../dynamoDb';
 import Base from './Base';
 
 export default class Put extends Base {
-  Item: p.Item;
+  item: Object;
   ReturnItemCollectionMetrics: p.ReturnItemCollectionMetrics = new p.ReturnItemCollectionMetrics();
   // ConditionExpression: string;
 
   constructor(tableName: string, item: Object) {
     super(tableName);
-    this.Item = new p.Item(item);
+    this.item = item;
   }
 
   where(expression: string | Object) { // some_key >= some_other_key + 2
