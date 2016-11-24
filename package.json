@@ -4,7 +4,8 @@
   "description": "Dynanode is a wrapper around the AWS DynamoDB sdk for node. There are  a lot of similar libraries out there, but they all seem to try to  transform DynamoDB into a more familiar database, such as Mongo. This api's goal is to make it easier to work with the AWS sdk while staying true to the  DynamoDB way of doing things. We will use the termonology set forth in the sdk. For every method, we will show you how to do it with the sdk, and then how you do it with dynanode.",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_ENV=test; jest --watch"
+    "test": "NODE_ENV=test; jest --watch",
+    "test-once": "NODE_ENV=test; jest"
   },
   "repository": {
     "type": "git",

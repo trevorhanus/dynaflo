@@ -3,4 +3,4 @@ image: node:6.1.0
 all_tests:
   script:
    - npm install
-   - npm test
+   - npm test-once
