@@ -19,6 +19,8 @@ declare module dn {
     Item?: Object;
     FilterExpression?: string;
     ConditionExpression?: string;
+    ProjectionExpression?: string;
+    UpdateExpression?: string;
     ExpressionAttributeNames?: NameMap;
     ExpressionAttributeValues?: ValueMap;
     ReturnConsumedCapacity?: ReturnConsumedCapacityOptions;
@@ -56,6 +58,14 @@ declare module dn {
     exprString(): string;
   }
 
+  interface UpdateExpression {
+    exprString(): string;
+    nameMap(): Object;
+    valueMap(): Object;
+  }
+
+  type UpdateExpressionType = 'SET' | 'REMOVE' | 'ADD' | 'DELETE';
+
   interface pluckable {
     pluck(...topLevelOrNestedAttributes: (string | Object)[]): void;
     projectionExpression(): string;
@@ -64,5 +74,11 @@ declare module dn {
   interface whereable {
     whereCondition?: Condition;
     where(condtion: Condition): void;
+  }
+
+  interface NestedAttribute {
+    joinedSafePaths(): string[];
+    objectsForPaths(): Object[];
+    nameMap(): NameMap;
   }
 }

@@ -26,6 +26,7 @@ export default class Base {
     this._assignProjectionExpression(params);
     this._assignFilterExpression(params);
     this._assignConditionExpression(params);
+    this._assignUpdateExpression(params);
     this._assignExpressionNameMap(params);
     this._assignExpressionValueMap(params);
     return params;
@@ -58,6 +59,13 @@ export default class Base {
   _assignConditionExpression(params: dn.Params) {
     if (this.whereCondition) {
       params.ConditionExpression = this.whereCondition.exprString();
+    }
+  }
+
+  _assignUpdateExpression(params: dn.Params) {
+    const updateExpr = this.updateExpression && this.updateExpression();
+    if (updateExpr && updateExpr !== '') {
+      params.UpdateExpression = updateExpr;
     }
   }
 

@@ -2,18 +2,9 @@ import dn from '../../src/dynanode';
 
 describe('Delete', () => {
 
-  beforeEach(done => {
-    const testDoc = {
-      id: '1234',
-      name: 'Dino'
-    };
+  beforeAll(done => {
     const cft = require('../fixtures/testTable.cloudFormationTemplate.json')
     return dn.createTable(cft)
-      .then(data => {
-        return dn.table('Test')
-          .put(testDoc)
-          .run();
-      })
       .then(data => {
         done();
       })
@@ -22,7 +13,23 @@ describe('Delete', () => {
       });
   });
 
-  afterEach(done => {
+  beforeEach(done => {
+    const testDoc = {
+      id: '1234',
+      name: 'Dino'
+    };
+    return dn.table('Test')
+      .put(testDoc)
+      .run()
+      .then(data => {
+        done();
+      })
+      .catch(err => {
+        done(err);
+      });
+  });
+
+  afterAll(done => {
     return dn.deleteTable('Test')
       .then(data => {
         done();

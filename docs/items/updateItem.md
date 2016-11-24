@@ -1,13 +1,21 @@
-**.update()**
+**Command Syntax**
+```
+table.update(item: Object)
+```
 
-Update an item.
+Where `key` is a pojo that represents the primary key to be deleted.
+
+For the primary key, you must provide all of the attributes. For example, with a simple primary key, you only need to provide a value for the partition key. For a composite primary key, you must provide values for both the partition key and the sort key.
+
+For more see the [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateItem.html)
 
 **Usage**
 
-Update an item with partition key and sort key
+Set new attributes or update old ones
 
 ```javascript
 import dn from 'dynanode';
+
 const movies = new dn.Table('Movies');
 movies.update({year: 2015, title: 'The Big New Movie'})
   .set({
@@ -18,19 +26,18 @@ movies.update({year: 2015, title: 'The Big New Movie'})
     }
   })
   .run()
-  .then((updatedMovie, metadata) => {
-    console.log(updatedMovie);
+  .then(data => {
+    // movie is updated
   });
 ```
 
-Update an item with a condition
+Conditionally update an item
 
 ```javascript
-import dn, {key} from 'dynanode';
+import dn, {attr} from 'dynanode';
+
 const movies = new dn.Table('Movies');
-movies.update(key('year').eq(2015).and(
-    key('title').startsWith('A'))
-  )
+movies.update({id: '1234'})
   .set({
     info: {
       rating: 5.5,
@@ -38,15 +45,47 @@ movies.update(key('year').eq(2015).and(
       actors: ['Larry', 'Moe', 'Curly']
     }
   })
+  .where(attr({info:{plot:true}}).startsWith('Every'))
   .run()
-  .then((updatedMovie, metadata) => {
-    console.log(updatedMovie);
+  .then(data => {
+    // will update if the plot starts with the substring 'Every'. So in this case 
+    // it will update
+  });
+```
+
+Delete items from a set.
+
+```javascript
+import dn, {attr} from 'dynanode';
+
+const movies = new dn.Table('Movies');
+movies.update({id: '1234'})
+  .delete('topLevelSet', ['Item3'])
+  .run()
+  .then(data => {
+    // deletes 'item3' from the top level set named 'topLevelSet' 
+  });
+```
+
+Note: delete only works with sets and top level attributes.
+
+Remove attributes from items
+
+```javascript
+import dn, {attr} from 'dynanode';
+
+const movies = new dn.Table('Movies');
+movies.update({id: '1234'})
+  .remove('topLevelKey', {info:{rating:true}})
+  .run()
+  .then(data => {
+    // removed attribute 'topLevelKey' and the info.rating attribute 
   });
 ```
 
 **Available Modifiers**
 
-??
+[.where()](/modifiers/pluck.md) <br>
 
 AWS SDK
 

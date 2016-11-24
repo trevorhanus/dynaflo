@@ -1,22 +1,25 @@
 import {createTable, deleteTable} from '../../src/tables';
 
 describe('createTable', () => {
+  
+  afterAll(done => {
+    return deleteTable('Test')
+      .then(data => {
+        done();
+      })
+      .catch(err => {
+        done(err);
+      });
+  });
+
   it('Can create and delete a table', () => {
     const cft = require('../fixtures/testTable.cloudFormationTemplate.json')
     return createTable(cft)
       .then(tableDescription => {
         expect(tableDescription.TableName).toBe('Test');
-        // clean up table
-        return deleteTable('Test');
-      })
-      .then(data => {
-        expect(true).toBe(true);
       })
       .catch(err => {
-        return deleteTable('Test')
-          .then(() => {
-            throw new Error(err);
-          });
+        throw new Error(err);
       });
   });
 });
