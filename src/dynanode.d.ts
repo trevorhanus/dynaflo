@@ -62,6 +62,7 @@ declare module dn {
   }
 
   interface whereable {
-    where(): void;
+    whereCondition?: Condition;
+    where(condtion: Condition): void;
   }
 }

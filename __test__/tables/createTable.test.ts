@@ -9,6 +9,9 @@ describe('createTable', () => {
         // clean up table
         return deleteTable('Test');
       })
+      .then(data => {
+        expect(true).toBe(true);
+      })
       .catch(err => {
         return deleteTable('Test')
           .then(() => {

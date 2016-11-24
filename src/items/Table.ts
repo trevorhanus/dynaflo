@@ -1,5 +1,6 @@
 import Get from './Get';
 import Put from './Put';
+import Delete from './Delete';
 // import Query from './Query';
 
 export class Table {
@@ -29,7 +30,7 @@ export class Table {
   //   return new Params();
   // };
 
-  // delete(key: Object): Params{
-  //   return new Params();
-  // };
+  delete(key: Object): Delete{
+    return new Delete(this._tableName, key);
+  };
 }

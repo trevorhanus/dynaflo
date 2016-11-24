@@ -12,6 +12,9 @@ describe('describeTable', () => {
         expect(table.AttributeDefinitions.length).toBe(1);
         return deleteTable('Test');
       })
+      .then(data => {
+        expect(true).toBe(true);
+      })
       .catch(err => {
         throw new Error(err);
       });

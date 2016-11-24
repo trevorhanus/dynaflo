@@ -1,11 +1,19 @@
-**.put()**
+**Command Syntax**
+```
+table.put(item: Object)
+```
+
+Where `item` is a pojo that represents the doc to be inserted.
+
+For more see the [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_PutItem.html)
+
+**Description**
 
 Creates a new item, or replaces an old item with a new item by delegating to [AWS.DynamoDB.DocumentClient.put()](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB/DocumentClient.html#put-property)
 
 **Usage**
 
 ```javascript
-import dn from 'dynanode';
 const movies = new dn.Table('Movies');
 movies
   .put({
@@ -19,6 +27,25 @@ movies
   .run()
   .then(data => {
     // Inserted a new item
+  });
+```
+
+Or we could conditionally put an item.
+
+```javascript
+const movies = new dn.Table('Movies');
+movies
+  .put({
+    id: '1234',
+    info: {
+      plot: 'Nothing happens at all.',
+      rating: 0
+    }
+  })
+  .where(dn.attr('id').notExists())
+  .run()
+  .then(data => {
+    // Only inserts the item if there is not a doc with id = '1234' already
   });
 ```
 

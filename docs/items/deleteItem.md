@@ -1,4 +1,15 @@
-**.delete()**
+**Command Syntax**
+```
+table.delete(key: Object)
+```
+
+Where `key` is a pojo that represents the primary key to be deleted.
+
+For the primary key, you must provide all of the attributes. For example, with a simple primary key, you only need to provide a value for the partition key. For a composite primary key, you must provide values for both the partition key and the sort key.
+
+For more see the [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DeleteItem.html)
+
+**Description**
 
 Deletes the item with the given primary key by delgating to
 [AWS.DynamoDB.DocumentClient.delete()](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB/DocumentClient.html#delete-property)
@@ -6,8 +17,6 @@ Deletes the item with the given primary key by delgating to
 **Usage**
 
 ```javascript
-import dn from 'dynanode';
-
 dn.table('Movies')
   .delete({year: 2015, title: 'The Big New Movie'})
   .run()
@@ -15,6 +24,25 @@ dn.table('Movies')
     console.log(movie.title);
   });
 ```
+
+Here `year` is the partion key and `title` is the sort key.
+
+We can also conditionally delete items.
+
+```javascript
+dn.table('Movies')
+  .delete({year: 2015, title: 'The Big New Movie'})
+  .where(dn.attr({info:{rating:true}}).lt(5.0))
+  .run()
+  .then(data => {
+    // movie was deleted
+  })
+  .catch(err => {
+    // the movie was not deleted
+  });
+```
+
+This deletes the movie if the rating is less than 5.0.
 
 **Available Modifiers**
 

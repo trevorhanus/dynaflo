@@ -1,9 +1,9 @@
 import {docClient} from '../dynamoDb';
 import Base from './Base';
 
-export default class Put extends Base {
+export default class Put extends Base implements dn.whereable, dn.iExpressionMaps {
   item: Object;
-  whereCondition: dn.Condition;
+  whereCondition?: dn.Condition;
 
   constructor(tableName: string, item: Object) {
     super(tableName);

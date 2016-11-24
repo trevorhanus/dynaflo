@@ -1,6 +1,6 @@
 import dn from '../../src/dynanode';
 
-describe('Pluck', () => {
+xdescribe('Pluck', () => {
 
   beforeEach(done => {
     const testDoc = {

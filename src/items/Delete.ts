@@ -1,27 +1,36 @@
-import {Param} from '../params/ParamEnum';
-import {docClient} from '../dynamoDb';
 import Base from './Base';
-import * as p from '../params';
 
-export default class Delete extends Base {
-
-  constructor(tableName: string) {
+export default class Delete extends Base implements dn.whereable, dn.iExpressionMaps {
+  key: Object;
+  whereCondition?: dn.Condition;
+  
+  constructor(tableName: string, key: Object) {
     super(tableName);
+    this.key = key;
+  }
+
+  where(condition: dn.Condition) {
+    this.whereCondition = condition;
+    return this;
+  }
+
+  nameMap(): dn.NameMap {
+    if (this.whereCondition) {
+      return this.whereCondition.nameMap();
+    } else {
+      return {};
+    }
+  }
+
+  valueMap(): dn.ValueMap {
+    if (this.whereCondition) {
+      return this.whereCondition.valueMap();
+    } else {
+      return {};
+    }
   }
 
   run(): Promise<any> {
     return super.run('delete');
   }
 }
-
-const acceptedParamTypes: Param[] = [
-  Param.TableName, // Base
-  Param.Key,
-  Param.ConditionExpression,
-  Param.ConditionalOperator,
-  Param.ExpressionAttributeNames,
-  Param.ExpressionAttributeValues,
-  Param.ReturnConsumedCapacity,
-  Param.ReturnItemCollectionMetrics,
-  Param.ReturnValues
-];

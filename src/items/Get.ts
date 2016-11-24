@@ -1,11 +1,9 @@
-import {docClient} from '../dynamoDb';
 import Base from './Base';
 import Attribute from '../conditions/Attribute';
 import {getAttributesForPluckParams} from '../utils';
 import {assign as _assign} from 'lodash';
 
-export default class Get extends Base 
-  implements dn.iExpressionMaps, dn.pluckable {
+export default class Get extends Base implements dn.iExpressionMaps, dn.pluckable {
   pluckAttributes: Attribute[];
 
   constructor(tableName: string, key: Object) {
