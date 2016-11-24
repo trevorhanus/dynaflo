@@ -6,3 +6,6 @@ config.json
 
 # Build
 build/
+
+# Npm debug logs
+npm-debug.log
