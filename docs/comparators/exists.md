@@ -1,12 +1,10 @@
-**Dynanode Command: .exists()**
+Tests if an attribute exists in a document.
 
 **Command Syntax**
 
+```javascript
 attr(attribute).exists()
-
-**Description**
-
-Tests if an attribute exists in a document.
+```
 
 **Usage**
 

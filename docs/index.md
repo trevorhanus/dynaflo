@@ -1,10 +1,16 @@
-WTF was AWS doing when they wrote the node SDK for DynamoDB? Working with it feels like stepping back in time 10 years. Dynanode is how AWS should have built their SDK. It was built by JavaScript Developer's for JavaScipt Developer's. It's api will feel much more natural to those who are used to lightweight and intuitive libraries.
+Dynanode is a DynamoDB client for node that was inspired by RethinkDB syntax. It was 
+built and is maintained by the team at Gravity Labs but we welcome pull requests.
 
-Dynanode is a wrapper for the [AWS DynamoDB DocumentClient SDK](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB/DocumentClient.html) for node. Dynanode's goal is to make it easier to work with DynamoDB in node.
+We built Dynanode out of the frustration that came from working with the AWS DynamoDB SDK.
+There are other DynamoDB clients out there, but we felt they were missing functionality or 
+are simply not being maintained.
 
-One simple way Dynanode makes things easier is that all methods return Promises instead of using callbacks.
+Our goal for Dynanode is to make working with DynamoDB more familiar to JavaScript developers. We 
+think you will enjoy the syntax and the Promises.
 
 **Useful Links**
+
+[AWS DynamoDB DocumentClient SDK](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB/DocumentClient.html)
 
 [AWS DynamoDB Docs](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 

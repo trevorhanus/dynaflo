@@ -23,6 +23,21 @@ export function insertItem(done, item) {
     });
 }
 
+export function insertItems(done, items) {
+  const promises = items.map(item => {
+    return dn.table('Test')
+      .put(item)
+      .run();
+  });
+  return Promise.all(promises)
+    .then(data => {
+      done();
+    })
+    .catch(err => {
+      done(err);
+    });
+}
+
 export function deleteItem(done) {
   return dn.table('Test')
     .delete({id: '1234'})

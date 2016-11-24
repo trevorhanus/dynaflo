@@ -1,12 +1,10 @@
-**Dynanode Command: .ge()**
+Tests if an attribute is greater than or equal to the given value.
 
 **Command Syntax**
 
+```javascript
 attr(attribute).ge(value)
-
-**Description**
-
-Tests if an attribute is greater than or equal to the given value.
+```
 
 **Usage**
 

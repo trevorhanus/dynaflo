@@ -1,17 +1,20 @@
+Set new attributes or update old ones
+
 **Command Syntax**
 ```
-table.update(item: Object)
+table.update(key: Object)
+  .set(item: Object)
+  .remove(keyName | {nested: path}[, keyName | {nested: path}])
+  .delete(topLevelKeyName, [itemsToDelete])
 ```
 
 Where `key` is a pojo that represents the primary key to be deleted.
 
 For the primary key, you must provide all of the attributes. For example, with a simple primary key, you only need to provide a value for the partition key. For a composite primary key, you must provide values for both the partition key and the sort key.
 
-For more see the [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateItem.html)
-
 **Usage**
 
-Set new attributes or update old ones
+Set
 
 ```javascript
 import dn from 'dynanode';
@@ -31,7 +34,7 @@ movies.update({year: 2015, title: 'The Big New Movie'})
   });
 ```
 
-Conditionally update an item
+Conditionally set an item
 
 ```javascript
 import dn, {attr} from 'dynanode';
@@ -67,7 +70,7 @@ movies.update({id: '1234'})
   });
 ```
 
-Note: delete only works with sets and top level attributes.
+*Note: delete only works with sets and top level attributes.*
 
 Remove attributes from items
 
@@ -86,6 +89,8 @@ movies.update({id: '1234'})
 **Available Modifiers**
 
 [.where()](/modifiers/pluck.md) <br>
+
+For more see the [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateItem.html)
 
 AWS SDK
 

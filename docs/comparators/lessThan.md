@@ -1,12 +1,10 @@
-**Dynanode Command: .lt()**
+Tests if an attribute is less than the given value.
 
 **Command Syntax**
 
+```javascript
 attr(attribute).lt(value)
-
-**Description**
-
-Tests if an attribute is less than the given value.
+```
 
 **Usage**
 

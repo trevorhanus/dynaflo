@@ -1,12 +1,10 @@
-**Dynanode Command: .notExists()**
+Tests if an attribute does not exist in a document.
 
 **Command Syntax**
 
+```javascript
 attr(attribute).notExists()
-
-**Description**
-
-Tests if an attribute does not exist in a document.
+```
 
 **Usage**
 

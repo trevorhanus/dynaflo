@@ -1,12 +1,10 @@
-**Dynanode Command: .le()**
+Tests if an attribute is less than or equal to the given value.
 
 **Command Syntax**
 
+```javascript
 attr(attribute).le(value)
-
-**Description**
-
-Tests if an attribute is less than or equal to the given value.
+```
 
 **Usage**
 

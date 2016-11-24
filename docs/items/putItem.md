@@ -1,15 +1,11 @@
+Creates a new item, or replaces an old item with a new item by delegating to [AWS.DynamoDB.DocumentClient.put()](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB/DocumentClient.html#put-property)
+
 **Command Syntax**
 ```
 table.put(item: Object)
 ```
 
 Where `item` is a pojo that represents the doc to be inserted.
-
-For more see the [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_PutItem.html)
-
-**Description**
-
-Creates a new item, or replaces an old item with a new item by delegating to [AWS.DynamoDB.DocumentClient.put()](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB/DocumentClient.html#put-property)
 
 **Usage**
 
@@ -53,3 +49,5 @@ movies
 
 [.where()](/modifiers/where.md) <br>
 [.returnConsumedCapacity()](/params/consumedCapacity.md) <br>
+
+For more see the [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_PutItem.html)

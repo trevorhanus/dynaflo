@@ -84,7 +84,7 @@ export default class Base {
   }
 
   run(method: string): Promise<any> {
-    // console.log(this._params());
+    console.log(this._params());
     return new Promise((resolve, reject) => {
       docClient[method](this._params(), (err, data) => {
         if (err) {

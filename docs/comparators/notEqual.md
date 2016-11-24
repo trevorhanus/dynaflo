@@ -1,12 +1,10 @@
-**Dynanode Command: .ne()**
+Tests if an attribute does not equal the given value.
 
 **Command Syntax**
 
+```javascript
 attr(attribute).ne(value)
-
-**Description**
-
-Tests if an attribute does not equal the given value.
+```
 
 **Usage**
 

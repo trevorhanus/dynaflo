@@ -8,7 +8,7 @@ describe('Update', () => {
   });
 
   beforeEach(done => {
-    const item = {
+    const item1 = {
       id: '1234',
       title: 'The Title',
       info: {
@@ -17,7 +17,16 @@ describe('Update', () => {
       },
       recommended: true
     };
-    return tu.insertItem(done, item);
+    const item2 = {
+      id: '12345',
+      title: 'Second Title',
+      info: {
+        rating: 5.5,
+        cast: ['Larry', 'Moe']
+      },
+      recommended: false
+    };
+    return tu.insertItems(done, [item1, item2]);
   });
 
   afterEach(done => {

@@ -1,12 +1,10 @@
-**Dynanode Command: .gt()**
+Tests if an attribute is greater than the given value.
 
 **Command Syntax**
 
+```javascript
 attr(attribute).gt(value)
-
-**Description**
-
-Tests if an attribute is greater than the given value.
+```
 
 **Usage**
 

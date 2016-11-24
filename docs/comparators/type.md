@@ -1,14 +1,12 @@
-**Dynanode Command: .type()**
+Tests if an attribute is of a certain type.
 
 **Command Syntax**
 
+```javascript
 attr(attribute).type(type)
 
-types: 'S' | 'SS' | 'N' | 'NS' | 'B' | 'BS' | 'BOOL' | 'NULL' | 'L' | 'M'  
-
-**Description**
-
-Tests if an attribute is of a certain type.
+// types: 'S' | 'SS' | 'N' | 'NS' | 'B' | 'BS' | 'BOOL' | 'NULL' | 'L' | 'M'
+```  
 
 **Usage**
 

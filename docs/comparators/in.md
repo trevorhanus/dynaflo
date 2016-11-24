@@ -1,12 +1,10 @@
-**Dynanode Command: .in()**
+Tests if an attribute equals the given value.
 
 **Command Syntax**
 
+```javascript
 attr(attribute).in([value])
-
-**Description**
-
-Tests if an attribute equals the given value.
+```
 
 **Usage**
 

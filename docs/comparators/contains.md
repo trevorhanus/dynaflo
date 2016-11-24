@@ -1,14 +1,12 @@
-**Dynanode Command: .contains()**
+Tests if a string or an array contains a certain string.
 
 **Command Syntax**
 
+```javascript
 attr(attribute).contains(operand)
+```
 
-operand must be a string  
-
-**Description**
-
-Tests if a string or an array contains a certain string.
+*Note: operand must be a string*
 
 **Usage**
 

@@ -3,7 +3,7 @@ To do this, use the .where() modifier. Under the hood, .where() is setting the [
 
 **Example**
 
-Say you are representing a movie in dynamoDb like this...
+Say you are representing a movie in DynamoDB like this...
 
 ```javascript
 {
@@ -22,9 +22,7 @@ and you only want to update the `shouldRecommend` attribute if the rating = 5
 
 ```javascript
 dn.table('Movies')
-  .update({
-    id: '12345'
-  })
+  .update({id: '12345'})
   .set({
     shouldRecommend: true
   })
@@ -34,21 +32,26 @@ dn.table('Movies')
   .run();
 ```
 
-You could also pass a string with the conditional logic
+For more complicated conditions, you can use condition statements
 
 ```javascript
+const positiveRating = attr({info:{rating:true}}).gt(5);
+const harryOrFanMovie = attr('title').startsWith('Harry').or(
+    attr('title').startsWith('Fan');
+  );
+
 dn.table('Movies')
   .update({id: '12345'})
   .set({
     shouldRecommend: true
   })
-  .where('info.rating = 5')
+  .where(positiveRating.and(harryOrFanMovie))
   .run();
 ```
 
-DynamoDb supports many logical operators and some functions. See the following documentation for more info.
+This sets the shouldRecommend attribute if the rating is greater than 5 and the title starts with either 'Fan' or 'Harry'
 
-[Condition Expression Operators and Functions](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.SpecifyingConditions.html)
+See the [Comparators](/comparators/equal.md) section for a complete list
 
 This gets translated into the following params that are passed to the AWS DocumentClient.
 
@@ -68,5 +71,6 @@ const params = {
 
 **AWS Documentation Links**
 
+[Condition Expression Operators and Functions](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.SpecifyingConditions.html) <br>
 [Condition Expression](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.SpecifyingConditions.html#ConditionExpressionReference) <br>
 [Expression Attribute Names]()

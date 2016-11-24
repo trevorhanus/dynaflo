@@ -1,12 +1,10 @@
-**Dynanode Command: .eq()**
+Tests if an attribute equals the given value.
 
 **Command Syntax**
 
+```javascript
 attr(attribute).eq(value)
-
-**Description**
-
-Tests if an attribute equals the given value.
+```
 
 **Usage**
 

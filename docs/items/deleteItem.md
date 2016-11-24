@@ -1,3 +1,6 @@
+Deletes the item with the given primary key by delgating to
+[AWS.DynamoDB.DocumentClient.delete()](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB/DocumentClient.html#delete-property)
+
 **Command Syntax**
 ```
 table.delete(key: Object)
@@ -6,13 +9,6 @@ table.delete(key: Object)
 Where `key` is a pojo that represents the primary key to be deleted.
 
 For the primary key, you must provide all of the attributes. For example, with a simple primary key, you only need to provide a value for the partition key. For a composite primary key, you must provide values for both the partition key and the sort key.
-
-For more see the [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DeleteItem.html)
-
-**Description**
-
-Deletes the item with the given primary key by delgating to
-[AWS.DynamoDB.DocumentClient.delete()](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB/DocumentClient.html#delete-property)
 
 **Usage**
 
@@ -49,3 +45,5 @@ This deletes the movie if the rating is less than 5.0.
 [.where()](/modifiers/pluck.md) <br>
 [.returnConsumedCapacity()](/params/consumedCapacity.md) <br>
 [.returnValues()]()
+
+For more see the [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DeleteItem.html)

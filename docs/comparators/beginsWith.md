@@ -1,12 +1,10 @@
-**Dynanode Command: .beginsWith()**
+Tests if an attribute begins with a substring.
 
 **Command Syntax**
 
+```javascript
 attr(attribute).beginsWith(substring)
-
-**Description**
-
-Tests if an attribute begins with a substring.
+```
 
 **Usage**
 

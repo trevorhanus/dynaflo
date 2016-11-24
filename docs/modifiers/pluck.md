@@ -3,7 +3,7 @@ To get just some of the attributes, rather than all of them, use .pluck(). Under
 
 **Example**
 
-say you have a dynamoDb doc like this...
+say you have a DynamoDB doc like this...
 
 ```javascript
 {

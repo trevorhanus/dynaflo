@@ -1,12 +1,10 @@
-**Dynanode Command: .between()**
+Tests if an attribute is between two values.
 
 **Command Syntax**
 
+```javascript
 attr(attribute).between(lowOperand, highOperand)
-
-**Description**
-
-Tests if an attribute is between two values.
+```
 
 **Usage**
 
