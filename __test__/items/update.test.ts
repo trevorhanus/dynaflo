@@ -1,5 +1,6 @@
 import Dynanode from '../../src/dynanode';
 import * as tu from '../../src/utils/testUtils';
+import getTestConfig from '../../src/getTestConfig';
 
 let dn;
 const items = [
@@ -26,10 +27,7 @@ const items = [
 describe('Update', () => {
 
   beforeAll(done => {
-    dn = new Dynanode({
-      region: 'us-west-2',
-      endpoint: 'http://localhost:7777'
-    });
+    dn = new Dynanode(getTestConfig());
     const cft = require('../../__test__/fixtures/testTable.cloudFormationTemplate.json')
     cft.Properties.TableName = 'UpdateTest';
     return dn.createTable(cft)

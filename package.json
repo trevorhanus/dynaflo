@@ -4,8 +4,8 @@
   "description": "Dynanode is a DynamoDB client for node that was inspired by RethinkDB's syntax.",
   "main": "build/dynanode.js",
   "scripts": {
-    "test": "NODE_ENV=test; jest --watch",
-    "test-once": "NODE_ENV=test; jest"
+    "test": "ENDPOINT=http://localhost:7777 jest --watch",
+    "test-once": "ENDPOINT=http://trevorhanus__dynamodb-local:7777 jest"
   },
   "repository": {
     "type": "git",

@@ -1,13 +1,11 @@
 import Dynanode from '../../src/dynanode';
+import getTestConfig from '../../src/getTestConfig';
 
 let dn;
 describe('Pluck', () => {
 
   beforeAll(done => {
-    dn = new Dynanode({
-      region: 'us-west-2',
-      endpoint: 'http://localhost:7777'
-    });
+    dn = new Dynanode(getTestConfig());
     const testDoc = {
       id: '1234',
       'my.scalar.key': 14,

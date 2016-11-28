@@ -1,14 +1,12 @@
 import Dynanode from '../../src/dynanode';
 import Condition from '../../src/conditions/Condition';
+import getTestConfig from '../../src/getTestConfig';
 
 let dn;
 describe('attr()', () => {
 
   beforeAll(done => {
-    dn = new Dynanode({
-      region: 'us-west-2',
-      endpoint: 'http://localhost:7777'
-    });
+    dn = new Dynanode(getTestConfig());
     done();
   });
 

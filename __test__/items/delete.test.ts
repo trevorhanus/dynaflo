@@ -1,15 +1,12 @@
 import Dynanode from '../../src/dynanode';
+import getTestConfig from '../../src/getTestConfig';
 
 let dn;
 describe('Delete', () => {
 
   beforeAll(done => {
-    dn = new Dynanode({
-      region: 'us-west-2',
-      endpoint: 'http://trevorhanus__dynamodb-local:7777',
-      accessKeyId: 'test',
-      secretAccessKey: 'test'
-    });
+    const config = getTestConfig();
+    dn = new Dynanode(config);
     const cft = require('../fixtures/testTable.cloudFormationTemplate.json');
     cft.Properties.TableName = 'DeleteTest';
     return dn.createTable(cft)
