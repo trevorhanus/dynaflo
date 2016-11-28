@@ -10,8 +10,8 @@ pages:
   image: devunix/alpine-mkdocs
   script:
   - mkdocs build
-  - mkdir public
-  - mv site public
+  - mkdir ./public
+  - mv ./site ./public
   artifacts:
     paths:
     - site
