@@ -1,8 +1,9 @@
 image: node:6.1.0
 
+services:
+  - tray/dynamodb-local:latest
+
 all_tests:
   script:
-   - brew install dynamodb-local
-   - /usr/local/bin/dynamodb-local -inMemory &
    - npm install
    - npm run test-once
