@@ -10,8 +10,7 @@ pages:
   image: devunix/alpine-mkdocs
   script:
   - mkdocs build
-  - mkdir ./public
-  - mv ./site ./public
+  - mv /builds/trevorhanus/dynanode/site public
   artifacts:
     paths:
     - site
