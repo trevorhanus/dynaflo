@@ -10,7 +10,7 @@ pages:
   image: devunix/alpine-mkdocs
   script:
   - mkdocs build
-  - mv /builds/trevorhanus/dynanode/site public
+  - cp /builds/trevorhanus/dynanode/site/* public
   artifacts:
     paths:
     - site
