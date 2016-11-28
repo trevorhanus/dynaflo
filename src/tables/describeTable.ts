@@ -1,4 +1,4 @@
-import dynamoDb from '../dynamoDb';
+import {dynamoDB} from '../dynanode';
 
 export default function(tableName: string) {
   const params = {
@@ -6,7 +6,7 @@ export default function(tableName: string) {
   };
 
   return new Promise((resolve, reject) => {
-    dynamoDb.describeTable(params, (err, data) => {
+    dynamoDB.describeTable(params, (err, data) => {
       if (err) {
         reject(err);
       } else {

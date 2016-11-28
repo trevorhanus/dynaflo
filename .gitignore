@@ -1,9 +1,6 @@
 # External Libraries
 node_modules/
 
-# Sensitive Config
-config.json
-
 # Build
 build/
 

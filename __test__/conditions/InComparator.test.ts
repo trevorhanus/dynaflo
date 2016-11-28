@@ -1,7 +1,16 @@
-import dn from '../../src/dynanode';
+import Dynanode from '../../src/dynanode';
 import InComparator from '../../src/conditions/comparators/InComparator';
 
+let dn;
 describe('InComparator', () => {
+
+  beforeAll(done => {
+    dn = new Dynanode({
+      region: 'us-west-2',
+      endpoint: 'http://localhost:7777'
+    });
+    done();
+  });
 
   it('three numbers', () => {
     const comp = new InComparator([10, 11, 12]);

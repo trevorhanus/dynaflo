@@ -1,5 +1,6 @@
 ///<reference path="../../src/dynanode.d.ts" />
-import {docClient} from '../dynamoDb';
+// import {docClient} from '../dynamoDb';
+import {docClient} from '../dynanode';
 
 export default class Base {
   _log: boolean = false;

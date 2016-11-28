@@ -1,10 +1,9 @@
 {
-  "name": "dynanode",
+  "name": "dyno-db",
   "version": "0.1.0",
   "description": "Dynanode is a DynamoDB client for node that was inspired by RethinkDB's syntax.",
   "main": "build/dynanode.js",
   "scripts": {
-    "prepublish": "tsc",
     "test": "NODE_ENV=test; jest --watch",
     "test-once": "NODE_ENV=test; jest"
   },

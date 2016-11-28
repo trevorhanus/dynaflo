@@ -1,9 +1,14 @@
-import dn from '../../src/dynanode';
+import Dynanode from '../../src/dynanode';
 
+let dn;
 describe('Put', () => {
 
   beforeAll(done => {
-    const cft = require('../fixtures/testTable.cloudFormationTemplate.json')
+    dn = new Dynanode({
+      region: 'us-west-2',
+      endpoint: 'http://localhost:7777'
+    });
+    const cft = require('../fixtures/testTable.cloudFormationTemplate.json');
     cft.Properties.TableName = 'PutTest'
     return dn.createTable(cft)
       .then(data => {

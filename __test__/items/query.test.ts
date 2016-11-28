@@ -1,6 +1,15 @@
-import dn from '../../src/dynanode';
+import Dynanode from '../../src/dynanode';
 
+let dn;
 xdescribe('Get', () => {
+  
+  beforeAll(done => {
+    dn = new Dynanode({
+      region: 'us-west-2',
+      endpoint: 'http://localhost:7777'
+    });
+    done();
+  });
 
   beforeEach(done => {
     const testDoc = {

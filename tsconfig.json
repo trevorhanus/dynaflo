@@ -8,6 +8,7 @@
     "preserveConstEnums": true,
     "outDir": "./build",
     "sourceMap": true,
+    "pretty": true,
     "typeRoots": [
       "node_modules/@types",
       "dynanode.d.ts"
