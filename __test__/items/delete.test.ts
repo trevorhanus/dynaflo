@@ -6,7 +6,7 @@ describe('Delete', () => {
   beforeAll(done => {
     dn = new Dynanode({
       region: 'us-west-2',
-      endpoint: 'http://localhost:7777',
+      endpoint: 'trevorhanus__dynamodb-local:7777',
       accessKeyId: 'test',
       secretAccessKey: 'test'
     });
