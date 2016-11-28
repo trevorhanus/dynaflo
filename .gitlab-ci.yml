@@ -7,3 +7,12 @@ all_tests:
   script:
    - npm install
    - npm run test-once
+
+pages:
+  image: devunix/alpine-mkdocs
+  script:
+  - mkdocs build
+  artifacts:
+    paths:
+    - site
+    

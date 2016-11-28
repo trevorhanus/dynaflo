@@ -4,5 +4,8 @@ node_modules/
 # Build
 build/
 
+# docs build
+site/
+
 # Npm debug logs
 npm-debug.log
