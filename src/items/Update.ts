@@ -7,7 +7,7 @@ import {assign as _assign} from 'lodash';
 
 export default class Update extends Base implements dn.whereable {
   key: Object;
-  whereCondition?: dn.Condition;
+  whenCondition?: dn.Condition;
   setExpression?: dn.UpdateExpression;
   deleteExpression?: dn.UpdateExpression;
   removeExpression?: dn.UpdateExpression;
@@ -46,15 +46,15 @@ export default class Update extends Base implements dn.whereable {
     return exprs.join(' ');
   }
 
-  where(condition: dn.Condition) {
-    this.whereCondition = condition;
+  when(condition: dn.Condition) {
+    this.whenCondition = condition;
     return this;
   }
 
   nameMap(): dn.NameMap {
     let nameMap = {};
-    if (this.whereCondition) {
-      _assign(nameMap, this.whereCondition.nameMap());
+    if (this.whenCondition) {
+      _assign(nameMap, this.whenCondition.nameMap());
     }
     if (this.setExpression) { 
       _assign(nameMap, this.setExpression.nameMap());
@@ -70,8 +70,8 @@ export default class Update extends Base implements dn.whereable {
 
   valueMap(): dn.ValueMap {
     let valueMap = {};
-    if (this.whereCondition) {
-      _assign(valueMap, this.whereCondition.valueMap());
+    if (this.whenCondition) {
+      _assign(valueMap, this.whenCondition.valueMap());
     }
     if (this.setExpression) { 
       _assign(valueMap, this.setExpression.valueMap());

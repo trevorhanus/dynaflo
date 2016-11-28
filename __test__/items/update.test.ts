@@ -1,44 +1,61 @@
 import dn from '../../src/dynanode';
 import * as tu from '../../src/utils/testUtils';
 
+const items = [
+  {
+    id: '1234',
+    title: 'The Title',
+    info: {
+      rating: 5.5,
+      cast: ['Larry', 'Moe']
+    },
+    recommended: true
+  },
+  {
+    id: '12345',
+    title: 'Second Title',
+    info: {
+      rating: 5.5,
+      cast: ['Larry', 'Moe']
+    },
+    recommended: false
+  }
+];
+
 describe('Update', () => {
 
   beforeAll(done => {
-    return tu.createTable(done);
-  });
-
-  beforeEach(done => {
-    const item1 = {
-      id: '1234',
-      title: 'The Title',
-      info: {
-        rating: 5.5,
-        cast: ['Larry', 'Moe']
-      },
-      recommended: true
-    };
-    const item2 = {
-      id: '12345',
-      title: 'Second Title',
-      info: {
-        rating: 5.5,
-        cast: ['Larry', 'Moe']
-      },
-      recommended: false
-    };
-    return tu.insertItems(done, [item1, item2]);
-  });
-
-  afterEach(done => {
-    return tu.deleteItem(done);
+    const cft = require('../../__test__/fixtures/testTable.cloudFormationTemplate.json')
+    cft.Properties.TableName = 'UpdateTest';
+    return dn.createTable(cft)
+      .then(data => {
+        const promises = items.map(item => {
+          return dn.table('UpdateTest')
+            .put(item)
+            .run();
+        });
+        return Promise.all(promises)
+          .then(data => {
+            done();
+          })
+          .catch(err => {
+            done(err);
+          });
+      });
   });
 
   afterAll(done => {
-    return tu.deleteTable(done);
+    return dn.deleteTable('UpdateTest')
+      .then(data => {
+        done();
+      })
+      .catch(err => {
+        done(err);
+      });
   });
 
   it('Set attributes', () => {
-    return dn.table('Test')
+    return dn.table('UpdateTest')
       .update({id: '1234'})
       .set({
         title: 'New Title',
@@ -46,7 +63,7 @@ describe('Update', () => {
       })
       .run()
       .then(data => {
-        return dn.table('Test')
+        return dn.table('UpdateTest')
           .get({id: '1234'})
           .run();
       })
@@ -60,13 +77,13 @@ describe('Update', () => {
   });
 
   it('Remove attributes', () => {
-    return dn.table('Test')
-      .update({id: '1234'})
-      .remove('title', {info: ['rating']})
+    return dn.table('UpdateTest')
+      .update({id: '12345'})
+      .remove('title', {info:{rating:true}})
       .run()
       .then(data => {
-        return dn.table('Test')
-          .get({id: '1234'})
+        return dn.table('UpdateTest')
+          .get({id: '12345'})
           .run();
       })
       .then(data => {

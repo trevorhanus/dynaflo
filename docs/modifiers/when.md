@@ -1,5 +1,5 @@
-To find data in a table, you use the operations .query() and .scan(). Sometimes, you may only want to write the data if certain conditions are met. 
-To do this, use the .where() modifier. Under the hood, .where() is setting the [Condition Expression Param](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.SpecifyingConditions.html#ConditionExpressionReference).
+To write data to a table, you use operations such as .put(), .update() and .delete(). Sometimes, you may only want to write the data when certain conditions are met. 
+To do this, use the .when() modifier. Under the hood, .when() is setting the [Condition Expression Param](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.SpecifyingConditions.html#ConditionExpressionReference).
 
 **Example**
 
@@ -18,7 +18,7 @@ Say you are representing a movie in DynamoDB like this...
 }
 ```
 
-and you only want to update the `shouldRecommend` attribute if the rating = 5
+and you only want to update the `shouldRecommend` attribute when the rating = 5
 
 ```javascript
 dn.table('Movies')
@@ -26,7 +26,7 @@ dn.table('Movies')
   .set({
     shouldRecommend: true
   })
-  .where({
+  .when({
     info: {rating: 5}
   })
   .run();
@@ -45,11 +45,11 @@ dn.table('Movies')
   .set({
     shouldRecommend: true
   })
-  .where(positiveRating.and(harryOrFanMovie))
+  .when(positiveRating.and(harryOrFanMovie))
   .run();
 ```
 
-This sets the shouldRecommend attribute if the rating is greater than 5 and the title starts with either 'Fan' or 'Harry'
+This sets the shouldRecommend attribute when the rating is greater than 5 and the title starts with either 'Fan' or 'Harry'
 
 See the [Comparators](/comparators/equal.md) section for a complete list
 

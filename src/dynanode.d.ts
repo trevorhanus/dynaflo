@@ -81,4 +81,16 @@ declare module dn {
     objectsForPaths(): Object[];
     nameMap(): NameMap;
   }
+
+  interface EqualsMap {
+    constructor(AttributesToValueMap: Object): EqualsMap;
+    valueMap(): ValueMap;
+    nameMap(): NameMap;
+  }
+
+  interface AttributeToValue {
+    safePath: string;
+    path: string;
+
+  }
 }

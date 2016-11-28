@@ -3,7 +3,8 @@ import {createTable, describeTable, deleteTable} from '../../src/tables';
 describe('describeTable', () => {
 
   beforeAll(done => {
-    const cft = require('../fixtures/testTable.cloudFormationTemplate.json')
+    const cft = require('../fixtures/testTable.cloudFormationTemplate.json');
+    cft.Properties.TableName = 'DescribeTableTest';
     return createTable(cft)
       .then(data => {
         done();
@@ -14,7 +15,7 @@ describe('describeTable', () => {
   });
 
   afterAll(done => {
-    return deleteTable('Test')
+    return deleteTable('DescribeTableTest')
       .then(data => {
         done();
       })
@@ -24,9 +25,9 @@ describe('describeTable', () => {
   });
   
   it('Can describe a table', () => {
-    return describeTable('Test')
+    return describeTable('DescribeTableTest')
       .then(table => {
-        expect(table.TableName).toBe('Test');
+        expect(table.TableName).toBe('DescribeTableTest');
         expect(table.AttributeDefinitions.length).toBe(1);
       })
       .catch(err => {

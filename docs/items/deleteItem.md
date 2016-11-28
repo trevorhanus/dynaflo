@@ -1,5 +1,4 @@
-Deletes the item with the given primary key by delgating to
-[AWS.DynamoDB.DocumentClient.delete()](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB/DocumentClient.html#delete-property)
+Deletes the item with the given primary key.
 
 **Command Syntax**
 ```
@@ -28,7 +27,7 @@ We can also conditionally delete items.
 ```javascript
 dn.table('Movies')
   .delete({year: 2015, title: 'The Big New Movie'})
-  .where(dn.attr({info:{rating:true}}).lt(5.0))
+  .when(dn.attr({info:{rating:true}}).lt(5.0))
   .run()
   .then(data => {
     // movie was deleted
@@ -42,8 +41,11 @@ This deletes the movie if the rating is less than 5.0.
 
 **Available Modifiers**
 
-[.where()](/modifiers/pluck.md) <br>
+[.when()](/modifiers/when.md) <br>
 [.returnConsumedCapacity()](/params/consumedCapacity.md) <br>
 [.returnValues()]()
 
-For more see the [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DeleteItem.html)
+**AWS Documentation Links**
+
+[DocumentClient.delete()](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB/DocumentClient.html#delete-property) <br>
+[DynamoDB API DeleteItem](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DeleteItem.html)

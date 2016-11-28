@@ -1,7 +1,9 @@
 import Attribute from './Attribute';
 import {assign as _assign} from 'lodash';
+import createEqualsConditionFromAttributeToValueMap from '../utils/createEqualsConditionFromAttributeToValueMap';
 import SymbolComparator from './comparators/SymbolComparator';
 import ExistsComparator from './comparators/ExistsComparator';
+import NotExistsComparator from './comparators/NotExistsComparator';
 import TypeComparator from './comparators/TypeComparator';
 import ContainsComparator from './comparators/ContainsComparator';
 import BeginsWithComparator from './comparators/BeginsWithComparator';
@@ -14,8 +16,8 @@ export default class Condition implements dn.Condition {
   andCondition: Condition;
   orCondition: Condition;
 
-  constructor(attribute: (string | Object)) {
-    this.attribute = new Attribute(attribute);
+  constructor(topLevelOrNestedAttribute: (string | Object)) {
+    this.attribute = new Attribute(topLevelOrNestedAttribute);
   }
 
   nameMap(): dn.NameMap {
@@ -124,6 +126,11 @@ export default class Condition implements dn.Condition {
     return this;
   }
 
+  notExists() {
+    this.comparator = new NotExistsComparator();
+    return this;
+  }
+
   type(type: ('S' | 'SS' | 'N' | 'NS' | 'B' | 'BS' | 'BOOL' | 'NULL' | 'L' | 'M')) {
     this.comparator = new TypeComparator(type);
     return this;
@@ -137,6 +144,10 @@ export default class Condition implements dn.Condition {
   beginsWith(substring: string) {
     this.comparator = new BeginsWithComparator(substring);
     return this;
+  }
+
+  static fromAttributesToValueMap(attributesToValueMap: Object): Condition {
+    return createEqualsConditionFromAttributeToValueMap(attributesToValueMap);
   }
 }
 

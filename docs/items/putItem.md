@@ -1,6 +1,7 @@
-Creates a new item, or replaces an old item with a new item by delegating to [AWS.DynamoDB.DocumentClient.put()](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB/DocumentClient.html#put-property)
+Creates a new item, or replaces an old item with a new item.
 
 **Command Syntax**
+
 ```
 table.put(item: Object)
 ```
@@ -38,7 +39,7 @@ movies
       rating: 0
     }
   })
-  .where(dn.attr('id').notExists())
+  .when(dn.attr('id').notExists())
   .run()
   .then(data => {
     // Only inserts the item if there is not a doc with id = '1234' already
@@ -47,7 +48,10 @@ movies
 
 **Available Modifiers**
 
-[.where()](/modifiers/where.md) <br>
+[.when()](/modifiers/where.md) <br>
 [.returnConsumedCapacity()](/params/consumedCapacity.md) <br>
 
-For more see the [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_PutItem.html)
+**AWS Documentation Links**
+
+[DocumentClient.put()](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB/DocumentClient.html#put-property) <br>
+[DynamoDB API PutItem](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_PutItem.html)

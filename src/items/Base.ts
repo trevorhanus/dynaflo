@@ -2,11 +2,12 @@
 import {docClient} from '../dynamoDb';
 
 export default class Base {
+  _log: boolean = false;
   tableName: string;
   key?: Object;
   item?: Object;
   filterCondition?: dn.Condition;
-  whereCondition?: dn.Condition;
+  whenCondition?: dn.Condition;
   nameMap() { /* override in parent class */ }
   valueMap() { /* override in parent class */ }
 
@@ -57,8 +58,8 @@ export default class Base {
   }
 
   _assignConditionExpression(params: dn.Params) {
-    if (this.whereCondition) {
-      params.ConditionExpression = this.whereCondition.exprString();
+    if (this.whenCondition) {
+      params.ConditionExpression = this.whenCondition.exprString();
     }
   }
 
@@ -84,7 +85,9 @@ export default class Base {
   }
 
   run(method: string): Promise<any> {
-    console.log(this._params());
+    if (this._log) {
+      console.log(this._params());
+    }
     return new Promise((resolve, reject) => {
       docClient[method](this._params(), (err, data) => {
         if (err) {
@@ -94,5 +97,10 @@ export default class Base {
         }
       });
     });
+  }
+
+  log() {
+    this._log = true;
+    return this;
   }
 }

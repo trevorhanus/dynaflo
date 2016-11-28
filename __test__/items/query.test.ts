@@ -1,4 +1,4 @@
-import dn, {attr} from '../../src/dynanode';
+import dn from '../../src/dynanode';
 
 xdescribe('Get', () => {
 

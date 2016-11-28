@@ -48,7 +48,7 @@ movies.update({id: '1234'})
       actors: ['Larry', 'Moe', 'Curly']
     }
   })
-  .where(attr({info:{plot:true}}).startsWith('Every'))
+  .when(attr({info:{plot:true}}).startsWith('Every'))
   .run()
   .then(data => {
     // will update if the plot starts with the substring 'Every'. So in this case 
@@ -88,7 +88,7 @@ movies.update({id: '1234'})
 
 **Available Modifiers**
 
-[.where()](/modifiers/pluck.md) <br>
+[.when()](/modifiers/when.md) <br>
 
 For more see the [AWS Docs](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateItem.html)
 

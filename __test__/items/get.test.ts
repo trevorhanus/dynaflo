@@ -1,6 +1,6 @@
 import dn from '../../src/dynanode';
 
-xdescribe('Get', () => {
+describe('Get', () => {
 
   beforeEach(done => {
     const testDoc = {
@@ -12,9 +12,10 @@ xdescribe('Get', () => {
       }
     };
     const cft = require('../fixtures/testTable.cloudFormationTemplate.json')
+    cft.Properties.TableName = 'GetTest';
     return dn.createTable(cft)
       .then(data => {
-        return dn.table('Test')
+        return dn.table('GetTest')
           .put(testDoc)
           .run();
       })
@@ -27,7 +28,7 @@ xdescribe('Get', () => {
   });
 
   afterEach(done => {
-    return dn.deleteTable('Test')
+    return dn.deleteTable('GetTest')
       .then(data => {
         done();
       })
@@ -37,7 +38,7 @@ xdescribe('Get', () => {
   });
 
   it('Can get an Item', () => {
-    return dn.table('Test')
+    return dn.table('GetTest')
       .get({id: '1234'})
       .run()
       .then(data => {

@@ -1,8 +1,8 @@
 import dn from '../../src/dynanode';
 
-xdescribe('Pluck', () => {
+describe('Pluck', () => {
 
-  beforeEach(done => {
+  beforeAll(done => {
     const testDoc = {
       id: '1234',
       'my.scalar.key': 14,
@@ -20,9 +20,10 @@ xdescribe('Pluck', () => {
       }
     };
     const cft = require('../fixtures/testTable.cloudFormationTemplate.json')
+    cft.Properties.TableName = 'PluckTest';
     return dn.createTable(cft)
       .then(data => {
-        return dn.table('Test')
+        return dn.table('PluckTest')
           .put(testDoc)
           .run();
       })
@@ -34,8 +35,8 @@ xdescribe('Pluck', () => {
       });
   });
 
-  afterEach(done => {
-    return dn.deleteTable('Test')
+  afterAll(done => {
+    return dn.deleteTable('PluckTest')
       .then(data => {
         done();
       })
@@ -45,7 +46,7 @@ xdescribe('Pluck', () => {
   });
 
   it('Can get an Item and pluck only a scalar attribute', () => {
-    return dn.table('Test')
+    return dn.table('PluckTest')
       .get({id: '1234'})
       .pluck('my.scalar.key')
       .run()
@@ -59,7 +60,7 @@ xdescribe('Pluck', () => {
   });
 
   it('Can pluck an array', () => {
-    return dn.table('Test')
+    return dn.table('PluckTest')
       .get({id: '1234'})
       .pluck('myArray')
       .run()
@@ -75,7 +76,7 @@ xdescribe('Pluck', () => {
 
   it('Throws when nothing is passed to pluck', () => {
     expect(() => {
-      dn.table('Test')
+      dn.table('PluckTest')
         .get({id: '1234'})
         .pluck()
         .run()
@@ -84,7 +85,7 @@ xdescribe('Pluck', () => {
 
   it('Calling twice', () => {
     expect(() => {
-      return dn.table('Test')
+      return dn.table('PluckTest')
         .get({id: '1234'})
         .pluck('my.scalar.key')
         .pluck('myArray')
@@ -93,7 +94,7 @@ xdescribe('Pluck', () => {
   });
 
   it('Nested object', () => {
-    return dn.table('Test')
+    return dn.table('PluckTest')
       .get({id: '1234'})
       .pluck({
         key1: {key2: true}
@@ -106,7 +107,7 @@ xdescribe('Pluck', () => {
   });
 
   it('Deeply nested object', () => {
-    return dn.table('Test')
+    return dn.table('PluckTest')
       .get({id: '1234'})
       .pluck({
         top1: {nested1: {nested2: { nested3: true}}}
@@ -119,7 +120,7 @@ xdescribe('Pluck', () => {
   });
 
   it('Top level attribute and a nested object', () => {
-    return dn.table('Test')
+    return dn.table('PluckTest')
       .get({id: '1234'})
       .pluck('my.scalar.key', {
         top1: {nested1: {nested2: { nested3: true}}}
@@ -131,8 +132,8 @@ xdescribe('Pluck', () => {
       });
   });
 
-  xit('Deeply nested object using shorthand', () => {
-    return dn.table('Test')
+  it('Deeply nested object using shorthand', () => {
+    return dn.table('PluckTest')
       .get({id: '1234'})
       .pluck({
         top1: ['nested1', 'nested12']
@@ -145,8 +146,24 @@ xdescribe('Pluck', () => {
       });
   });
 
+  it('Deeply nested object using shorthand and longhand', () => {
+    return dn.table('PluckTest')
+      .get({id: '1234'})
+      .pluck({
+        top1: ['nested1', 'nested12'],
+        key1: {key2: true}
+      })
+      .run()
+      .then(data => {
+        expect(data.Item.top1.nested1.nested2.nested3).toBe('way deep');
+        expect(data.Item.top1.nested12).toBe('airplane');
+        expect(data.Item.key1.key2).toBe('derp');
+        expect(data.Item['my.scalar.key']).toBe(undefined);
+      });
+  });
+
   it('Works with an attribute that does not exist', () => {
-    return dn.table('Test')
+    return dn.table('PluckTest')
       .get({id: '1234'})
       .pluck('my.scalar.key', 'does_not_exist')
       .run()
@@ -156,7 +173,7 @@ xdescribe('Pluck', () => {
   });
 
   it('Works with a non-existent nested attribute', () => {
-    return dn.table('Test')
+    return dn.table('PluckTest')
       .get({id: '1234'})
       .pluck('my.scalar.key', {does_not_exist: true})
       .run()

@@ -11,15 +11,14 @@ pages:
     - Put: items/putItem.md
     - Update: items/updateItem.md
     - Delete: items/deleteItem.md
-    # - Conditionally Update: items/conditionallyUpdate.md
-    # - Increment a Counter (future): items/incrementCounter.md
+    - Query: items/query.md
     - Batch Write (future): items/batchWrite.md
     - Batch Get (future): items/batchGet.md
-    - Create Set (future): items/createSet.md
   - Modifiers:
     - Overview: params/overview.md
     - .pluck(): modifiers/pluck.md
     - .where(): modifiers/where.md
+    - .when(): modifiers/when.md
     - .consistentRead(): params/consistentRead.md
     - .returnConsumedCapacity(): params/consumedCapacity.md
   - Comparators:

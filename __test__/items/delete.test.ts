@@ -4,6 +4,7 @@ describe('Delete', () => {
 
   beforeAll(done => {
     const cft = require('../fixtures/testTable.cloudFormationTemplate.json')
+    cft.Properties.TableName = 'DeleteTest';
     return dn.createTable(cft)
       .then(data => {
         done();
@@ -18,7 +19,7 @@ describe('Delete', () => {
       id: '1234',
       name: 'Dino'
     };
-    return dn.table('Test')
+    return dn.table('DeleteTest')
       .put(testDoc)
       .run()
       .then(data => {
@@ -30,7 +31,7 @@ describe('Delete', () => {
   });
 
   afterAll(done => {
-    return dn.deleteTable('Test')
+    return dn.deleteTable('DeleteTest')
       .then(data => {
         done();
       })
@@ -40,7 +41,7 @@ describe('Delete', () => {
   });
 
   it('Can delete an Item', () => {
-    return dn.table('Test')
+    return dn.table('DeleteTest')
       .delete({id: '1234'})
       .run()
       .then(data => {
@@ -52,17 +53,17 @@ describe('Delete', () => {
       });
   });
 
-    it('Can delete an Item conditionally', () => {
-      return dn.table('Test')
-        .delete({id: '1234'})
-        .where(dn.attr('name').ne('Dino'))
-        .run()
-        .then(data => {
-          // should not get here
-          expect(true).toBe(false);
-        })
-        .catch(err => {
-          expect(err.message).toBe('The conditional request failed');
-        });
+  it('Can delete an Item conditionally', () => {
+    return dn.table('DeleteTest')
+      .delete({id: '1234'})
+      .when(dn.attr('name').ne('Dino'))
+      .run()
+      .then(data => {
+        // should not get here
+        expect(true).toBe(false);
+      })
+      .catch(err => {
+        expect(err.message).toBe('The conditional request failed');
+      });
   });
 });

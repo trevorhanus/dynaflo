@@ -1,4 +1,5 @@
-Returns a set of attributes for the item with the given primary key.
+A Query operation uses the primary key of a table or a secondary index to directly access items from that table or index.
+[AWS.DynamoDB.DocumentClient.query()](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB/DocumentClient.html#get-property)
 
 **Command Syntax**
 ```
@@ -13,8 +14,11 @@ For the primary key, you must provide all of the attributes. For example, with a
 
 ```javascript
 dn.table('Movies')
-  .get({year: 2015, title: 'The Big New Movie'})
+  .query([indexName])
+  .whereKey(keyCondition)
+  .filter()
   .pluck('year', 'title', 'rating') // optional. defaults to everything
+  .limit()
   .run()
   .then(data => {
     console.log(data.Item); // Item will only have year, title, and rating attributes
@@ -23,11 +27,11 @@ dn.table('Movies')
 
 **Available Modifiers**
 
-[.pluck()](/modifiers/pluck.md) <br>
 [.consistentRead()](/params/consistentRead.md) <br>
 [.returnConsumedCapacity()](/params/consumedCapacity.md)
 
-**AWS Documentation Links**
+**AWS Docs Links**
 
-[DocumentClient.get()](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB/DocumentClient.html#get-property) <br>
-[DynamoDB API GetItem](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_GetItem.html)
+[DocumentClient](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB/DocumentClient.html#query-property) <br>
+[DynamoDB API](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Query.html)
+
