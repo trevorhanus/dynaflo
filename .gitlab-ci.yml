@@ -1,7 +1,7 @@
 image: node:6.1.0
 
 services:
-  - tray/dynamodb-local:latest
+  - trevorhanus/dynamodb-local:latest
 
 all_tests:
   script:
