@@ -7,7 +7,7 @@ the termonology set forth in the AWS SDK.
 ## Quick Start
 
 ```bash
-$ npm install --save dynanode
+$ npm install --save fluent-for-dynamodb
 ```
 
 ```javascript
@@ -37,6 +37,12 @@ First you will want to follow [this](http://docs.aws.amazon.com/amazondynamodb/l
 guide by AWS to install a local instance of DynamoDb. You will want it for 
 development. It also provides an interactive shell that is great for learning Dynamo.
 
+Alternatively, you could run a docker image...
+
+```
+$ docker run -p 7777:7777 trevorhanus/dynamodb-local
+```
+
 ### Testing
 
 clone repo
@@ -45,7 +51,7 @@ clone repo
 $ git clone <clone url>
 ```
 
-install dependancies
+install dependencies
 
 ```
 $ npm install
