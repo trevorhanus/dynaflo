@@ -6,7 +6,6 @@ pages:
     - Install: getting-started/install.md
     - Use: getting-started/use.md
   - Working with Items:
-    # - Overview: items/overview.md
     - Get: items/getItem.md
     - Put: items/putItem.md
     - Update: items/updateItem.md
