@@ -9,9 +9,9 @@ attr(attribute).ge(value)
 **Usage**
 
 ```javascript
-import dn, {attr} from 'dynanode';
+const f = new Fluent(config);
 
-dn.table('Movies')
+f.table('Movies')
   .query({genre: 'action'})
   .where(attr('year').ge(2015)))
   .run()

@@ -9,9 +9,9 @@ attr(attribute).exists()
 **Usage**
 
 ```javascript
-import dn, {attr} from 'dynanode';
+const f = new Fluent(config);
 
-dn.table('Movies')
+f.table('Movies')
   .update({year: 2015})
   .set({title: 'New Title'})
   .when(attr('title').exists())

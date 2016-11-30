@@ -10,9 +10,9 @@ import BeginsWithComparator from './comparators/BeginsWithComparator';
 import BetweenComparator from './comparators/BetweenComparator';
 import InComparator from './comparators/InComparator';
 
-export default class Condition implements dn.Condition {
+export default class Condition implements f.Condition {
   attribute: Attribute;
-  comparator: dn.Comparator;
+  comparator: f.Comparator;
   andCondition: Condition;
   orCondition: Condition;
 
@@ -20,7 +20,7 @@ export default class Condition implements dn.Condition {
     this.attribute = new Attribute(topLevelOrNestedAttribute);
   }
 
-  nameMap(): dn.NameMap {
+  nameMap(): f.NameMap {
     const map = {};
     _assign(map, this.attribute.nameMap());
     if (this.andCondition) {
@@ -32,8 +32,8 @@ export default class Condition implements dn.Condition {
     return map;
   }
 
-  valueMap(): dn.ValueMap {
-    const map: dn.ValueMap = {};
+  valueMap(): f.ValueMap {
+    const map: f.ValueMap = {};
     if (this.comparator) {
       _assign(map, this.comparator.valueMap());
     }
@@ -66,12 +66,14 @@ export default class Condition implements dn.Condition {
 
   concatExpression(expression: string, andExpression: string, orExpression: string): string {
     if (!expression) { throw new ConditionError('Cannot concat an expression without an expression'); }
-    if (!andExpression && !orExpression) {
-      return '( ' + expression + ' )';
-    } else if (andExpression && !orExpression) {
+    if (andExpression && orExpression) {
+      return '( ( ' + expression + ' AND ' + andExpression + ' ) OR ' + orExpression + ' )';
+    } else if (andExpression) {
       return '( ' + expression + ' AND ' + andExpression + ' )';
+    } else if (orExpression) {
+      return '( ' + expression + ' ) OR ' + orExpression;
     } else {
-      return '( ( ' + expression + ' AND ' + andExpression + ' ) OR ' + orExpression + ' )'; 
+      return '( ' + expression + ' )';
     }
   }
 

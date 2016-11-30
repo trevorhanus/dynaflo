@@ -1,6 +1,6 @@
 import Operand from '../Operand';
 
-export default class ContainsComparator implements dn.Comparator {
+export default class ContainsComparator implements f.Comparator {
   operand: Operand; 
 
   constructor(operand: string) {
@@ -11,7 +11,7 @@ export default class ContainsComparator implements dn.Comparator {
     return 'contains(' + safePath + ', ' + this.operand.exprString() + ')';
   }
 
-  valueMap(): dn.ValueMap {
+  valueMap(): f.ValueMap {
     return this.operand.valueMap();
   }
 }

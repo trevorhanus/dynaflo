@@ -12,7 +12,7 @@ For the primary key, you must provide all of the attributes. For example, with a
 **Usage**
 
 ```javascript
-dn.table('Movies')
+f.table('Movies')
   .delete({year: 2015, title: 'The Big New Movie'})
   .run()
   .then(data => {
@@ -25,9 +25,9 @@ Here `year` is the partion key and `title` is the sort key.
 We can also conditionally delete items.
 
 ```javascript
-dn.table('Movies')
+f.table('Movies')
   .delete({year: 2015, title: 'The Big New Movie'})
-  .when(dn.attr({info:{rating:true}}).lt(5.0))
+  .when(f.attr({info:{rating:true}}).lt(5.0))
   .run()
   .then(data => {
     // movie was deleted

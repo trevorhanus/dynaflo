@@ -1,6 +1,6 @@
-# Dynanode
+# Fluent
 
-Dynanode is a wrapper around the AWS DynamoDB SDK for node. Dynanode's goal is to make it easier to 
+Fluent is a wrapper around the AWS DynamoDB SDK for node. Fluent's goal is to make it easier to 
 work with the AWS SDK while staying true to the DynamoDB way of doing things. Wherever possible, it uses
 the termonology set forth in the AWS SDK.
 
@@ -11,9 +11,10 @@ $ npm install --save dynanode
 ```
 
 ```javascript
-import dn from 'dynanode';
+import Fluent from 'fluent-for-dynamodb';
+const f = new Fluent(config);
 
-dn.table('Movies')
+f.table('Movies')
   .get({title: 'Fantastic Beasts'})
   .run()
   .then(movie => {
@@ -54,18 +55,4 @@ run tests
 
 ```
 $ npm test
-```
-
-### Configuration
-
-A config.json file is required in the root of the directory. The shape should be as follows.
-
-```json
-{
-    "test": {
-        "DYNAMODB_URL": "<url for running dynamoDb instance. the default is http://localhost:8000>",
-        "AWS_ACCESS_KEY_ID": "not_needed_for_dynamo_running_locally",
-        "AWS_SECRET_ACCESS_KEY": "not_needed_for_dynamo_running_locally"
-    }
-}
 ```

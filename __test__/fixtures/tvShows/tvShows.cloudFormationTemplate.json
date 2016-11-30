@@ -1,0 +1,52 @@
+{
+  "Type": "AWS::DynamoDB::Table",
+  "Properties": {
+    "TableName": "HashAndRange",
+    "AttributeDefinitions": [
+      {
+        "AttributeName": "title",
+        "AttributeType": "S"
+      },
+      {
+        "AttributeName": "network",
+        "AttributeType": "S"
+      },
+      {
+        "AttributeName": "genre",
+        "AttributeType": "S"
+      }
+    ],
+    "KeySchema": [
+      {
+        "AttributeName": "title",
+        "KeyType": "HASH"
+      }
+    ],
+    "GlobalSecondaryIndexes": [
+      {
+        "IndexName": "genre-network",
+        "KeySchema": [
+          {
+            "AttributeName": "genre",
+            "KeyType": "HASH"
+          },
+          {
+            "AttributeName": "network",
+            "KeyType": "RANGE"
+          }
+        ],
+        "Projection": {
+          "ProjectionType": "ALL"
+        },
+        "ProvisionedThroughput": {
+          "ReadCapacityUnits": 5,
+          "WriteCapacityUnits": 5
+        }
+      }
+    ],
+    "ProvisionedThroughput": {
+      "ReadCapacityUnits": 5,
+      "WriteCapacityUnits": 5
+    }
+  }
+}

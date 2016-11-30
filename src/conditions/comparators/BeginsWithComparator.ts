@@ -1,6 +1,6 @@
 import Operand from '../Operand';
 
-export default class BeginsWithComparator implements dn.Comparator {
+export default class BeginsWithComparator implements f.Comparator {
   operand: Operand; 
 
   constructor(operand: string) {
@@ -11,7 +11,7 @@ export default class BeginsWithComparator implements dn.Comparator {
     return 'begins_with(' + safePath + ', ' + this.operand.exprString() + ')';
   }
 
-  valueMap(): dn.ValueMap {
+  valueMap(): f.ValueMap {
     return this.operand.valueMap();
   }
 }

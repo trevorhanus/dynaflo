@@ -9,9 +9,9 @@ attr(attribute).in([value])
 **Usage**
 
 ```javascript
-import dn, {attr} from 'dynanode';
+const f = new Fluent(config);
 
-dn.table('Movies')
+f.table('Movies')
   .query({year: 2015})
   .where(attr('actor').in(['Harrison Ford', attr('star_actor')]))
   .run()

@@ -1,31 +1,22 @@
-import Dynanode from '../../src/dynanode';
+import Fluent from '../../src/fluent';
+import getTestConfig from '../../src/getTestConfig';
 
-let dn;
-xdescribe('Get', () => {
-  
+let f;
+describe('Query', () => {
+
   beforeAll(done => {
-    dn = new Dynanode({
-      region: 'us-west-2',
-      endpoint: 'http://localhost:7777'
-    });
-    done();
-  });
-
-  beforeEach(done => {
-    const testDoc = {
-      id: '1234',
-      'my.scalar.key': 14,
-      myArray: ['item1', 'item2'],
-      key1: {
-        key2: 'derp'
-      }
-    };
-    const cft = require('../fixtures/testTable.cloudFormationTemplate.json')
-    return dn.createTable(cft)
+    const testDocs = require('../fixtures/tvShows/tvShows.json').tvShows;
+    f = new Fluent(getTestConfig());
+    const cft = require('../fixtures/tvShows/tvShows.cloudFormationTemplate.json')
+    cft.Properties.TableName = 'TVShows';
+    return f.createTable(cft)
       .then(data => {
-        return dn.table('Test')
-          .put(testDoc)
-          .run();
+        const promises = testDocs.map(doc => {
+          return f.table('TVShows')
+            .put(doc)
+            .run();
+        });
+        return Promise.all(promises);
       })
       .then(data => {
         done();
@@ -35,8 +26,8 @@ xdescribe('Get', () => {
       });
   });
 
-  afterEach(done => {
-    return dn.deleteTable('Test')
+  afterAll(done => {
+    return f.deleteTable('TVShows')
       .then(data => {
         done();
       })
@@ -46,12 +37,13 @@ xdescribe('Get', () => {
   });
 
   it('Can query a table with partition key', () => {
-    return dn.table('Test')
-      .query({id: '1234'})
+    return f.table('TVShows')
+      .query()
+      .whereKey({title: 'Westworld'})
       .run()
       .then(data => {
-        expect(data.Item['my.scalar.key']).toBe(14);
-        expect(data.Item.key1.key2).toBe('derp');
+        expect(data.Items[0].network).toBe('hbo');
+        expect(data.Items[0].info.rating).toBe(9.1);
       })
       .catch(err => {
         throw new Error(err);
@@ -59,12 +51,43 @@ xdescribe('Get', () => {
   });
 
   it('Can query a table with key condition', () => {
-    return dn.table('Test')
-      .query(attr('id').eq('1234'))
+    return f.table('TVShows')
+      .query()
+      .whereKey(f.attr('title').eq('Westworld'))
       .run()
       .then(data => {
-        expect(data.Item['my.scalar.key']).toBe(14);
-        expect(data.Item.key1.key2).toBe('derp');
+        expect(data.Items[0].network).toBe('hbo');
+        expect(data.Items[0].info.rating).toBe(9.1);
+      })
+      .catch(err => {
+        throw new Error(err);
+      });
+  });
+
+  it('Can query a table with hash and range', () => {
+    return f.table('TVShows')
+      .query('genre-network')
+      .whereKey({
+        genre: 'comedy',
+        network: 'hbo'
+      })
+      .run()
+      .then(data => {
+        expect(data.Items[0].network).toBe('hbo');
+        expect(data.Items[0].title).toBe('Silicon Valley');
+      })
+      .catch(err => {
+        throw new Error(err);
+      });
+  });
+
+  xit('Can filter results', () => {
+    return f.table('TVShows')
+      .query('genre-network')
+      .whereKey()
+      .run()
+      .then(data => {
+        expect(data.Items.length).toBe(2);
       })
       .catch(err => {
         throw new Error(err);

@@ -1,15 +1,15 @@
-import Dynanode from '../../src/dynanode';
+import Fluent from '../../src/fluent';
 import getTestConfig from '../../src/getTestConfig';
 
-let dn;
+let f;
 describe('Delete', () => {
 
   beforeAll(done => {
     const config = getTestConfig();
-    dn = new Dynanode(config);
+    f = new Fluent(config);
     const cft = require('../fixtures/testTable.cloudFormationTemplate.json');
     cft.Properties.TableName = 'DeleteTest';
-    return dn.createTable(cft)
+    return f.createTable(cft)
       .then(data => {
         done();
       })
@@ -23,7 +23,7 @@ describe('Delete', () => {
       id: '1234',
       name: 'Dino'
     };
-    return dn.table('DeleteTest')
+    return f.table('DeleteTest')
       .put(testDoc)
       .run()
       .then(data => {
@@ -35,7 +35,7 @@ describe('Delete', () => {
   });
 
   afterAll(done => {
-    return dn.deleteTable('DeleteTest')
+    return f.deleteTable('DeleteTest')
       .then(data => {
         done();
       })
@@ -45,7 +45,7 @@ describe('Delete', () => {
   });
 
   it('Can delete an Item', () => {
-    return dn.table('DeleteTest')
+    return f.table('DeleteTest')
       .delete({id: '1234'})
       .run()
       .then(data => {
@@ -58,9 +58,9 @@ describe('Delete', () => {
   });
 
   it('Can delete an Item conditionally', () => {
-    return dn.table('DeleteTest')
+    return f.table('DeleteTest')
       .delete({id: '1234'})
-      .when(dn.attr('name').ne('Dino'))
+      .when(f.attr('name').ne('Dino'))
       .run()
       .then(data => {
         // should not get here

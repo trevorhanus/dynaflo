@@ -1,10 +1,10 @@
-export default class NotExistsComparator implements dn.Comparator {
+export default class NotExistsComparator implements f.Comparator {
 
   exprString(safePath: string): string {
     return 'attribute_not_exists(' + safePath + ')';
   }
 
-  valueMap(): dn.ValueMap {
+  valueMap(): f.ValueMap {
     const noValueMap = {};
     return noValueMap;
   }

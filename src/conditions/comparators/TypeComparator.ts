@@ -1,6 +1,6 @@
 import Operand from '../Operand';
 
-export default class TypeComparator implements dn.Comparator {
+export default class TypeComparator implements f.Comparator {
   operand: Operand; 
 
   constructor(type: ('S' | 'SS' | 'N' | 'NS' | 'B' | 'BS' | 'BOOL' | 'NULL' | 'L' | 'M')) {
@@ -11,7 +11,7 @@ export default class TypeComparator implements dn.Comparator {
     return 'attribute_type(' + safePath + ', ' + this.operand.exprString() + ')';
   }
 
-  valueMap(): dn.ValueMap {
+  valueMap(): f.ValueMap {
     return this.operand.valueMap();
   }
 }

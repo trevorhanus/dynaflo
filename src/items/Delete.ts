@@ -1,20 +1,20 @@
 import Base from './Base';
 
-export default class Delete extends Base implements dn.whereable, dn.iExpressionMaps {
+export default class Delete extends Base implements f.whereable, f.iExpressionMaps {
   key: Object;
-  whenCondition?: dn.Condition;
+  whenCondition?: f.Condition;
   
   constructor(tableName: string, key: Object) {
     super(tableName);
     this.key = key;
   }
 
-  when(condition: dn.Condition) {
+  when(condition: f.Condition) {
     this.whenCondition = condition;
     return this;
   }
 
-  nameMap(): dn.NameMap {
+  nameMap(): f.NameMap {
     if (this.whenCondition) {
       return this.whenCondition.nameMap();
     } else {
@@ -22,7 +22,7 @@ export default class Delete extends Base implements dn.whereable, dn.iExpression
     }
   }
 
-  valueMap(): dn.ValueMap {
+  valueMap(): f.ValueMap {
     if (this.whenCondition) {
       return this.whenCondition.valueMap();
     } else {

@@ -21,7 +21,7 @@ Say you are representing a movie in DynamoDB like this...
 and you only want to update the `shouldRecommend` attribute when the rating = 5
 
 ```javascript
-dn.table('Movies')
+f.table('Movies')
   .update({id: '12345'})
   .set({
     shouldRecommend: true
@@ -40,7 +40,7 @@ const harryOrFanMovie = attr('title').startsWith('Harry').or(
     attr('title').startsWith('Fan');
   );
 
-dn.table('Movies')
+f.table('Movies')
   .update({id: '12345'})
   .set({
     shouldRecommend: true

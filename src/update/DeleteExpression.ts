@@ -1,10 +1,10 @@
 import {getSafeExpressionName, getSafeExpressionValue} from '../utils';
 
-export default class DeleteExpression implements dn.UpdateExpression {
+export default class DeleteExpression implements f.UpdateExpression {
   _safeName: string;
   _safeValues: string[] = [];
-  _valueMap: dn.ValueMap = {};
-  _nameMap: dn.NameMap = {};
+  _valueMap: f.ValueMap = {};
+  _nameMap: f.NameMap = {};
 
   constructor(topLevelAttr: string, itemsToDelete: string[]) {
     this._saveSafeName(topLevelAttr);
@@ -29,7 +29,7 @@ export default class DeleteExpression implements dn.UpdateExpression {
     return 'DELETE ' + this._safeName + ' ' + this._safeValues.join(', ');
   }
 
-  nameMap(): dn.NameMap {
+  nameMap(): f.NameMap {
     return this._nameMap;
   }
 

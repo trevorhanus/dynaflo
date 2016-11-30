@@ -1,14 +1,14 @@
 **Use**
 
 ```javascript
-import Dynanode from 'dynanode';
+import Fluent from 'fluent-for-dynamodb';
 
-const dn = new Dynanode({
+const f = new Fluent({
   region: 'us-west-2',
   endpoint: 'http://localhost:7777'
 });
 
-dn.table('Movies')
+f.table('Movies')
   .query()
   .where()
   .run()

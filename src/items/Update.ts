@@ -1,16 +1,16 @@
-import {docClient} from '../dynamoDb';
+import {docClient} from '../fluent';
 import Base from './Base';
 import SetExpression from '../update/SetExpression';
 import DeleteExpression from '../update/DeleteExpression';
 import RemoveExpression from '../update/RemoveExpression';
 import {assign as _assign} from 'lodash';
 
-export default class Update extends Base implements dn.whereable {
+export default class Update extends Base implements f.whereable {
   key: Object;
-  whenCondition?: dn.Condition;
-  setExpression?: dn.UpdateExpression;
-  deleteExpression?: dn.UpdateExpression;
-  removeExpression?: dn.UpdateExpression;
+  whenCondition?: f.Condition;
+  setExpression?: f.UpdateExpression;
+  deleteExpression?: f.UpdateExpression;
+  removeExpression?: f.UpdateExpression;
 
   constructor(tableName: string, key: Object) {
     super(tableName);
@@ -46,12 +46,12 @@ export default class Update extends Base implements dn.whereable {
     return exprs.join(' ');
   }
 
-  when(condition: dn.Condition) {
+  when(condition: f.Condition) {
     this.whenCondition = condition;
     return this;
   }
 
-  nameMap(): dn.NameMap {
+  nameMap(): f.NameMap {
     let nameMap = {};
     if (this.whenCondition) {
       _assign(nameMap, this.whenCondition.nameMap());
@@ -68,7 +68,7 @@ export default class Update extends Base implements dn.whereable {
     return nameMap;
   }
 
-  valueMap(): dn.ValueMap {
+  valueMap(): f.ValueMap {
     let valueMap = {};
     if (this.whenCondition) {
       _assign(valueMap, this.whenCondition.valueMap());

@@ -16,12 +16,13 @@ dynamodb.describeTable(params, function(err, data) {
 });
 ```
 
-Dynanode
+Fluent
 
 ```javascript
-import dn from 'dynanode';
+import Fluent from 'fluent-for-dynamodb';
+const f = new Fluent(config);
 
-dn.describeTable('Movies')
+f.describeTable('Movies')
   .then(table => {
     // table is deleted
   });

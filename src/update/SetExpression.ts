@@ -1,8 +1,8 @@
 import {getSafeExpressionName, getSafeExpressionValue} from '../utils'; 
 
-export default class SetExpression implements dn.UpdateExpression {
-  _valueMap: dn.NameMap = {};
-  _nameMap: dn.NameMap = {};
+export default class SetExpression implements f.UpdateExpression {
+  _valueMap: f.NameMap = {};
+  _nameMap: f.NameMap = {};
   _fullPathExpressions: string[] = [];
 
   constructor(item: Object) {
@@ -38,11 +38,11 @@ export default class SetExpression implements dn.UpdateExpression {
     return 'SET ' + fullPathExpressions;
   }
 
-  nameMap(): dn.NameMap {
+  nameMap(): f.NameMap {
     return this._nameMap;
   }
 
-  valueMap(): dn.ValueMap {
+  valueMap(): f.ValueMap {
     return this._valueMap;
   }
 }

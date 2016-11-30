@@ -28,14 +28,15 @@ dynamodb.createTable(params, function(err, data) {
 });
 ```
 
-Dynanode
+Fluent
 
 ```javascript
-import dn from 'dynanode';
+import Fluent from 'fluent-for-dynamodb';
+const f = new Fluent(config);
 
 const cloudFormationTemplate = require('myCloudFormationTemplate.json');
 
-dn.createTable(cloudFormationTemplate)
+f.createTable(cloudFormationTemplate)
   .then(data => {
     console.log(data);
   })

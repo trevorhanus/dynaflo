@@ -1,9 +1,9 @@
 import {getSafeExpressionName} from '../utils';
 
-export default class Attribute implements dn.Attribute {
+export default class Attribute implements f.Attribute {
   tokens: string[] = [];
   safeTokens: string[] = [];
-  _nameMap: dn.NameMap = {};
+  _nameMap: f.NameMap = {};
 
   constructor(attribute: string | Object) {
     switch (typeof attribute) {
@@ -24,7 +24,7 @@ export default class Attribute implements dn.Attribute {
     return this.safeTokens.join('.');
   }
 
-  nameMap(): dn.NameMap {
+  nameMap(): f.NameMap {
     return this._nameMap;
   }
 

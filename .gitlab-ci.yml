@@ -11,7 +11,7 @@ pages:
   script:
   - mkdocs build
   - mkdir public
-  - cp -r /builds/trevorhanus/dynanode/site/* public
+  - cp -r /builds/trevorhanus/fluent/site/* public
   artifacts:
     paths:
     - site

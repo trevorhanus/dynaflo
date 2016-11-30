@@ -11,7 +11,10 @@ Where `item` is a pojo that represents the doc to be inserted.
 **Usage**
 
 ```javascript
-const movies = new dn.Table('Movies');
+import Fluent from 'fluent-for-dynamodb';
+const f = new Fluent(config);
+
+const movies = new f.Table('Movies');
 movies
   .put({
     year: 2013,
@@ -30,8 +33,7 @@ movies
 Or we could conditionally put an item.
 
 ```javascript
-const movies = new dn.Table('Movies');
-movies
+f.table('Movies')
   .put({
     id: '1234',
     info: {
@@ -39,7 +41,7 @@ movies
       rating: 0
     }
   })
-  .when(dn.attr('id').notExists())
+  .when(f.attr('id').notExists())
   .run()
   .then(data => {
     // Only inserts the item if there is not a doc with id = '1234' already

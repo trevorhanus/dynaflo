@@ -3,7 +3,7 @@ import {getSafeExpressionName} from '../utils';
 export default class NestedAttribute {
   _safeKeys: string[] = [];
   _fullSafePaths: string[][] = [];
-  _nameMap: dn.NameMap = {};
+  _nameMap: f.NameMap = {};
 
   constructor(attr: Object) {
     this._parseNextLevel(attr, []);

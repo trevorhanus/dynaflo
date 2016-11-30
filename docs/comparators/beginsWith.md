@@ -9,9 +9,10 @@ attr(attribute).beginsWith(substring)
 **Usage**
 
 ```javascript
-import dn, {attr} from 'dynanode';
+import Fluent from 'fluent-for-dynamodb';
+const f = new Fluent(config);
 
-dn.table('Movies')
+f.table('Movies')
   .query({year: 2015})
   .where(attr('title').beginsWith('Big')))
   .run()

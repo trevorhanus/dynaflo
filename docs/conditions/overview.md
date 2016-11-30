@@ -17,9 +17,10 @@ table.query()
 ```
 
 ```javascript
-import dn, {attr} from 'dynanode';
+import Fluent from 'fluent-for-dynamodb';
+const f = new Fluent(config);
 
-dn.table('Movies')
+f.table('Movies')
   .update({id: '12345'})
   .set({
     shouldRecommend: true

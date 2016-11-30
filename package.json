@@ -1,22 +1,22 @@
 {
-  "name": "dyno-db",
+  "name": "fluent-for-dynamodb",
   "version": "0.1.0",
-  "description": "Dynanode is a DynamoDB client for node that was inspired by RethinkDB's syntax.",
-  "main": "build/dynanode.js",
+  "description": "Fluent makes working with DynamoDB easier.",
+  "main": "build/fluent.js",
   "scripts": {
     "test": "ENDPOINT=http://localhost:7777 jest --watch",
     "test-once": "ENDPOINT=http://trevorhanus__dynamodb-local:7777 jest"
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@gitlab.com/trevorhanus/dynanode.git"
+    "url": "git+ssh://git@gitlab.com/trevorhanus/fluent.git"
   },
   "author": "Gravity Labs",
   "license": "BSD",
   "bugs": {
-    "url": "https://gitlab.com/trevorhanus/dynanode/issues"
+    "url": "https://gitlab.com/trevorhanus/fluent/issues"
   },
-  "homepage": "https://gitlab.com/trevorhanus/dynanode#README",
+  "homepage": "https://gitlab.com/trevorhanus/fluent#README",
   "devDependencies": {
     "@types/es6-promise": "0.0.32",
     "@types/jest": "^16.0.0",

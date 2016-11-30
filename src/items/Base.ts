@@ -1,14 +1,14 @@
-///<reference path="../../src/dynanode.d.ts" />
-// import {docClient} from '../dynamoDb';
-import {docClient} from '../dynanode';
+///<reference path="../../src/fluent.d.ts" />
+import {docClient} from '../fluent';
 
 export default class Base {
   _log: boolean = false;
   tableName: string;
+  indexName?: string;
   key?: Object;
   item?: Object;
-  filterCondition?: dn.Condition;
-  whenCondition?: dn.Condition;
+  filterCondition?: f.Condition;
+  whenCondition?: f.Condition;
   nameMap() { /* override in parent class */ }
   valueMap() { /* override in parent class */ }
 
@@ -17,14 +17,16 @@ export default class Base {
   }
 
   _params() {
-    let params: dn.Params = {
+    let params: f.Params = {
       TableName: this.tableName,
       ReturnValues: 'NONE',
       ReturnConsumedCapacity: 'NONE',
       ReturnItemCollectionMetrics: 'NONE'
     };
+    this._assignIndexName(params);
     this._assignKey(params);
     this._assignItem(params);
+    this._assignKeyConditionExpression(params);
     this._assignProjectionExpression(params);
     this._assignFilterExpression(params);
     this._assignConditionExpression(params);
@@ -34,52 +36,64 @@ export default class Base {
     return params;
   }
 
-  _assignKey(params: dn.Params) {
+  _assignIndexName(params: f.Params) {
+    if (this.indexName) {
+      params.IndexName = this.indexName;
+    }
+  }
+
+  _assignKey(params: f.Params) {
     if (this.key) {
       params.Key = this.key;
     }
   }
 
-  _assignItem(params: dn.Params): void{
+  _assignItem(params: f.Params): void{
     if (this.item) {
       params.Item = this.item;
     }
   }
 
-  _assignProjectionExpression(params: dn.Params): void{
+  _assignKeyConditionExpression(params: f.Params): void {
+    if (this.keyCondition) {
+      params.KeyConditionExpression = this.keyCondition.exprString();
+    }
+  }
+
+  _assignProjectionExpression(params: f.Params): void{
     if (this.pluckAttributes) {
       params.ProjectionExpression = this.projectionExpression();
     }
   }
 
-  _assignFilterExpression(params: dn.Params): void{
+  _assignFilterExpression(params: f.Params): void{
     if (this.filterCondition) {
       params.FilterExpression = this.filterCondition.exprString();
     }
   }
 
-  _assignConditionExpression(params: dn.Params) {
+  _assignConditionExpression(params: f.Params) {
     if (this.whenCondition) {
       params.ConditionExpression = this.whenCondition.exprString();
     }
   }
 
-  _assignUpdateExpression(params: dn.Params) {
+  _assignUpdateExpression(params: f.Params) {
     const updateExpr = this.updateExpression && this.updateExpression();
     if (updateExpr && updateExpr !== '') {
       params.UpdateExpression = updateExpr;
     }
   }
 
-  _assignExpressionNameMap(params: dn.Params) {
-    const nameMap: dn.NameMap = this.nameMap();
+  _assignExpressionNameMap(params: f.Params) {
+    const nameMap: f.NameMap = this.nameMap();
     if (Object.keys(nameMap).length > 0) {
       params.ExpressionAttributeNames = nameMap;
     }
   }
 
-  _assignExpressionValueMap(params: dn.Params) {
-    const valueMap: dn.ValueMap = this.valueMap();
+  _assignExpressionValueMap(params: f.Params) {
+    const valueMap: f.ValueMap = this.valueMap();
     if (Object.keys(valueMap).length > 0) {
       params.ExpressionAttributeValues = valueMap;
     }

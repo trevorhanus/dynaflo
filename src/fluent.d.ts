@@ -1,4 +1,4 @@
-declare module dn {
+declare module f {
 
   interface iExpressionMaps {
     nameMap(): Object;
@@ -15,6 +15,7 @@ declare module dn {
 
   interface Params {
     TableName: string;
+    IndexName?: string;
     Key?: Object;
     Item?: Object;
     FilterExpression?: string;

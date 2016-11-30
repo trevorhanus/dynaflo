@@ -1,7 +1,7 @@
 import Operand from '../Operand';
 import {assign as _assign} from 'lodash';
 
-export default class BetweenComparator implements dn.Comparator {
+export default class BetweenComparator implements f.Comparator {
   lowOperand: Operand;
   highOperand: Operand;
 
@@ -10,10 +10,10 @@ export default class BetweenComparator implements dn.Comparator {
     this.highOperand = new Operand(highOperand);
   }
 
-  valueMap(): dn.ValueMap {
+  valueMap(): f.ValueMap {
     let map = {};
-    _assign(map, this.lowOperand.valueMap);
-    _assign(map, this.highOperand.valueMap);
+    _assign(map, this.lowOperand.valueMap());
+    _assign(map, this.highOperand.valueMap());
     return map;
   }
 

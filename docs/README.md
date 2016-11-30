@@ -1,13 +1,13 @@
-# Dynanode
+# Fluent
 
-Dynanode is a wrapper around the AWS DynamoDB SDK for node. There are 
+Fluent is a wrapper around the AWS DynamoDB SDK for node. There are 
 similar libraries out there, but they all seem to attempt to make DynamoDB
-do something it wasn't built to do. Dynanode's goal is to make it easier to 
+do something it wasn't built to do. Fluent's goal is to make it easier to 
 work with the AWS SDK while staying true to the DynamoDB way of doing things. It uses
 the termonology set forth by AWS. For every method, we will show you how to do it with 
 the sdk, and then how you can do it with dynanode.
 
-All Dynanode methods return Promises instead of using callbacks.
+All Fluent methods return Promises instead of using callbacks.
 
 Here is a link to the related [AWS SDK Docs](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB/DocumentClient.html)
 
@@ -52,13 +52,13 @@ docClient.update(params, function(err, data) {
 });
 ```
 
-#### Dynanode
+#### Fluent
 
 ```javascript
-const movies = new dn.Table('Movies');
+const movies = new f.Table('Movies');
 movies.update({year: 2015, title: 'The Big New Movie'})
   .delete({ info: { actors: { _indexes: [0] }}})
-  .if('size(info.actors) > 3')
+  .when()
   .run()
   .then((updatedMovie, metadata) => {
     console.log(updatedMovie);
@@ -100,7 +100,7 @@ docClient.delete(params, function(err, data) {
 });
 ```
 
-#### Dynanode
+#### Fluent
 
 ```javascript
 const movies = dynanode.table('Movies');
@@ -148,11 +148,11 @@ docClient.query(params, function(err, data) {
 });
 ```
 
-#### Dynanode
+#### Fluent
 
 ```javascript
-import * as dn from 'dynanode';
-dn.table('Movies')
+import * asffrom 'fluent-for-dynamodb';
+f.table('Movies')
     .query()
     .where({year: 1985})
     .run()
@@ -196,11 +196,11 @@ docClient.query(params, function(err, data) {
 });
 ```
 
-#### Dynanode
+#### Fluent
 
 ```javascript
-import * as dn from 'dynanode';
-dn.table('Movies')
+import * asffrom 'fluent-for-dynamodb';
+f.table('Movies')
     .query()
     .where({year: 1985})
     .between('A', 'L', {key: 'title'})
@@ -276,7 +276,7 @@ function onScan(err, data) {
 }
 ```
 
-#### Dynanode
+#### Fluent
 
 ```javascript
 const movies = new dynanode.Table('Movies');
@@ -303,7 +303,7 @@ function onScan(movies, data) {
 
 ## Config
 
-Dynanode is just a wrapper around the AWS SDK. So it uses the credentials you have store at ~/.aws/credentials
+Fluent is just a wrapper around the AWS SDK. So it uses the credentials you have store at ~/.aws/credentials
 But you can override these credentials. 
 
 #### AWS SDK
@@ -317,7 +317,7 @@ AWS.config.update({
 });
 ```
 
-#### Dynanode
+#### Fluent
 
 ```javascript
 // You could use the method above or, use dynanode's method below

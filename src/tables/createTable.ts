@@ -1,4 +1,4 @@
-import {dynamoDB} from '../dynanode';
+import {dynamoDB} from '../fluent';
 
 export default function(cloudFormation: Object) {
   let cft = cloudFormation;

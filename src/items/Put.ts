@@ -1,17 +1,17 @@
-import {docClient} from '../dynamoDb';
+import {docClient} from '../fluent';
 import Base from './Base';
 import Condition from '../conditions/Condition';
 
-export default class Put extends Base implements dn.whereable, dn.iExpressionMaps {
+export default class Put extends Base implements f.whereable, f.iExpressionMaps {
   item: Object;
-  whenCondition?: dn.Condition;
+  whenCondition?: f.Condition;
 
   constructor(tableName: string, item: Object) {
     super(tableName);
     this.item = item;
   }
 
-  when(conditionOrAttributesToValueMap: (dn.Condition | Object)) {
+  when(conditionOrAttributesToValueMap: (f.Condition | Object)) {
     if (conditionOrAttributesToValueMap instanceof Condition) {
       this.whenCondition = conditionOrAttributesToValueMap;
     } else {
@@ -20,7 +20,7 @@ export default class Put extends Base implements dn.whereable, dn.iExpressionMap
     return this;
   }
 
-  nameMap(): dn.NameMap {
+  nameMap(): f.NameMap {
     if (this.whenCondition) {
       return this.whenCondition.nameMap();
     } else {
@@ -28,7 +28,7 @@ export default class Put extends Base implements dn.whereable, dn.iExpressionMap
     }
   }
 
-  valueMap(): dn.ValueMap {
+  valueMap(): f.ValueMap {
     if (this.whenCondition) {
       return this.whenCondition.valueMap();
     } else {

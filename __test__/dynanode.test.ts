@@ -1,18 +1,18 @@
-import Dynanode from '../src/dynanode';
+import Fluent from '../src/fluent';
 import getTestConfig from '../src/getTestConfig';
 
-let dn;
+let f;
 describe('dn', () => {
   beforeAll(done => {
-    dn = new Dynanode(getTestConfig());
+    f = new Fluent(getTestConfig());
     done();
   });
 
   it('has a createTable function', () => {
-    expect(typeof dn.createTable).toBe('function');
+    expect(typeof f.createTable).toBe('function');
   });
 
   it('has a deleteTable function', () => {
-    expect(typeof dn.deleteTable).toBe('function');
+    expect(typeof f.deleteTable).toBe('function');
   });
 });

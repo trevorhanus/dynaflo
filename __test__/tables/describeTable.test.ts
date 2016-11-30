@@ -1,14 +1,14 @@
-import Dynanode from '../../src/dynanode';
+import Fluent from '../../src/fluent';
 import getTestConfig from '../../src/getTestConfig';
 
-let dn;
+let f;
 describe('describeTable', () => {
 
   beforeAll(done => {
-    dn = new Dynanode(getTestConfig());
+    f = new Fluent(getTestConfig());
     const cft = require('../fixtures/testTable.cloudFormationTemplate.json');
     cft.Properties.TableName = 'DescribeTableTest';
-    return dn.createTable(cft)
+    return f.createTable(cft)
       .then(data => {
         done();
       })
@@ -18,7 +18,7 @@ describe('describeTable', () => {
   });
 
   afterAll(done => {
-    return dn.deleteTable('DescribeTableTest')
+    return f.deleteTable('DescribeTableTest')
       .then(data => {
         done();
       })
@@ -28,7 +28,7 @@ describe('describeTable', () => {
   });
   
   it('Can describe a table', () => {
-    return dn.describeTable('DescribeTableTest')
+    return f.describeTable('DescribeTableTest')
       .then(table => {
         expect(table.TableName).toBe('DescribeTableTest');
         expect(table.AttributeDefinitions.length).toBe(1);

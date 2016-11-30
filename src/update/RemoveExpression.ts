@@ -3,9 +3,9 @@ import NestedAttribute from '../utils/NestedAttribute';
 import {assign as _assign} from 'lodash';
 import {concat as _concat} from 'lodash';
 
-export default class RemoveExpression implements dn.UpdateExpression {
+export default class RemoveExpression implements f.UpdateExpression {
   _safePaths: string[] = [];
-  _nameMap: dn.NameMap = {};
+  _nameMap: f.NameMap = {};
 
   constructor(attributes: (string | Object)[]) {
     attributes.forEach(attr => {
@@ -33,7 +33,7 @@ export default class RemoveExpression implements dn.UpdateExpression {
     return 'REMOVE ' + this._safePaths.join(', ');
   }
 
-  nameMap(): dn.NameMap {
+  nameMap(): f.NameMap {
     return this._nameMap;
   }
 

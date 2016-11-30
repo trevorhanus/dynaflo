@@ -1,11 +1,11 @@
-import Dynanode from '../../src/dynanode';
+import Fluent from '../../src/fluent';
 import InComparator from '../../src/conditions/comparators/InComparator';
 
-let dn;
+let f;
 describe('InComparator', () => {
 
   beforeAll(done => {
-    dn = new Dynanode({
+    f = new Fluent({
       region: 'us-west-2',
       endpoint: 'http://localhost:7777'
     });
@@ -19,15 +19,15 @@ describe('InComparator', () => {
   });
 
   it('two attributes', () => {
-    const attr1 = dn.attr('test');
-    const attr2 = dn.attr({info:{rating: true}});
+    const attr1 = f.attr('test');
+    const attr2 = f.attr({info:{rating: true}});
     const comp = new InComparator([attr1, attr2]);
     const str = comp.exprString('#test');
     expect(str.includes('#test IN #')).toBe(true);
   });
 
   it('attribute, number and string', () => {
-    const attr1 = dn.attr({info:{rating: true}});
+    const attr1 = f.attr({info:{rating: true}});
     const comp = new InComparator([10, 'derp', attr1]);
     const str = comp.exprString('#test');
     expect(str.includes('#test IN :')).toBe(true);

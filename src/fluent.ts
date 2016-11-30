@@ -6,9 +6,9 @@ import * as tableMethods from './tables';
 let dynamoDB;
 let docClient;
 
-class Dynanode {
+class Fluent {
 
-  constructor(config: dn.Config) {
+  constructor(config: f.Config) {
     AWS.config.update(config);
     dynamoDB = new AWS.DynamoDB();
     docClient = new AWS.DynamoDB.DocumentClient();
@@ -29,7 +29,7 @@ class Dynanode {
   }
 }
 
-export default Dynanode;
+export default Fluent;
 export {
   dynamoDB as dynamoDB,
   docClient as docClient

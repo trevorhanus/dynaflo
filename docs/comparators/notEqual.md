@@ -9,9 +9,10 @@ attr(attribute).ne(value)
 **Usage**
 
 ```javascript
-import dn, {attr} from 'dynanode';
+import Fluent from 'fluent-for-dynamodb';
+const f = new Fluent(config);
 
-dn.table('Movies')
+f.table('Movies')
   .query({year: 2015})
   .where(attr('title').ne('Fantastic Beasts'))
   .run()

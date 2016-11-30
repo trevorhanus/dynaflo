@@ -12,7 +12,7 @@ For the primary key, you must provide all of the attributes. For example, with a
 **Usage**
 
 ```javascript
-dn.table('Movies')
+f.table('Movies')
   .get({year: 2015, title: 'The Big New Movie'})
   .pluck('year', 'title', 'rating') // optional. defaults to everything
   .run()

@@ -1,0 +1,40 @@
+{
+  "tvShows": [
+    {
+      "title": "Brooklyn Nine Nine",
+      "genre": "comedy",
+      "network": "fox",
+      "info": {
+        "stars": ["Andy Samberg", "Terry Crews"],
+        "rating": 8.5
+      }
+    },
+    {
+      "title": "Westworld",
+      "genre": "drama",
+      "network": "hbo",
+      "info": {
+        "stars": ["Evan Rachel Wood", "Thandle Newton"],
+        "rating": 9.1
+      }
+    },
+    {
+      "title": "Gotham",
+      "genre": "drama",
+      "network": "fox",
+      "info": {
+        "stars": ["Ben McKenzie", "Jada Pinkett Smith"],
+        "rating": 8
+      }
+    },
+    {
+      "title": "Silicon Valley",
+      "genre": "comedy",
+      "network": "hbo",
+      "info": {
+        "stars": ["Thomas Middleditch", "TJ Miller"],
+        "rating": 8.5
+      }
+    }
+  ]
+}

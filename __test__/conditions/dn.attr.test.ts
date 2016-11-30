@@ -1,17 +1,17 @@
-import Dynanode from '../../src/dynanode';
+import Fluent from '../../src/fluent';
 import Condition from '../../src/conditions/Condition';
 import getTestConfig from '../../src/getTestConfig';
 
-let dn;
+let f;
 describe('attr()', () => {
 
   beforeAll(done => {
-    dn = new Dynanode(getTestConfig());
+    f = new Fluent(getTestConfig());
     done();
   });
 
   it('creates a condition instance', () => {
-    const cond = dn.attr('title');
+    const cond = f.attr('title');
     expect(cond).toBeInstanceOf(Condition);
   });
 });

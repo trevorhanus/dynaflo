@@ -9,9 +9,10 @@ attr(attribute).between(lowOperand, highOperand)
 **Usage**
 
 ```javascript
-import dn, {attr} from 'dynanode';
+import Fluent from 'fluent-for-dynamodb';
+const f = new Fluent(config);
 
-dn.table('Movies')
+f.table('Movies')
   .query({genre: 'action'})
   .where(attr('year').between(2005, 2015)))
   .run()

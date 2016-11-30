@@ -1,14 +1,14 @@
-import Dynanode from '../../src/dynanode';
+import Fluent from '../../src/fluent';
 import getTestConfig from '../../src/getTestConfig';
 
-let dn;
+let f;
 describe('Put', () => {
 
   beforeAll(done => {
-    dn = new Dynanode(getTestConfig());
+    f = new Fluent(getTestConfig());
     const cft = require('../fixtures/testTable.cloudFormationTemplate.json');
     cft.Properties.TableName = 'PutTest'
-    return dn.createTable(cft)
+    return f.createTable(cft)
       .then(data => {
         done();
       })
@@ -18,7 +18,7 @@ describe('Put', () => {
   });
 
   afterAll(done => {
-    return dn.deleteTable('PutTest')
+    return f.deleteTable('PutTest')
       .then(data => {
         done();
       })
@@ -28,11 +28,11 @@ describe('Put', () => {
   });
 
   it('Can insert and get an Item', () => {
-    return dn.table('PutTest')
+    return f.table('PutTest')
       .put({id: '1234', name: 'Dino'})
       .run()
       .then(data => {
-        return dn.table('PutTest')
+        return f.table('PutTest')
           .get({id: '1234'})
           .run();
       })
@@ -42,20 +42,20 @@ describe('Put', () => {
   });
 
   it('Puts when condition is met', () => {
-    return dn.table('PutTest')
+    return f.table('PutTest')
       .put({id: '12346', name: 'Dino'})
       .run()
       .then(data => {
-        return dn.table('PutTest')
+        return f.table('PutTest')
           .put({
             id: '12346',
             neckLength: 20
           })
-          .when(dn.attr('name').eq('Dino'))
+          .when(f.attr('name').eq('Dino'))
           .run();
       })
       .then(data => {
-        return dn.table('PutTest')
+        return f.table('PutTest')
           .get({id: '12346'})
           .run();
       })
@@ -65,16 +65,16 @@ describe('Put', () => {
   });
 
   it('Throws when condition is not met', () => {
-    return dn.table('PutTest')
+    return f.table('PutTest')
       .put({id: '1234', name: 'Dino'})
       .run()
       .then(data => {
-        return dn.table('PutTest')
+        return f.table('PutTest')
           .put({
             id: '1234',
             neckLength: 20
           })
-          .when(dn.attr('name').ne('Dino'))
+          .when(f.attr('name').ne('Dino'))
           .run();
       })
       .then(data => {
@@ -87,16 +87,16 @@ describe('Put', () => {
   });
 
   it('Throws when condition is not met: notExists', () => {
-    return dn.table('PutTest')
+    return f.table('PutTest')
       .put({id: '1234', name: 'Dino'})
       .run()
       .then(data => {
-        return dn.table('PutTest')
+        return f.table('PutTest')
           .put({
             id: '1234',
             neckLength: 20
           })
-          .when(dn.attr('id').notExists())
+          .when(f.attr('id').notExists())
           .run();
       })
       .then(data => {
@@ -109,11 +109,11 @@ describe('Put', () => {
   });
 
   it('Can use object as when condition', () => {
-    return dn.table('PutTest')
+    return f.table('PutTest')
       .put({id: '12345', name: 'Dino'})
       .run()
       .then(data => {
-        return dn.table('PutTest')
+        return f.table('PutTest')
           .put({
             id: '12345',
             neckLength: 20
@@ -131,11 +131,11 @@ describe('Put', () => {
   });
 
   it('Can use object as when condition', () => {
-    return dn.table('PutTest')
+    return f.table('PutTest')
       .put({id: '54321', name: 'Dino'})
       .run()
       .then(data => {
-        return dn.table('PutTest')
+        return f.table('PutTest')
           .put({
             id: '54321',
             neckLength: 20
@@ -144,7 +144,7 @@ describe('Put', () => {
           .run();
       })
       .then(data => {
-        return dn.table('PutTest')
+        return f.table('PutTest')
           .get({id: '54321'})
           .run();
       })
@@ -155,11 +155,11 @@ describe('Put', () => {
   });
 
   it('Can put a scalar attribute', () => {
-    return dn.table('PutTest')
+    return f.table('PutTest')
       .put({id: '12', 'my.scalar.key': 'Dino'})
       .run()
       .then(data => {
-        return dn.table('PutTest')
+        return f.table('PutTest')
           .get({id: '12'})
           .run();
       })

@@ -32,6 +32,17 @@ describe('Condition', () => {
     expect(Object.keys(map).length).toBe(2);
   });
 
+  it('equals or equals', () => {
+    const cond = new Condition('id');
+    cond = cond.eq('test');
+    const orCond = new Condition('id');
+    orCond = orCond.eq('test');
+    cond.or(orCond);
+    const exprString = cond.exprString();
+    expect(exprString.includes('OR')).toBe(true);
+    expect(exprString.includes('AND')).toBe(false);
+  });
+
   it('retuns expression name map for single nested attribute', () => {
     const cond = new Condition({top:{nested: true}});
     const map = cond.nameMap();

@@ -11,9 +11,9 @@ attr(attribute).type(type)
 **Usage**
 
 ```javascript
-import dn, {attr} from 'dynanode';
+const f = new Fluent(config);
 
-dn.table('Movies')
+f.table('Movies')
   .query({year: 2015})
   .where(attr('actor').type('S')))
   .run()

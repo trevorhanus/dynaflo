@@ -1,16 +1,16 @@
-import Dynanode from '../../src/dynanode';
+import Fluent from '../../src/fluent';
 import getTestConfig from '../../src/getTestConfig';
 
-let dn;
+let f;
 describe('createTable', () => {
 
   beforeAll(done => {
-    dn = new Dynanode(getTestConfig());
+    f = new Fluent(getTestConfig());
     done();
   });
   
   afterAll(done => {
-    return dn.deleteTable('CreateTableTest')
+    return f.deleteTable('CreateTableTest')
       .then(data => {
         done();
       })
@@ -22,7 +22,7 @@ describe('createTable', () => {
   it('Can create and delete a table', () => {
     const cft = require('../fixtures/testTable.cloudFormationTemplate.json');
     cft.Properties.TableName = 'CreateTableTest';
-    return dn.createTable(cft)
+    return f.createTable(cft)
       .then(tableDescription => {
         expect(tableDescription.TableName).toBe('CreateTableTest');
       })
