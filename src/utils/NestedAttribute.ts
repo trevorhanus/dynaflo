@@ -1,9 +1,10 @@
+import Fluent from '..';
 import {getSafeExpressionName} from '../utils';
 
 export default class NestedAttribute {
   _safeKeys: string[] = [];
   _fullSafePaths: string[][] = [];
-  _nameMap: f.NameMap = {};
+  _nameMap: Fluent.NameMap = {};
 
   constructor(attr: Object) {
     this._parseNextLevel(attr, []);

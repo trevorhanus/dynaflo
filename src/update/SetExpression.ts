@@ -1,15 +1,17 @@
-import {getSafeExpressionName, getSafeExpressionValue} from '../utils'; 
+import Fluent from '..';
+import {UpdateExpression} from './UpdateExpression';
+import {getSafeExpressionName, getSafeExpressionValue} from '../utils';
 
-export default class SetExpression implements f.UpdateExpression {
-  _valueMap: f.NameMap = {};
-  _nameMap: f.NameMap = {};
+export default class SetExpression implements UpdateExpression {
+  _valueMap: Fluent.ValueMap = {};
+  _nameMap: Fluent.NameMap = {};
   _fullPathExpressions: string[] = [];
 
   constructor(item: Object) {
     this._parseItem(item, []);
   }
 
-  private _parseItem(item: Object, safeKeys: string[]) {
+  private _parseItem(item: any, safeKeys: string[]) {
     Object.keys(item).forEach(key => {
       const safeKey = getSafeExpressionName();
       this._nameMap[safeKey] = key;
@@ -38,11 +40,11 @@ export default class SetExpression implements f.UpdateExpression {
     return 'SET ' + fullPathExpressions;
   }
 
-  nameMap(): f.NameMap {
+  nameMap(): Fluent.NameMap {
     return this._nameMap;
   }
 
-  valueMap(): f.ValueMap {
+  valueMap(): Fluent.ValueMap {
     return this._valueMap;
   }
 }

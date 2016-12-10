@@ -1,6 +1,6 @@
 import {Param} from '../params/ParamEnum';
 import {docClient} from '../dynamoDb';
-import Base from './Base';
+import {Base} from './Base';
 import * as p from '../params';
 
 export default class Scan extends Base {

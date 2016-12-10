@@ -1,6 +1,6 @@
-import {dynamoDB} from '../fluent';
+import {dynamoDB} from '../Fluent';
 
-export default function(cloudFormation: Object) {
+export function createTable(cloudFormation: Object) {
   let cft = cloudFormation;
   if (cloudFormation.hasOwnProperty('Properties')) {
     cft = cloudFormation.Properties;

@@ -1,7 +1,9 @@
+import Fluent from '../..';
+import {Comparator} from './Comparator';
 import Operand from '../Operand';
 import Condition from '../Condition';
 
-export default class SymbolComparator implements f.Comparator {
+export default class SymbolComparator implements Comparator {
   operand: Operand;
   symbol: string;
 
@@ -14,7 +16,7 @@ export default class SymbolComparator implements f.Comparator {
     return safePath + this.symbol + this.operand.exprString();
   }
 
-  valueMap(): f.ValueMap {
+  valueMap(): Fluent.ValueMap {
     return this.operand.valueMap();
   }
 }

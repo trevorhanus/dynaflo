@@ -1,11 +1,13 @@
+import Fluent from '..';
 import {getSafeExpressionName, getSafeExpressionValue} from '../utils';
+import {UpdateExpression} from './UpdateExpression';
 import NestedAttribute from '../utils/NestedAttribute';
 import {assign as _assign} from 'lodash';
 import {concat as _concat} from 'lodash';
 
-export default class RemoveExpression implements f.UpdateExpression {
+export default class RemoveExpression implements UpdateExpression {
   _safePaths: string[] = [];
-  _nameMap: f.NameMap = {};
+  _nameMap: Fluent.NameMap = {};
 
   constructor(attributes: (string | Object)[]) {
     attributes.forEach(attr => {
@@ -33,7 +35,7 @@ export default class RemoveExpression implements f.UpdateExpression {
     return 'REMOVE ' + this._safePaths.join(', ');
   }
 
-  nameMap(): f.NameMap {
+  nameMap(): Fluent.NameMap {
     return this._nameMap;
   }
 

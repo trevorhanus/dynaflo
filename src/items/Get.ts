@@ -1,9 +1,10 @@
-import Base from './Base';
+import Fluent from '..';
+import {Base} from './Base';
 import Attribute from '../conditions/Attribute';
 import {getAttributesForPluckParams} from '../utils';
 import {assign as _assign} from 'lodash';
 
-export default class Get extends Base implements f.iExpressionMaps, f.pluckable {
+export default class Get extends Base {
   pluckAttributes: Attribute[];
 
   constructor(tableName: string, key: Object) {
@@ -30,7 +31,7 @@ export default class Get extends Base implements f.iExpressionMaps, f.pluckable 
     return namePaths.join(', ');
   }
 
-  nameMap(): f.NameMap {
+  nameMap(): Fluent.NameMap {
     let nameMap = {};
     this.pluckAttributes && this.pluckAttributes.forEach(attr => {
       _assign(nameMap, attr.nameMap());
@@ -38,7 +39,7 @@ export default class Get extends Base implements f.iExpressionMaps, f.pluckable 
     return nameMap;
   }
 
-  valueMap(): f.ValueMap {
+  valueMap(): Fluent.ValueMap {
     const noValueMap = {};
     return noValueMap;
   }

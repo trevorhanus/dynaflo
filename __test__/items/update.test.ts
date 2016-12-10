@@ -1,4 +1,4 @@
-import Fluent from '../../src/fluent';
+import Fluent from '../../src/';
 import getTestConfig from '../../src/getTestConfig';
 
 let f;
@@ -96,5 +96,31 @@ describe('Update', () => {
       .catch(err => {
         throw new Error(err);
       });
+  });
+
+  it('Removes attribute when', () => {
+    return f.table('UpdateTest')
+      .update({id: '1234'})
+      .remove('recommended')
+      .when({
+        title: 'New Title'
+      })
+      .run()
+      .then(data => {
+        return f.table('UpdateTest')
+          .get({id: '1234'})
+          .run();
+      })
+      .then(data => {
+        expect(data.Item.recommended).toBe(undefined);
+      })
+      .catch(err => {
+        throw new Error(err);
+      });
+  });
+
+  // TODO: should be able to remove, delete, and set in same call
+  xit('Remove, Delete, and Set', () => {
+
   });
 });

@@ -1,99 +1,87 @@
-///<reference path="../../src/fluent.d.ts" />
-import {docClient} from '../fluent';
+import Condition from '../conditions/Condition';
+import Attribute from '../conditions/Attribute';
+import UpdateExpression from '../update/UpdateExpression';
+import Fluent from '../';
+import {docClient} from '../Fluent';
 
-export default class Base {
-  _log: boolean = false;
-  tableName: string;
-  indexName?: string;
-  key?: Object;
-  item?: Object;
-  filterCondition?: f.Condition;
-  whenCondition?: f.Condition;
-  nameMap() { /* override in parent class */ }
-  valueMap() { /* override in parent class */ }
+export abstract class Base {
+  private _log: boolean = false;
+  private tableName: string;
+  private indexName?: string;
+  private key?: Object;
+  private item?: Object;
+  private filterCondition?: Condition;
+  private whenCondition?: Condition;
+  private keyCondition?: Condition;
+  private updateExpression?: UpdateExpression;
+  private pluckAttributes?: Attribute[];
+  abstract nameMap(): Fluent.NameMap;
+  abstract valueMap(): Fluent.ValueMap;
 
   constructor(tableName: string) {
     this.tableName = tableName;
   }
 
-  _params() {
-    let params: f.Params = {
+  private _params() {
+    let params: Fluent.Params = {
       TableName: this.tableName,
       ReturnValues: 'NONE',
-      ReturnConsumedCapacity: 'NONE',
       ReturnItemCollectionMetrics: 'NONE'
     };
     this._assignIndexName(params);
     this._assignKey(params);
     this._assignItem(params);
-    this._assignKeyConditionExpression(params);
-    this._assignProjectionExpression(params);
-    this._assignFilterExpression(params);
-    this._assignConditionExpression(params);
-    this._assignUpdateExpression(params);
+    this.assignExpressions(params);
     this._assignExpressionNameMap(params);
     this._assignExpressionValueMap(params);
     return params;
   }
 
-  _assignIndexName(params: f.Params) {
+  private _assignIndexName(params: Fluent.Params) {
     if (this.indexName) {
       params.IndexName = this.indexName;
     }
   }
 
-  _assignKey(params: f.Params) {
+  private _assignKey(params: Fluent.Params) {
     if (this.key) {
       params.Key = this.key;
     }
   }
 
-  _assignItem(params: f.Params): void{
+  private _assignItem(params: Fluent.Params): void{
     if (this.item) {
       params.Item = this.item;
     }
   }
 
-  _assignKeyConditionExpression(params: f.Params): void {
+  private assignExpressions(params: Fluent.Params): void {
     if (this.keyCondition) {
       params.KeyConditionExpression = this.keyCondition.exprString();
     }
-  }
-
-  _assignProjectionExpression(params: f.Params): void{
     if (this.pluckAttributes) {
       params.ProjectionExpression = this.projectionExpression();
     }
-  }
-
-  _assignFilterExpression(params: f.Params): void{
     if (this.filterCondition) {
       params.FilterExpression = this.filterCondition.exprString();
     }
-  }
-
-  _assignConditionExpression(params: f.Params) {
     if (this.whenCondition) {
       params.ConditionExpression = this.whenCondition.exprString();
     }
-  }
-
-  _assignUpdateExpression(params: f.Params) {
-    const updateExpr = this.updateExpression && this.updateExpression();
-    if (updateExpr && updateExpr !== '') {
-      params.UpdateExpression = updateExpr;
+    if (this.updateExpression) {
+      params.UpdateExpression = this.updateExpression.exprString();
     }
   }
 
-  _assignExpressionNameMap(params: f.Params) {
-    const nameMap: f.NameMap = this.nameMap();
+  private _assignExpressionNameMap(params: Fluent.Params) {
+    const nameMap: Fluent.NameMap = this.nameMap();
     if (Object.keys(nameMap).length > 0) {
       params.ExpressionAttributeNames = nameMap;
     }
   }
 
-  _assignExpressionValueMap(params: f.Params) {
-    const valueMap: f.ValueMap = this.valueMap();
+  private _assignExpressionValueMap(params: Fluent.Params) {
+    const valueMap: Fluent.ValueMap = this.valueMap();
     if (Object.keys(valueMap).length > 0) {
       params.ExpressionAttributeValues = valueMap;
     }

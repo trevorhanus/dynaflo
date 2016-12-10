@@ -5,12 +5,14 @@ export default function createEqualsConditionFromAttributesToValueMap(attributes
   // to create an equals condition from attributes to value map, we need to..
   // get all attribute paths and values from object
   const pathsToValue = getAttributePathsAndValues(attributesToValueMap);
+  const firstPathToValue = pathsToValue.shift();
+  let parentCondition = createEqualsCondition(firstPathToValue);
   // iterate through the rest of the attibute paths and create an equals condition
   return reduceRight(pathsToValue, (condition, pathToValue) => {
-    const parentCondition = createEqualsCondition(pathToValue);
+    parentCondition = createEqualsCondition(pathToValue);
     parentCondition.and(condition);
     return parentCondition;
-  }, null);
+  }, parentCondition);
 }
 
 export function getAttributePathsAndValues(attributesToValueMap: Object) {

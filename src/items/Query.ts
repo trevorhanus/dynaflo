@@ -1,14 +1,14 @@
-import Base from './Base';
-import Condition from '../conditions/Condition';
+import {Base} from './Base';
+import Condition, {ConditionLike} from '../conditions/Condition';
 import Attribute from '../conditions/Attribute';
 import {assign as _assign} from 'lodash';
 import {getAttributesForPluckParams} from '../utils';
 
 export default class Query extends Base {
-  indexName?: string;
-  keyCondition: Condition;
-  filterCondition?: Condition;
-  pluckAttributes?: Attribute[];
+  private indexName?: string;
+  private keyCondition: Condition;
+  private filterCondition?: Condition;
+  private pluckAttributes?: Attribute[];
 
   constructor(tableName: string, indexName?: string) {
     super(tableName);
@@ -19,7 +19,7 @@ export default class Query extends Base {
 
   }
 
-  whereKey(keyConditionOrAttributesToValueMap: (f.Condition | Object)) {
+  whereKey(keyConditionOrAttributesToValueMap: ConditionLike) {
     if (keyConditionOrAttributesToValueMap instanceof Condition) {
       this.keyCondition = keyConditionOrAttributesToValueMap;
     } else {
@@ -38,7 +38,11 @@ export default class Query extends Base {
     return this;
   }
 
-  nameMap() {
+  run(): Promise<any> {
+    return super.run('query');
+  }
+
+  private nameMap() {
     let nameMap = {};
     this.filterCondition && _assign(nameMap, this.filterCondition.nameMap());
     this.keyCondition && _assign(nameMap, this.keyCondition.nameMap());
@@ -48,14 +52,10 @@ export default class Query extends Base {
     return nameMap;
   }
 
-  valueMap() {
+  private valueMap() {
     let valueMap = {};
     this.filterCondition && _assign(valueMap, this.filterCondition.valueMap());
     this.keyCondition && _assign(valueMap, this.keyCondition.valueMap());
     return valueMap;
-  }
-
-  run(): Promise<any> {
-    return super.run('query');
   }
 }

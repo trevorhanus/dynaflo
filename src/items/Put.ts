@@ -1,17 +1,18 @@
-import {docClient} from '../fluent';
-import Base from './Base';
-import Condition from '../conditions/Condition';
+import Fluent from '..';
+import {docClient} from '../Fluent';
+import {Base} from './Base';
+import Condition, {ConditionLike} from '../conditions/Condition';
 
-export default class Put extends Base implements f.whereable, f.iExpressionMaps {
+export default class Put extends Base {
   item: Object;
-  whenCondition?: f.Condition;
+  whenCondition?: Condition;
 
   constructor(tableName: string, item: Object) {
     super(tableName);
     this.item = item;
   }
 
-  when(conditionOrAttributesToValueMap: (f.Condition | Object)) {
+  when(conditionOrAttributesToValueMap: ConditionLike) {
     if (conditionOrAttributesToValueMap instanceof Condition) {
       this.whenCondition = conditionOrAttributesToValueMap;
     } else {
@@ -20,7 +21,7 @@ export default class Put extends Base implements f.whereable, f.iExpressionMaps 
     return this;
   }
 
-  nameMap(): f.NameMap {
+  nameMap(): Fluent.NameMap {
     if (this.whenCondition) {
       return this.whenCondition.nameMap();
     } else {
@@ -28,7 +29,7 @@ export default class Put extends Base implements f.whereable, f.iExpressionMaps 
     }
   }
 
-  valueMap(): f.ValueMap {
+  valueMap(): Fluent.ValueMap {
     if (this.whenCondition) {
       return this.whenCondition.valueMap();
     } else {

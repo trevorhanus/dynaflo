@@ -1,6 +1,6 @@
-import {dynamoDB} from '../fluent';
+import {dynamoDB} from '../Fluent';
 
-export default function(tableName: string) {
+export function describeTable(tableName: string) {
   const params = {
     TableName: tableName
   };

@@ -1,4 +1,4 @@
-import Fluent from '../../src/fluent';
+import Fluent from '../../src/';
 import getTestConfig from '../../src/getTestConfig';
 
 let f;

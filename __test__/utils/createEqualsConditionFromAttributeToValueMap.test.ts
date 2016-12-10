@@ -39,10 +39,12 @@ describe('Create Equals Condition From Attribute To Value Map', () => {
   it('Creates chained and condition', () => {
     const attributesToValueMap = {key1: 'value1', key2: ['item1']};
     let condition = createEqualsConditionFromAttributeToValueMap(attributesToValueMap);
-    const expectedString = '( #name2 = :value2 AND ( #name1 = :value1 ) )';
+    const expectedString = '(#name2 = :value2 AND (#name1 = :value1))';
     expect(condition.exprString()).toBe(expectedString);
   });
 });
+
+///////////////////////////////////
 
 function getSafeExpressionNameMock() {
   let counter = 1;

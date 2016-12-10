@@ -1,4 +1,4 @@
-import Fluent from '../../src/fluent';
+import Fluent from '../../src/';
 import InComparator from '../../src/conditions/comparators/InComparator';
 
 let f;

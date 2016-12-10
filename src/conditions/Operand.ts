@@ -1,3 +1,4 @@
+import Fluent from '../..';
 import {getSafeExpressionValue} from '../utils';
 import Condition from './Condition';
 import Attribute from './Attribute';
@@ -5,7 +6,7 @@ import Attribute from './Attribute';
 export default class Operand {
   private safeValue: string;
   private attribute: Attribute;
-  _valueMap: f.ValueMap;
+  _valueMap: Fluent.ValueMap;
 
   constructor(value: (number | boolean | string | Condition)) {
     if (value instanceof Condition) {
@@ -25,7 +26,7 @@ export default class Operand {
     }
   }
 
-  valueMap(): f.ValueMap {
+  valueMap(): Fluent.ValueMap {
     return this._valueMap;
   }
 }

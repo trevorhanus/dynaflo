@@ -1,8 +1,9 @@
 {
   "name": "fluent-for-dynamodb",
-  "version": "0.1.0",
+  "version": "0.1.3",
   "description": "Fluent makes working with DynamoDB easier.",
-  "main": "build/fluent.js",
+  "main": "build/index.js",
+  "types": "build/index",
   "scripts": {
     "test": "ENDPOINT=http://localhost:7777 jest --watch",
     "test-once": "ENDPOINT=http://trevorhanus__dynamodb-local:7777 jest"
@@ -18,10 +19,6 @@
   },
   "homepage": "https://gitlab.com/trevorhanus/fluent#README",
   "devDependencies": {
-    "@types/es6-promise": "0.0.32",
-    "@types/jest": "^16.0.0",
-    "@types/lodash": "^4.14.39",
-    "@types/node": "^6.0.48",
     "jest-cli": "^17.0.3",
     "typescript": "^2.0.10"
   },
@@ -38,6 +35,10 @@
   "dependencies": {
     "aws-sdk": "^2.7.4",
     "lodash": "^4.17.2",
-    "randomstring": "^1.1.5"
+    "randomstring": "^1.1.5",
+    "@types/es6-promise": "0.0.32",
+    "@types/jest": "^16.0.0",
+    "@types/lodash": "^4.14.39",
+    "@types/node": "^6.0.48"
   }
 }

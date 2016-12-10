@@ -1,8 +1,10 @@
+import Fluent from '../..';
+import {Comparator} from './Comparator';
 import Operand from '../Operand';
 import Condition from '../Condition';
 import {assign as _assign} from 'lodash';
 
-export default class InComparator implements f.Comparator {
+export default class InComparator implements Comparator {
   operands: Operand[] = [];
 
   constructor(operands: (string | boolean | number | Condition)[]) {
@@ -11,7 +13,7 @@ export default class InComparator implements f.Comparator {
     });
   }
 
-  valueMap(): f.ValueMap {
+  valueMap(): Fluent.ValueMap {
     let map = {};
     this.operands.forEach(operand => {
       _assign(map, operand.valueMap);

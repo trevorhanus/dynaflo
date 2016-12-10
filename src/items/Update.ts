@@ -1,88 +1,72 @@
-import {docClient} from '../fluent';
-import Base from './Base';
+import Fluent from '..';
+import {docClient} from '../Fluent';
+import {Base} from './Base';
+import Condition, {ConditionLike} from '../conditions/Condition';
+import UpdateExpression from '../update/UpdateExpression';
 import SetExpression from '../update/SetExpression';
 import DeleteExpression from '../update/DeleteExpression';
 import RemoveExpression from '../update/RemoveExpression';
 import {assign as _assign} from 'lodash';
 
-export default class Update extends Base implements f.whereable {
-  key: Object;
-  whenCondition?: f.Condition;
-  setExpression?: f.UpdateExpression;
-  deleteExpression?: f.UpdateExpression;
-  removeExpression?: f.UpdateExpression;
+export default class Update extends Base {
+  private key: any;
+  private whenCondition?: Condition;
+  private updateExpression: UpdateExpression = new UpdateExpression();
 
-  constructor(tableName: string, key: Object) {
+  constructor(tableName: string, key: any) {
     super(tableName);
     this.key = key;
   }
 
-  set(item: Object) {
-    this.setExpression = new SetExpression(item);
+  set(item: any) {
+    this.updateExpression.setExpression = new SetExpression(item);
     return this;
   }
 
   delete(topLevelAttr: string, itemsToDelete: string[]) {
-    this.deleteExpression = new DeleteExpression(topLevelAttr, itemsToDelete);
+    this.updateExpression.deleteExpression = new DeleteExpression(topLevelAttr, itemsToDelete);
     return this;
   }
 
-  remove(...attributes: (string | Object)[]) {
-    this.removeExpression = new RemoveExpression(attributes);
+  remove(...attributes: (string | any)[]) {
+    this.updateExpression.removeExpression = new RemoveExpression(attributes);
     return this;
   }
 
-  updateExpression() {
-    let exprs: string[] = [];
-    if (this.setExpression) {
-      exprs.push(this.setExpression.exprString());
+  when(conditionOrAttributesToValueMap: ConditionLike) {
+    if (conditionOrAttributesToValueMap instanceof Condition) {
+      this.whenCondition = conditionOrAttributesToValueMap;
+    } else {
+      this.whenCondition = Condition.fromAttributesToValueMap(conditionOrAttributesToValueMap);
     }
-    if (this.deleteExpression) {
-      exprs.push(this.deleteExpression.exprString());
-    }
-    if (this.removeExpression) {
-      exprs.push(this.removeExpression.exprString());
-    }
-    return exprs.join(' ');
-  }
-
-  when(condition: f.Condition) {
-    this.whenCondition = condition;
     return this;
-  }
-
-  nameMap(): f.NameMap {
-    let nameMap = {};
-    if (this.whenCondition) {
-      _assign(nameMap, this.whenCondition.nameMap());
-    }
-    if (this.setExpression) { 
-      _assign(nameMap, this.setExpression.nameMap());
-    }
-    if (this.deleteExpression) {
-      _assign(nameMap, this.deleteExpression.nameMap());
-    }
-    if (this.removeExpression) {
-      _assign(nameMap, this.removeExpression.nameMap());
-    }
-    return nameMap;
-  }
-
-  valueMap(): f.ValueMap {
-    let valueMap = {};
-    if (this.whenCondition) {
-      _assign(valueMap, this.whenCondition.valueMap());
-    }
-    if (this.setExpression) { 
-      _assign(valueMap, this.setExpression.valueMap());
-    }
-    if (this.deleteExpression) {
-      _assign(valueMap, this.deleteExpression.valueMap());
-    }
-    return valueMap;
   }
 
   run(): Promise<any> {
     return super.run('update');
+  }
+
+  // private getUpdateExpression() {
+  //   let exprs: string[] = [];
+  //   exprs.push(this.updateExpression.exprString());
+  //   return exprs.join(' ');
+  // }
+
+  private nameMap(): Fluent.NameMap {
+    let nameMap = {};
+    _assign(nameMap, this.updateExpression.nameMap());
+    if (this.whenCondition) {
+      _assign(nameMap, this.whenCondition.nameMap());
+    }
+    return nameMap;
+  }
+
+  private valueMap(): Fluent.ValueMap {
+    let valueMap = {};
+    _assign(valueMap, this.updateExpression.valueMap());
+    if (this.whenCondition) {
+      _assign(valueMap, this.whenCondition.valueMap());
+    }
+    return valueMap;
   }
 }

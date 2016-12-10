@@ -1,11 +1,12 @@
+import Fluent from '..';
 import {getSafeExpressionName} from '../utils';
 
-export default class Attribute implements f.Attribute {
-  tokens: string[] = [];
-  safeTokens: string[] = [];
-  _nameMap: f.NameMap = {};
+export default class Attribute {
+  private tokens: string[] = [];
+  private safeTokens: string[] = [];
+  private _nameMap: Fluent.NameMap = {};
 
-  constructor(attribute: string | Object) {
+  constructor(attribute: AttributeLike) {
     switch (typeof attribute) {
       case 'string': // single token
         this.tokens.push(attribute);
@@ -24,15 +25,15 @@ export default class Attribute implements f.Attribute {
     return this.safeTokens.join('.');
   }
 
-  nameMap(): f.NameMap {
+  nameMap(): Fluent.NameMap {
     return this._nameMap;
   }
 
-  extractTokensFromNestedObject(attributeMap: Object) {
+  private extractTokensFromNestedObject(attributeMap: any) {
     const self = this;
     nextLevel(attributeMap);
 
-    function nextLevel(map: Object) {
+    function nextLevel(map: any) {
       Object.keys(map).forEach(key => {
         self.tokens.push(key);
         if (map[key] === true) {
@@ -46,7 +47,7 @@ export default class Attribute implements f.Attribute {
     }
   }
 
-  createSafeNamesForTokens() {
+  private createSafeNamesForTokens() {
     this.tokens.forEach(token => {
       const safeName = getSafeExpressionName();
       this.safeTokens.push(safeName);
@@ -54,6 +55,8 @@ export default class Attribute implements f.Attribute {
     });
   }
 }
+
+export type AttributeLike = (string | any);
 
 export class AttributeError extends Error {}
 

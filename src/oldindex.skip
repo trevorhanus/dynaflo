@@ -1,0 +1,125 @@
+/// <reference types="aws-sdk" />
+
+export as namespace Fluent;
+
+export = Fluent;
+
+declare class Fluent {
+  constructor(config: Fluent.Config);
+  Table: Fluent.Table;
+  table(tableName: string): Fluent.Table;
+
+  createTable(cft: Fluent.CloudFormationTemplate): Promise<any>;
+  deleteTable(tableName: string): Promise<any>;
+  describeTable(tableName: string): Promise<any>;
+
+  attr(attribute: Fluent.AttributeLike): Fluent.Condition;
+}
+
+declare namespace Fluent {
+
+  export interface Config {
+    region: string;
+    endpoint: string;
+    accessKeyId: string;
+    secretAccessKey: string;
+  }
+
+  export interface NameMap {
+    [safeName: string]: string;
+  }
+
+  export interface ValueMap {
+    [safeValue: string]: (string | boolean | number);
+  }
+
+  export interface Attribute {
+    nameMap(): NameMap;
+    safePath(): string;
+  }
+
+  export type AttributeLike = string | NestedAttribute;
+
+  export interface Comparator {
+    exprString(safePath?: string): string;
+    valueMap(): ValueMap;
+  }
+
+  export interface Operand {
+    exprString(): string;
+    valueMap(): ValueMap;
+  }
+
+  export interface UpdateExpression {
+    exprString(): string;
+    nameMap(): Object;
+    valueMap(): Object;
+  }
+
+  export interface CloudFormationTemplate {
+
+  }
+
+  export type ReturnConsumedCapacityOptions = 'INDEXES' | 'TOTAL' | 'NONE';
+  export type ReturnValuesOptions = 'NONE' | 'ALL_OLD' | 'UPDATED_OLD' | 'ALL_NEW' | 'UPDATED_NEW'
+  export type ReturnItemCollectionMetrics = 'SIZE' | 'NONE';
+  export type UpdateExpressionType = 'SET' | 'REMOVE' | 'ADD' | 'DELETE';
+
+  export interface pluckable {
+    pluck(...topLevelOrNestedAttributes: (string | Object)[]): void;
+    projectionExpression(): string;
+  }
+
+  export interface whereable {
+    whereCondition?: Condition;
+    where(condtion: Condition): void;
+  }
+
+  export interface NestedAttribute {
+    joinedSafePaths(): string[];
+    objectsForPaths(): Object[];
+    nameMap(): NameMap;
+  }
+
+  export interface EqualsMap {
+    constructor(AttributesToValueMap: Object): EqualsMap;
+    valueMap(): ValueMap;
+    nameMap(): NameMap;
+  }
+
+  export interface AttributeToValue {
+    safePath: string;
+    path: string;
+  }
+
+  export class Condition {
+    attribute: Attribute;
+    comparator: Comparator;
+    andCondition?: Condition;
+    orCondition?: Condition;
+    nameMap(): NameMap;
+    valueMap(): ValueMap;
+    or(condition: Condition): Condition;
+    and(condition: Condition): Condition;
+    exprString(): string;
+  }
+
+  export class Table {
+
+  }
+
+  export interface Params {
+    TableName: string;
+    IndexName?: string;
+    Key?: Object;
+    Item?: Object;
+    FilterExpression?: string;
+    ConditionExpression?: string;
+    ProjectionExpression?: string;
+    UpdateExpression?: string;
+    ExpressionAttributeNames?: NameMap;
+    ExpressionAttributeValues?: ValueMap;
+    ReturnConsumedCapacity?: ReturnConsumedCapacityOptions;
+    ReturnValues?: ReturnValuesOptions;
+  }
+}

@@ -1,7 +1,9 @@
+import Fluent from '../..';
+import {Comparator} from './Comparator';
 import Operand from '../Operand';
 import {assign as _assign} from 'lodash';
 
-export default class BetweenComparator implements f.Comparator {
+export default class BetweenComparator implements Comparator {
   lowOperand: Operand;
   highOperand: Operand;
 
@@ -10,7 +12,7 @@ export default class BetweenComparator implements f.Comparator {
     this.highOperand = new Operand(highOperand);
   }
 
-  valueMap(): f.ValueMap {
+  valueMap(): Fluent.ValueMap {
     let map = {};
     _assign(map, this.lowOperand.valueMap());
     _assign(map, this.highOperand.valueMap());

@@ -1,6 +1,8 @@
+import Fluent from '../..';
+import {Comparator} from './Comparator';
 import Operand from '../Operand';
 
-export default class BeginsWithComparator implements f.Comparator {
+export default class BeginsWithComparator implements Comparator {
   operand: Operand; 
 
   constructor(operand: string) {
@@ -11,7 +13,7 @@ export default class BeginsWithComparator implements f.Comparator {
     return 'begins_with(' + safePath + ', ' + this.operand.exprString() + ')';
   }
 
-  valueMap(): f.ValueMap {
+  valueMap(): Fluent.ValueMap {
     return this.operand.valueMap();
   }
 }

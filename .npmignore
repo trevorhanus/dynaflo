@@ -1,1 +1,9 @@
-config.json
+# Typescript Source files
+/src
+tsconfig.json
+
+# Docs
+/Docs
+
+# Tests
+/__tests__

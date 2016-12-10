@@ -19,7 +19,7 @@ describe('Condition', () => {
   it('expression name map with or condition', () => {
     const cond = new Condition('title');
     const orCond = new Condition('orCond');
-    cond.or(new Condition('rating'));
+    cond.or(orCond);
     const map = cond.nameMap();
     expect(Object.keys(map).length).toBe(2);
   });
@@ -27,15 +27,15 @@ describe('Condition', () => {
   it('expression name map with and condition', () => {
     const cond = new Condition('title');
     const andCond = new Condition('andCond');
-    cond.and(new Condition('rating'));
+    cond.and(andCond);
     const map = cond.nameMap();
     expect(Object.keys(map).length).toBe(2);
   });
 
   it('equals or equals', () => {
-    const cond = new Condition('id');
+    let cond = new Condition('id');
     cond = cond.eq('test');
-    const orCond = new Condition('id');
+    let orCond = new Condition('id');
     orCond = orCond.eq('test');
     cond.or(orCond);
     const exprString = cond.exprString();
@@ -60,19 +60,19 @@ describe('Condition', () => {
 
   it('expression with AND and OR', () => {
     const cond = new Condition('title');
-    const expression = cond.concatExpression('Expression', 'andExpression', 'orExpression');
-    expect(expression).toBe('( ( Expression AND andExpression ) OR orExpression )');
+    const expression = cond.concatExpression('Expression', ' AND andExpression', ' OR orExpression');
+    expect(expression).toBe('((Expression AND andExpression) OR orExpression)');
   });
 
   it('expression no AND and no OR', () => {
     const cond = new Condition('title');
-    const expression = cond.concatExpression('Expression', null, null);
-    expect(expression).toBe('( Expression )');
+    const expression = cond.concatExpression('Expression', '', '');
+    expect(expression).toBe('(Expression)');
   });
 
   it('expression with AND and not OR', () => {
     const cond = new Condition('title');
-    const expression = cond.concatExpression('Expression', 'andExpression', null);
-    expect(expression).toBe('( Expression AND andExpression )');
+    const expression = cond.concatExpression('Expression', ' AND andExpression', '');
+    expect(expression).toBe('(Expression AND andExpression)');
   });
 });

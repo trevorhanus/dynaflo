@@ -9,9 +9,9 @@
     "outDir": "./build",
     "sourceMap": true,
     "pretty": true,
+    "declaration": true,
     "typeRoots": [
-      "node_modules/@types",
-      "fluent.d.ts"
+      "node_modules/@types"
     ]
   },
   "include": [

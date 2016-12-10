@@ -1,9 +1,3 @@
-import createTable from './createTable';
-import deleteTable from './deleteTable';
-import describeTable from './describeTable';
-
-export {
-  createTable as createTable,
-  deleteTable as deleteTable,
-  describeTable as describeTable
-}
+export {createTable as createTable} from './createTable';
+export {deleteTable} from './deleteTable';
+export {describeTable} from './describeTable';

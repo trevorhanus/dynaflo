@@ -1,20 +1,22 @@
-import Base from './Base';
+import Fluent from '..';
+import Condition from '../conditions/Condition';
+import {Base} from './Base';
 
-export default class Delete extends Base implements f.whereable, f.iExpressionMaps {
+export default class Delete extends Base {
   key: Object;
-  whenCondition?: f.Condition;
+  whenCondition?: Condition;
   
   constructor(tableName: string, key: Object) {
     super(tableName);
     this.key = key;
   }
 
-  when(condition: f.Condition) {
+  when(condition: Condition) {
     this.whenCondition = condition;
     return this;
   }
 
-  nameMap(): f.NameMap {
+  nameMap(): Fluent.NameMap {
     if (this.whenCondition) {
       return this.whenCondition.nameMap();
     } else {
@@ -22,7 +24,7 @@ export default class Delete extends Base implements f.whereable, f.iExpressionMa
     }
   }
 
-  valueMap(): f.ValueMap {
+  valueMap(): Fluent.ValueMap {
     if (this.whenCondition) {
       return this.whenCondition.valueMap();
     } else {

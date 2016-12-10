@@ -1,23 +1,25 @@
+import Fluent from '..';
+import {UpdateExpression} from './UpdateExpression';
 import {getSafeExpressionName, getSafeExpressionValue} from '../utils';
 
-export default class DeleteExpression implements f.UpdateExpression {
-  _safeName: string;
-  _safeValues: string[] = [];
-  _valueMap: f.ValueMap = {};
-  _nameMap: f.NameMap = {};
+export default class DeleteExpression implements UpdateExpression {
+  private _safeName: string;
+  private _safeValues: string[] = [];
+  private _valueMap: Fluent.ValueMap = {};
+  private _nameMap: Fluent.NameMap = {};
 
   constructor(topLevelAttr: string, itemsToDelete: string[]) {
     this._saveSafeName(topLevelAttr);
     this._saveSafeValues(itemsToDelete);
   }
 
-  _saveSafeName(topLevelAttr: string) {
+  private _saveSafeName(topLevelAttr: string) {
     const safeName = getSafeExpressionName();
     this._safeName = safeName;
     this._nameMap[safeName] = topLevelAttr;
   }
 
-  _saveSafeValues(itemsToDelete: string[]) {
+  private _saveSafeValues(itemsToDelete: string[]) {
     itemsToDelete.forEach(value => {
       const safeValue = getSafeExpressionValue();
       this._valueMap[safeValue] = value;
@@ -29,11 +31,11 @@ export default class DeleteExpression implements f.UpdateExpression {
     return 'DELETE ' + this._safeName + ' ' + this._safeValues.join(', ');
   }
 
-  nameMap(): f.NameMap {
+  nameMap(): Fluent.NameMap {
     return this._nameMap;
   }
 
-  valueMap() {
+  valueMap(): Fluent.ValueMap {
     return this._valueMap;
   }
 }

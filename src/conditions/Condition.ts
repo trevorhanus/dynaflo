@@ -1,6 +1,9 @@
-import Attribute from './Attribute';
-import {assign as _assign} from 'lodash';
+import Fluent from '..';
+import Attribute, {AttributeLike} from './Attribute';
+import {assign as _assign, concat as _concat} from 'lodash';
+import {Expression} from '../expression';
 import createEqualsConditionFromAttributeToValueMap from '../utils/createEqualsConditionFromAttributeToValueMap';
+import {Comparator} from './comparators/Comparator';
 import SymbolComparator from './comparators/SymbolComparator';
 import ExistsComparator from './comparators/ExistsComparator';
 import NotExistsComparator from './comparators/NotExistsComparator';
@@ -10,71 +13,89 @@ import BeginsWithComparator from './comparators/BeginsWithComparator';
 import BetweenComparator from './comparators/BetweenComparator';
 import InComparator from './comparators/InComparator';
 
-export default class Condition implements f.Condition {
+export default class Condition implements Expression {
   attribute: Attribute;
-  comparator: f.Comparator;
-  andCondition: Condition;
-  orCondition: Condition;
+  comparator: Comparator;
+  andConditions: Condition[] = [];
+  orConditions: Condition[] = [];
 
-  constructor(topLevelOrNestedAttribute: (string | Object)) {
+  constructor(topLevelOrNestedAttribute: AttributeLike) {
     this.attribute = new Attribute(topLevelOrNestedAttribute);
   }
 
-  nameMap(): f.NameMap {
-    const map = {};
+  nameMap(): Fluent.NameMap {
+    const map: Fluent.NameMap = {};
     _assign(map, this.attribute.nameMap());
-    if (this.andCondition) {
-      _assign(map, this.andCondition.nameMap());
-    }
-    if (this.orCondition) {
-      _assign(map, this.orCondition.nameMap());
-    }
+    this.andConditions.forEach(condition => {
+      _assign(map, condition.nameMap());
+    });
+    this.orConditions.forEach(condition => {
+      _assign(map, condition.nameMap());
+    });
     return map;
   }
 
-  valueMap(): f.ValueMap {
-    const map: f.ValueMap = {};
+  valueMap(): Fluent.ValueMap {
+    const map: Fluent.ValueMap = {};
     if (this.comparator) {
       _assign(map, this.comparator.valueMap());
     }
-    if (this.andCondition) {
-      _assign(map, this.andCondition.valueMap());
-    }
-    if (this.orCondition) {
-      _assign(map, this.orCondition.valueMap());
-    }
+    this.andConditions.forEach(condition => {
+      _assign(map, condition.valueMap());
+    });
+    this.orConditions.forEach(condition => {
+      _assign(map, condition.valueMap());
+    });
     return map;
   }
 
-  or(condition: Condition) {
-    this.orCondition = condition;
+  or(...conditions: Condition[]) {
+    this.orConditions = _concat(this.orConditions, conditions);
     return this;
   }
 
-  and(condition: Condition) {
-    this.andCondition = condition;
+  and(...conditions: Condition[]) {
+    this.andConditions = _concat(this.andConditions, conditions);
     return this;
   }
 
   exprString(): string {
     const safePath = this.attribute.safePath();
     const expression = this.comparator.exprString(safePath);
-    const andExpression = this.andCondition && this.andCondition.exprString();
-    const orExpression = this.orCondition && this.orCondition.exprString();
+    const andExpression = this.andExpr();
+    const orExpression = this.orExpr();
     return this.concatExpression(expression, andExpression, orExpression);
+  }
+
+  andExpr(): string {
+    const expressions = this.andConditions.map(condition => {
+      return condition.exprString();
+    });
+    if (expressions.length > 0) {
+      return ' AND ' + expressions.join(' AND ');
+    } else {
+      return '';
+    }
+  }
+
+  orExpr(): string {
+    const expressions = this.orConditions.map(condition => {
+      return condition.exprString();
+    });
+    if (expressions.length > 0) {
+      return ' OR ' + expressions.join(' OR ');
+    } else {
+      return '';
+    }
   }
 
   concatExpression(expression: string, andExpression: string, orExpression: string): string {
     if (!expression) { throw new ConditionError('Cannot concat an expression without an expression'); }
-    if (andExpression && orExpression) {
-      return '( ( ' + expression + ' AND ' + andExpression + ' ) OR ' + orExpression + ' )';
-    } else if (andExpression) {
-      return '( ' + expression + ' AND ' + andExpression + ' )';
-    } else if (orExpression) {
-      return '( ' + expression + ' ) OR ' + orExpression;
-    } else {
-      return '( ' + expression + ' )';
+    let combined = '(' + expression + andExpression + ')';
+    if (orExpression.length > 0) {
+      combined = '(' + combined + orExpression + ')';
     }
+    return combined;
   }
 
   eq(operand: (number | boolean | string)) {
@@ -148,9 +169,12 @@ export default class Condition implements f.Condition {
     return this;
   }
 
-  static fromAttributesToValueMap(attributesToValueMap: Object): Condition {
-    return createEqualsConditionFromAttributeToValueMap(attributesToValueMap);
+  static fromAttributesToValueMap(attributesToValueMap: any): Condition {
+    const cond = createEqualsConditionFromAttributeToValueMap(attributesToValueMap);
+    return cond;
   }
 }
+
+export type ConditionLike = Condition | any;
 
 export class ConditionError extends Error {}
