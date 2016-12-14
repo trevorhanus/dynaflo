@@ -1,10 +1,10 @@
-import Fluent from '..';
+import Dynaflo from '..';
 import {UpdateExpression} from './UpdateExpression';
 import {getSafeExpressionName, getSafeExpressionValue} from '../utils';
 
 export default class SetExpression implements UpdateExpression {
-  _valueMap: Fluent.ValueMap = {};
-  _nameMap: Fluent.NameMap = {};
+  _valueMap: Dynaflo.ValueMap = {};
+  _nameMap: Dynaflo.NameMap = {};
   _fullPathExpressions: string[] = [];
 
   constructor(item: Object) {
@@ -40,11 +40,11 @@ export default class SetExpression implements UpdateExpression {
     return 'SET ' + fullPathExpressions;
   }
 
-  nameMap(): Fluent.NameMap {
+  nameMap(): Dynaflo.NameMap {
     return this._nameMap;
   }
 
-  valueMap(): Fluent.ValueMap {
+  valueMap(): Dynaflo.ValueMap {
     return this._valueMap;
   }
 }

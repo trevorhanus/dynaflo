@@ -1,4 +1,4 @@
-import Fluent from '..';
+import Dynaflo from '..';
 import {getSafeExpressionName, getSafeExpressionValue} from '../utils';
 import {UpdateExpression} from './UpdateExpression';
 import NestedAttribute from '../utils/NestedAttribute';
@@ -7,7 +7,7 @@ import {concat as _concat} from 'lodash';
 
 export default class RemoveExpression implements UpdateExpression {
   _safePaths: string[] = [];
-  _nameMap: Fluent.NameMap = {};
+  _nameMap: Dynaflo.NameMap = {};
 
   constructor(attributes: (string | Object)[]) {
     attributes.forEach(attr => {
@@ -35,7 +35,7 @@ export default class RemoveExpression implements UpdateExpression {
     return 'REMOVE ' + this._safePaths.join(', ');
   }
 
-  nameMap(): Fluent.NameMap {
+  nameMap(): Dynaflo.NameMap {
     return this._nameMap;
   }
 

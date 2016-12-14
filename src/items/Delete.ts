@@ -1,4 +1,4 @@
-import Fluent from '..';
+import Dynaflo from '..';
 import Condition from '../conditions/Condition';
 import {Base} from './Base';
 
@@ -16,7 +16,7 @@ export default class Delete extends Base {
     return this;
   }
 
-  nameMap(): Fluent.NameMap {
+  nameMap(): Dynaflo.NameMap {
     if (this.whenCondition) {
       return this.whenCondition.nameMap();
     } else {
@@ -24,7 +24,7 @@ export default class Delete extends Base {
     }
   }
 
-  valueMap(): Fluent.ValueMap {
+  valueMap(): Dynaflo.ValueMap {
     if (this.whenCondition) {
       return this.whenCondition.valueMap();
     } else {

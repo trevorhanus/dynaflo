@@ -1,22 +1,22 @@
 /// <reference types="aws-sdk" />
 
-export as namespace Fluent;
+export as namespace Dynaflo;
 
-export = Fluent;
+export = Dynaflo;
 
-declare class Fluent {
-  constructor(config: Fluent.Config);
-  Table: Fluent.Table;
-  table(tableName: string): Fluent.Table;
+declare class Dynaflo {
+  constructor(config: Dynaflo.Config);
+  Table: Dynaflo.Table;
+  table(tableName: string): Dynaflo.Table;
 
-  createTable(cft: Fluent.CloudFormationTemplate): Promise<any>;
+  createTable(cft: Dynaflo.CloudFormationTemplate): Promise<any>;
   deleteTable(tableName: string): Promise<any>;
   describeTable(tableName: string): Promise<any>;
 
-  attr(attribute: Fluent.AttributeLike): Fluent.Condition;
+  attr(attribute: Dynaflo.AttributeLike): Dynaflo.Condition;
 }
 
-declare namespace Fluent {
+declare namespace Dynaflo {
 
   export interface Config {
     region: string;

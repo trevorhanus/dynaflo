@@ -1,8 +1,8 @@
 import Condition from '../conditions/Condition';
 import Attribute from '../conditions/Attribute';
 import UpdateExpression from '../update/UpdateExpression';
-import Fluent from '../';
-import {docClient} from '../Fluent';
+import Dynaflo from '../';
+import {docClient} from '../Dynaflo';
 
 export abstract class Base {
   private _log: boolean = false;
@@ -15,15 +15,15 @@ export abstract class Base {
   private keyCondition?: Condition;
   private updateExpression?: UpdateExpression;
   private pluckAttributes?: Attribute[];
-  abstract nameMap(): Fluent.NameMap;
-  abstract valueMap(): Fluent.ValueMap;
+  abstract nameMap(): Dynaflo.NameMap;
+  abstract valueMap(): Dynaflo.ValueMap;
 
   constructor(tableName: string) {
     this.tableName = tableName;
   }
 
   private _params() {
-    let params: Fluent.Params = {
+    let params: Dynaflo.Params = {
       TableName: this.tableName,
       ReturnValues: 'NONE',
       ReturnItemCollectionMetrics: 'NONE'
@@ -37,25 +37,25 @@ export abstract class Base {
     return params;
   }
 
-  private _assignIndexName(params: Fluent.Params) {
+  private _assignIndexName(params: Dynaflo.Params) {
     if (this.indexName) {
       params.IndexName = this.indexName;
     }
   }
 
-  private _assignKey(params: Fluent.Params) {
+  private _assignKey(params: Dynaflo.Params) {
     if (this.key) {
       params.Key = this.key;
     }
   }
 
-  private _assignItem(params: Fluent.Params): void{
+  private _assignItem(params: Dynaflo.Params): void{
     if (this.item) {
       params.Item = this.item;
     }
   }
 
-  private assignExpressions(params: Fluent.Params): void {
+  private assignExpressions(params: Dynaflo.Params): void {
     if (this.keyCondition) {
       params.KeyConditionExpression = this.keyCondition.exprString();
     }
@@ -73,15 +73,15 @@ export abstract class Base {
     }
   }
 
-  private _assignExpressionNameMap(params: Fluent.Params) {
-    const nameMap: Fluent.NameMap = this.nameMap();
+  private _assignExpressionNameMap(params: Dynaflo.Params) {
+    const nameMap: Dynaflo.NameMap = this.nameMap();
     if (Object.keys(nameMap).length > 0) {
       params.ExpressionAttributeNames = nameMap;
     }
   }
 
-  private _assignExpressionValueMap(params: Fluent.Params) {
-    const valueMap: Fluent.ValueMap = this.valueMap();
+  private _assignExpressionValueMap(params: Dynaflo.Params) {
+    const valueMap: Dynaflo.ValueMap = this.valueMap();
     if (Object.keys(valueMap).length > 0) {
       params.ExpressionAttributeValues = valueMap;
     }

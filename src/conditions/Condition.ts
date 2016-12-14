@@ -1,4 +1,4 @@
-import Fluent from '..';
+import Dynaflo from '..';
 import Attribute, {AttributeLike} from './Attribute';
 import {assign as _assign, concat as _concat} from 'lodash';
 import {Expression} from '../expression';
@@ -23,8 +23,8 @@ export default class Condition implements Expression {
     this.attribute = new Attribute(topLevelOrNestedAttribute);
   }
 
-  nameMap(): Fluent.NameMap {
-    const map: Fluent.NameMap = {};
+  nameMap(): Dynaflo.NameMap {
+    const map: Dynaflo.NameMap = {};
     _assign(map, this.attribute.nameMap());
     this.andConditions.forEach(condition => {
       _assign(map, condition.nameMap());
@@ -35,8 +35,8 @@ export default class Condition implements Expression {
     return map;
   }
 
-  valueMap(): Fluent.ValueMap {
-    const map: Fluent.ValueMap = {};
+  valueMap(): Dynaflo.ValueMap {
+    const map: Dynaflo.ValueMap = {};
     if (this.comparator) {
       _assign(map, this.comparator.valueMap());
     }

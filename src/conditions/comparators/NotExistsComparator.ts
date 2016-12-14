@@ -1,4 +1,4 @@
-import Fluent from '../..';
+import Dynaflo from '../..';
 import {Comparator} from './Comparator';
 
 export default class NotExistsComparator implements Comparator {
@@ -7,7 +7,7 @@ export default class NotExistsComparator implements Comparator {
     return 'attribute_not_exists(' + safePath + ')';
   }
 
-  valueMap(): Fluent.ValueMap {
+  valueMap(): Dynaflo.ValueMap {
     const noValueMap = {};
     return noValueMap;
   }

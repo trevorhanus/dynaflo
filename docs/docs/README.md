@@ -1,13 +1,13 @@
-# Fluent
+# Dynaflo
 
-Fluent is a wrapper around the AWS DynamoDB SDK for node. There are 
+Dynaflo is a wrapper around the AWS DynamoDB SDK for node. There are 
 similar libraries out there, but they all seem to attempt to make DynamoDB
-do something it wasn't built to do. Fluent's goal is to make it easier to 
+do something it wasn't built to do. Dynaflo's goal is to make it easier to 
 work with the AWS SDK while staying true to the DynamoDB way of doing things. It uses
 the termonology set forth by AWS. For every method, we will show you how to do it with 
 the sdk, and then how you can do it with dynanode.
 
-All Fluent methods return Promises instead of using callbacks.
+All Dynaflo methods return Promises instead of using callbacks.
 
 Here is a link to the related [AWS SDK Docs](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB/DocumentClient.html)
 
@@ -52,10 +52,10 @@ docClient.update(params, function(err, data) {
 });
 ```
 
-#### Fluent
+#### Dynaflo
 
 ```javascript
-const movies = new f.Table('Movies');
+const movies = new d.Table('Movies');
 movies.update({year: 2015, title: 'The Big New Movie'})
   .delete({ info: { actors: { _indexes: [0] }}})
   .when()
@@ -100,7 +100,7 @@ docClient.delete(params, function(err, data) {
 });
 ```
 
-#### Fluent
+#### Dynaflo
 
 ```javascript
 const movies = dynanode.table('Movies');
@@ -148,10 +148,10 @@ docClient.query(params, function(err, data) {
 });
 ```
 
-#### Fluent
+#### Dynaflo
 
 ```javascript
-import * asffrom 'fluent-for-dynamodb';
+import * asffrom 'dynaflo';
 f.table('Movies')
     .query()
     .where({year: 1985})
@@ -196,10 +196,10 @@ docClient.query(params, function(err, data) {
 });
 ```
 
-#### Fluent
+#### Dynaflo
 
 ```javascript
-import * asffrom 'fluent-for-dynamodb';
+import * asffrom 'dynaflo';
 f.table('Movies')
     .query()
     .where({year: 1985})
@@ -276,7 +276,7 @@ function onScan(err, data) {
 }
 ```
 
-#### Fluent
+#### Dynaflo
 
 ```javascript
 const movies = new dynanode.Table('Movies');
@@ -303,7 +303,7 @@ function onScan(movies, data) {
 
 ## Config
 
-Fluent is just a wrapper around the AWS SDK. So it uses the credentials you have store at ~/.aws/credentials
+Dynaflo is just a wrapper around the AWS SDK. So it uses the credentials you have store at ~/.aws/credentials
 But you can override these credentials. 
 
 #### AWS SDK
@@ -317,7 +317,7 @@ AWS.config.update({
 });
 ```
 
-#### Fluent
+#### Dynaflo
 
 ```javascript
 // You could use the method above or, use dynanode's method below

@@ -1,4 +1,4 @@
-import {dynamoDB} from '../Fluent';
+import {dynamoDB} from '../Dynaflo';
 
 export function describeTable(tableName: string) {
   const params = {

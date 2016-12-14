@@ -1,15 +1,15 @@
-import Fluent from '../../src/';
+import Dynaflo from '../../src/';
 import getTestConfig from '../../src/getTestConfig';
 
-let f;
+let d;
 describe('Delete', () => {
 
   beforeAll(done => {
     const config = getTestConfig();
-    f = new Fluent(config);
+    d = new Dynaflo(config);
     const cft = require('../fixtures/testTable.cloudFormationTemplate.json');
     cft.Properties.TableName = 'DeleteTest';
-    return f.createTable(cft)
+    return d.createTable(cft)
       .then(data => {
         done();
       })
@@ -23,7 +23,7 @@ describe('Delete', () => {
       id: '1234',
       name: 'Dino'
     };
-    return f.table('DeleteTest')
+    return d.table('DeleteTest')
       .put(testDoc)
       .run()
       .then(data => {
@@ -35,7 +35,7 @@ describe('Delete', () => {
   });
 
   afterAll(done => {
-    return f.deleteTable('DeleteTest')
+    return d.deleteTable('DeleteTest')
       .then(data => {
         done();
       })
@@ -45,7 +45,7 @@ describe('Delete', () => {
   });
 
   it('Can delete an Item', () => {
-    return f.table('DeleteTest')
+    return d.table('DeleteTest')
       .delete({id: '1234'})
       .run()
       .then(data => {
@@ -58,9 +58,9 @@ describe('Delete', () => {
   });
 
   it('Can delete an Item conditionally', () => {
-    return f.table('DeleteTest')
+    return d.table('DeleteTest')
       .delete({id: '1234'})
-      .when(f.attr('name').ne('Dino'))
+      .when(d.attr('name').ne('Dino'))
       .run()
       .then(data => {
         // should not get here

@@ -1,4 +1,4 @@
-import Fluent from '../';
+import Dynaflo from '../';
 import {Expression} from '../expression'; 
 import SetExpression from './SetExpression';
 import RemoveExpression from './RemoveExpression';
@@ -26,7 +26,7 @@ export default class UpdateExpression implements Expression {
     return exprs.join(' ');
   }
 
-  nameMap(): Fluent.NameMap {
+  nameMap(): Dynaflo.NameMap {
     let nameMap = {};
     if (this.setExpression) {
       _assign(nameMap, this.setExpression.nameMap());
@@ -40,7 +40,7 @@ export default class UpdateExpression implements Expression {
     return nameMap;
   };
 
-  valueMap(): Fluent.ValueMap {
+  valueMap(): Dynaflo.ValueMap {
     let valueMap = {};
     if (this.setExpression) {
       _assign(valueMap, this.setExpression.valueMap());

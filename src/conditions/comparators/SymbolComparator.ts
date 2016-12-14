@@ -1,4 +1,4 @@
-import Fluent from '../..';
+import Dynaflo from '../..';
 import {Comparator} from './Comparator';
 import Operand from '../Operand';
 import Condition from '../Condition';
@@ -16,7 +16,7 @@ export default class SymbolComparator implements Comparator {
     return safePath + this.symbol + this.operand.exprString();
   }
 
-  valueMap(): Fluent.ValueMap {
+  valueMap(): Dynaflo.ValueMap {
     return this.operand.valueMap();
   }
 }

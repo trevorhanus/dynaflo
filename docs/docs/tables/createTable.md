@@ -28,11 +28,11 @@ dynamodb.createTable(params, function(err, data) {
 });
 ```
 
-Fluent
+Dynaflo
 
 ```javascript
-import Fluent from 'fluent-for-dynamodb';
-const f = new Fluent(config);
+import Dynaflo from 'dynaflo';
+const d = new Dynaflo(config);
 
 const cloudFormationTemplate = require('myCloudFormationTemplate.json');
 

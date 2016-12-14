@@ -1,11 +1,11 @@
-import Fluent from '../../src/';
+import Dynaflo from '../../src/';
 import getTestConfig from '../../src/getTestConfig';
 
-let f;
+let d;
 describe('Pluck', () => {
 
   beforeAll(done => {
-    f = new Fluent(getTestConfig());
+    d = new Dynaflo(getTestConfig());
     const testDoc = {
       id: '1234',
       'my.scalar.key': 14,
@@ -24,9 +24,9 @@ describe('Pluck', () => {
     };
     const cft = require('../fixtures/testTable.cloudFormationTemplate.json')
     cft.Properties.TableName = 'PluckTest';
-    return f.createTable(cft)
+    return d.createTable(cft)
       .then(data => {
-        return f.table('PluckTest')
+        return d.table('PluckTest')
           .put(testDoc)
           .run();
       })
@@ -39,7 +39,7 @@ describe('Pluck', () => {
   });
 
   afterAll(done => {
-    return f.deleteTable('PluckTest')
+    return d.deleteTable('PluckTest')
       .then(data => {
         done();
       })
@@ -49,7 +49,7 @@ describe('Pluck', () => {
   });
 
   it('Can get an Item and pluck only a scalar attribute', () => {
-    return f.table('PluckTest')
+    return d.table('PluckTest')
       .get({id: '1234'})
       .pluck('my.scalar.key')
       .run()
@@ -63,7 +63,7 @@ describe('Pluck', () => {
   });
 
   it('Can pluck an array', () => {
-    return f.table('PluckTest')
+    return d.table('PluckTest')
       .get({id: '1234'})
       .pluck('myArray')
       .run()
@@ -79,7 +79,7 @@ describe('Pluck', () => {
 
   it('Throws when nothing is passed to pluck', () => {
     expect(() => {
-      f.table('PluckTest')
+      d.table('PluckTest')
         .get({id: '1234'})
         .pluck()
         .run()
@@ -88,7 +88,7 @@ describe('Pluck', () => {
 
   it('Calling twice', () => {
     expect(() => {
-      return f.table('PluckTest')
+      return d.table('PluckTest')
         .get({id: '1234'})
         .pluck('my.scalar.key')
         .pluck('myArray')
@@ -97,7 +97,7 @@ describe('Pluck', () => {
   });
 
   it('Nested object', () => {
-    return f.table('PluckTest')
+    return d.table('PluckTest')
       .get({id: '1234'})
       .pluck({
         key1: {key2: true}
@@ -110,7 +110,7 @@ describe('Pluck', () => {
   });
 
   it('Deeply nested object', () => {
-    return f.table('PluckTest')
+    return d.table('PluckTest')
       .get({id: '1234'})
       .pluck({
         top1: {nested1: {nested2: { nested3: true}}}
@@ -123,7 +123,7 @@ describe('Pluck', () => {
   });
 
   it('Top level attribute and a nested object', () => {
-    return f.table('PluckTest')
+    return d.table('PluckTest')
       .get({id: '1234'})
       .pluck('my.scalar.key', {
         top1: {nested1: {nested2: { nested3: true}}}
@@ -136,7 +136,7 @@ describe('Pluck', () => {
   });
 
   it('Deeply nested object using shorthand', () => {
-    return f.table('PluckTest')
+    return d.table('PluckTest')
       .get({id: '1234'})
       .pluck({
         top1: ['nested1', 'nested12']
@@ -150,7 +150,7 @@ describe('Pluck', () => {
   });
 
   it('Deeply nested object using shorthand and longhand', () => {
-    return f.table('PluckTest')
+    return d.table('PluckTest')
       .get({id: '1234'})
       .pluck({
         top1: ['nested1', 'nested12'],
@@ -166,7 +166,7 @@ describe('Pluck', () => {
   });
 
   it('Works with an attribute that does not exist', () => {
-    return f.table('PluckTest')
+    return d.table('PluckTest')
       .get({id: '1234'})
       .pluck('my.scalar.key', 'does_not_exist')
       .run()
@@ -176,7 +176,7 @@ describe('Pluck', () => {
   });
 
   it('Works with a non-existent nested attribute', () => {
-    return f.table('PluckTest')
+    return d.table('PluckTest')
       .get({id: '1234'})
       .pluck('my.scalar.key', {does_not_exist: true})
       .run()

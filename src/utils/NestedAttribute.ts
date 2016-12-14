@@ -1,10 +1,10 @@
-import Fluent from '..';
+import Dynaflo from '..';
 import {getSafeExpressionName} from '../utils';
 
 export default class NestedAttribute {
   _safeKeys: string[] = [];
   _fullSafePaths: string[][] = [];
-  _nameMap: Fluent.NameMap = {};
+  _nameMap: Dynaflo.NameMap = {};
 
   constructor(attr: Object) {
     this._parseNextLevel(attr, []);

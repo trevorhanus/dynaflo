@@ -1,5 +1,5 @@
 **Install**
 
 ```bash
-$ npm install --save fluent-for-dynamodb
+$ npm install --save dynaflo
 ```

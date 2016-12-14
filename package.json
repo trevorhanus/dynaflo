@@ -1,7 +1,7 @@
 {
-  "name": "fluent-for-dynamodb",
-  "version": "0.1.3",
-  "description": "Fluent makes working with DynamoDB easier.",
+  "name": "dynaflo",
+  "version": "0.1.4",
+  "description": "Dynaflo makes working with DynamoDB easier.",
   "main": "build/index.js",
   "types": "build/index",
   "scripts": {
@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@gitlab.com/trevorhanus/fluent.git"
+    "url": "git+ssh://git@gitlab.com/trevorhanus/dynaflo.git"
   },
   "author": "Gravity Labs",
   "license": "BSD",
   "bugs": {
-    "url": "https://gitlab.com/trevorhanus/fluent/issues"
+    "url": "https://gitlab.com/trevorhanus/dynaflo/issues"
   },
-  "homepage": "https://gitlab.com/trevorhanus/fluent#README",
+  "homepage": "https://gitlab.com/trevorhanus/dynaflo#README",
   "devDependencies": {
     "jest-cli": "^17.0.3",
     "typescript": "^2.0.10"

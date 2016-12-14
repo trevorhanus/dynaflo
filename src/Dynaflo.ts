@@ -12,9 +12,9 @@ export {
   dynamoDB
 }
 
-export class Fluent {
+export class Dynaflo {
 
-  constructor(config: Fluent.Config) {
+  constructor(config: Dynaflo.Config) {
     AWS.config.update(config);
     dynamoDB = new AWS.DynamoDB();
     docClient = new AWS.DynamoDB.DocumentClient();
@@ -30,12 +30,12 @@ export class Fluent {
   deleteTable = deleteTable;
   describeTable = describeTable;
 
-  attr(attribute: Fluent.AttributeLike): Condition {
+  attr(attribute: Dynaflo.AttributeLike): Condition {
     return new Condition(attribute);
   }
 }
 
-export module Fluent {
+export module Dynaflo {
   export interface Config {
     region: string;
     endpoint: string;

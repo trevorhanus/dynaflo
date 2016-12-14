@@ -17,8 +17,8 @@ table.query()
 ```
 
 ```javascript
-import Fluent from 'fluent-for-dynamodb';
-const f = new Fluent(config);
+import Dynaflo from 'dynaflo';
+const d = new Dynaflo(config);
 
 f.table('Movies')
   .update({id: '12345'})

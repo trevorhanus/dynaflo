@@ -1,16 +1,16 @@
-import Fluent from '../../src/';
+import Dynaflo from '../../src/';
 import getTestConfig from '../../src/getTestConfig';
 
-let f;
+let d;
 describe('createTable', () => {
 
   beforeAll(done => {
-    f = new Fluent(getTestConfig());
+    d = new Dynaflo(getTestConfig());
     done();
   });
   
   afterAll(done => {
-    return f.deleteTable('CreateTableTest')
+    return d.deleteTable('CreateTableTest')
       .then(data => {
         done();
       })
@@ -22,7 +22,7 @@ describe('createTable', () => {
   it('Can create and delete a table', () => {
     const cft = require('../fixtures/testTable.cloudFormationTemplate.json');
     cft.Properties.TableName = 'CreateTableTest';
-    return f.createTable(cft)
+    return d.createTable(cft)
       .then(tableDescription => {
         expect(tableDescription.TableName).toBe('CreateTableTest');
       })

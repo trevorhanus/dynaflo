@@ -17,9 +17,9 @@ For the primary key, you must provide all of the attributes. For example, with a
 Set
 
 ```javascript
-const f = new Fluent(config);
+const d = new Dynaflo(config);
 
-const movies = new f.Table('Movies');
+const movies = new d.Table('Movies');
 movies.update({year: 2015, title: 'The Big New Movie'})
   .set({
     info: {
@@ -37,9 +37,9 @@ movies.update({year: 2015, title: 'The Big New Movie'})
 Conditionally set an item
 
 ```javascript
-import dn, {attr} from 'fluent-for-dynamodb';
+import dn, {attr} from 'dynaflo';
 
-const movies = new f.Table('Movies');
+const movies = new d.Table('Movies');
 movies.update({id: '1234'})
   .set({
     info: {
@@ -59,9 +59,9 @@ movies.update({id: '1234'})
 Delete items from a set.
 
 ```javascript
-import dn, {attr} from 'fluent-for-dynamodb';
+import dn, {attr} from 'dynaflo';
 
-const movies = new f.Table('Movies');
+const movies = new d.Table('Movies');
 movies.update({id: '1234'})
   .delete('topLevelSet', ['Item3'])
   .run()
@@ -75,9 +75,9 @@ movies.update({id: '1234'})
 Remove attributes from items
 
 ```javascript
-import dn, {attr} from 'fluent-for-dynamodb';
+import dn, {attr} from 'dynaflo';
 
-const movies = new f.Table('Movies');
+const movies = new d.Table('Movies');
 movies.update({id: '1234'})
   .remove('topLevelKey', {info:{rating:true}})
   .run()

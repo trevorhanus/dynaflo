@@ -1,7 +1,7 @@
-import Fluent from '..';
+import Dynaflo from '..';
 
 export interface Expression {
   exprString(): string;
-  nameMap(): Fluent.NameMap;
-  valueMap(): Fluent.ValueMap;
+  nameMap(): Dynaflo.NameMap;
+  valueMap(): Dynaflo.ValueMap;
 }

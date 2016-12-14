@@ -1,4 +1,4 @@
-import Fluent from '../..';
+import Dynaflo from '../..';
 import {Comparator} from './Comparator';
 import Operand from '../Operand';
 
@@ -13,7 +13,7 @@ export default class ContainsComparator implements Comparator {
     return 'contains(' + safePath + ', ' + this.operand.exprString() + ')';
   }
 
-  valueMap(): Fluent.ValueMap {
+  valueMap(): Dynaflo.ValueMap {
     return this.operand.valueMap();
   }
 }

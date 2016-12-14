@@ -1,4 +1,4 @@
-import Fluent from '..';
+import Dynaflo from '..';
 import {Base} from './Base';
 import Attribute from '../conditions/Attribute';
 import {getAttributesForPluckParams} from '../utils';
@@ -31,7 +31,7 @@ export default class Get extends Base {
     return namePaths.join(', ');
   }
 
-  nameMap(): Fluent.NameMap {
+  nameMap(): Dynaflo.NameMap {
     let nameMap = {};
     this.pluckAttributes && this.pluckAttributes.forEach(attr => {
       _assign(nameMap, attr.nameMap());
@@ -39,7 +39,7 @@ export default class Get extends Base {
     return nameMap;
   }
 
-  valueMap(): Fluent.ValueMap {
+  valueMap(): Dynaflo.ValueMap {
     const noValueMap = {};
     return noValueMap;
   }

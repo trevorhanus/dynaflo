@@ -1,5 +1,5 @@
-import Fluent from '..';
-import {docClient} from '../Fluent';
+import Dynaflo from '..';
+import {docClient} from '../Dynaflo';
 import {Base} from './Base';
 import Condition, {ConditionLike} from '../conditions/Condition';
 
@@ -21,7 +21,7 @@ export default class Put extends Base {
     return this;
   }
 
-  nameMap(): Fluent.NameMap {
+  nameMap(): Dynaflo.NameMap {
     if (this.whenCondition) {
       return this.whenCondition.nameMap();
     } else {
@@ -29,7 +29,7 @@ export default class Put extends Base {
     }
   }
 
-  valueMap(): Fluent.ValueMap {
+  valueMap(): Dynaflo.ValueMap {
     if (this.whenCondition) {
       return this.whenCondition.valueMap();
     } else {

@@ -11,10 +11,10 @@ Where `item` is a pojo that represents the doc to be inserted.
 **Usage**
 
 ```javascript
-import Fluent from 'fluent-for-dynamodb';
-const f = new Fluent(config);
+import Dynaflo from 'dynaflo';
+const d = new Dynaflo(config);
 
-const movies = new f.Table('Movies');
+const movies = new d.Table('Movies');
 movies
   .put({
     year: 2013,
@@ -41,7 +41,7 @@ f.table('Movies')
       rating: 0
     }
   })
-  .when(f.attr('id').notExists())
+  .when(d.attr('id').notExists())
   .run()
   .then(data => {
     // Only inserts the item if there is not a doc with id = '1234' already

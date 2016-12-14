@@ -1,7 +1,7 @@
-import Fluent from '../../src/';
+import Dynaflo from '../../src/';
 import getTestConfig from '../../src/getTestConfig';
 
-let f;
+let d;
 const items = [
   {
     id: '1234',
@@ -26,13 +26,13 @@ const items = [
 describe('Update', () => {
 
   beforeAll(done => {
-    f = new Fluent(getTestConfig());
+    d = new Dynaflo(getTestConfig());
     const cft = require('../../__test__/fixtures/testTable.cloudFormationTemplate.json')
     cft.Properties.TableName = 'UpdateTest';
-    return f.createTable(cft)
+    return d.createTable(cft)
       .then(data => {
         const promises = items.map(item => {
-          return f.table('UpdateTest')
+          return d.table('UpdateTest')
             .put(item)
             .run();
         });
@@ -47,7 +47,7 @@ describe('Update', () => {
   });
 
   afterAll(done => {
-    return f.deleteTable('UpdateTest')
+    return d.deleteTable('UpdateTest')
       .then(data => {
         done();
       })
@@ -57,7 +57,7 @@ describe('Update', () => {
   });
 
   it('Set attributes', () => {
-    return f.table('UpdateTest')
+    return d.table('UpdateTest')
       .update({id: '1234'})
       .set({
         title: 'New Title',
@@ -65,7 +65,7 @@ describe('Update', () => {
       })
       .run()
       .then(data => {
-        return f.table('UpdateTest')
+        return d.table('UpdateTest')
           .get({id: '1234'})
           .run();
       })
@@ -79,12 +79,12 @@ describe('Update', () => {
   });
 
   it('Remove attributes', () => {
-    return f.table('UpdateTest')
+    return d.table('UpdateTest')
       .update({id: '12345'})
       .remove('title', {info:{rating:true}})
       .run()
       .then(data => {
-        return f.table('UpdateTest')
+        return d.table('UpdateTest')
           .get({id: '12345'})
           .run();
       })
@@ -99,7 +99,7 @@ describe('Update', () => {
   });
 
   it('Removes attribute when', () => {
-    return f.table('UpdateTest')
+    return d.table('UpdateTest')
       .update({id: '1234'})
       .remove('recommended')
       .when({
@@ -107,7 +107,7 @@ describe('Update', () => {
       })
       .run()
       .then(data => {
-        return f.table('UpdateTest')
+        return d.table('UpdateTest')
           .get({id: '1234'})
           .run();
       })

@@ -1,20 +1,20 @@
-# Fluent
+# Dynaflo
 
-Fluent is a wrapper around the AWS DynamoDB SDK for node. Fluent's goal is to make it easier to 
+Dynaflo is a wrapper around the AWS DynamoDB SDK for node. Dynaflo's goal is to make it easier to 
 work with the AWS SDK while staying true to the DynamoDB way of doing things. Wherever possible, it uses
 the termonology set forth in the AWS SDK.
 
 ## Quick Start
 
 ```bash
-$ npm install --save fluent-for-dynamodb
+$ npm install --save dynaflo
 ```
 
 ```javascript
-import Fluent from 'fluent-for-dynamodb';
-const f = new Fluent(config);
+import Dynaflo from 'dynaflo';
+const d = new Dynaflo(config);
 
-f.table('Movies')
+d.table('Movies')
   .get({title: 'Fantastic Beasts'})
   .run()
   .then(movie => {
@@ -33,11 +33,7 @@ Read through the full documentation here.
 
 ### Running DynamoDB locally
 
-First you will want to follow [this](http://docs.aws.amazon.com/amazondynamodb/latest/gettingstartedguide/GettingStarted.JsShell.html#GettingStarted.JsShell.Prereqs.Download)
-guide by AWS to install a local instance of DynamoDb. You will want it for 
-development. It also provides an interactive shell that is great for learning Dynamo.
-
-Alternatively, you could run a docker image...
+Make sure you have docker installed and run the docker image...
 
 ```
 $ docker run -p 7777:7777 trevorhanus/dynamodb-local

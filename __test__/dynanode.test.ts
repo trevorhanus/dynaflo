@@ -1,18 +1,18 @@
-import Fluent from '../src/';
+import Dynaflo from '../src/';
 import getTestConfig from '../src/getTestConfig';
 
-let f;
+let d;
 describe('dn', () => {
   beforeAll(done => {
-    f = new Fluent(getTestConfig());
+    d = new Dynaflo(getTestConfig());
     done();
   });
 
   it('has a createTable function', () => {
-    expect(typeof f.createTable).toBe('function');
+    expect(typeof d.createTable).toBe('function');
   });
 
   it('has a deleteTable function', () => {
-    expect(typeof f.deleteTable).toBe('function');
+    expect(typeof d.deleteTable).toBe('function');
   });
 });

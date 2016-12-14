@@ -27,7 +27,7 @@ We can also conditionally delete items.
 ```javascript
 f.table('Movies')
   .delete({year: 2015, title: 'The Big New Movie'})
-  .when(f.attr({info:{rating:true}}).lt(5.0))
+  .when(d.attr({info:{rating:true}}).lt(5.0))
   .run()
   .then(data => {
     // movie was deleted

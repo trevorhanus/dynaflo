@@ -9,7 +9,7 @@ attr(attribute).notExists()
 **Usage**
 
 ```javascript
-const f = new Fluent(config);
+const d = new Dynaflo(config);
 
 f.table('Movies')
   .update({year: 2015})

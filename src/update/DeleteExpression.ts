@@ -1,12 +1,12 @@
-import Fluent from '..';
+import Dynaflo from '..';
 import {UpdateExpression} from './UpdateExpression';
 import {getSafeExpressionName, getSafeExpressionValue} from '../utils';
 
 export default class DeleteExpression implements UpdateExpression {
   private _safeName: string;
   private _safeValues: string[] = [];
-  private _valueMap: Fluent.ValueMap = {};
-  private _nameMap: Fluent.NameMap = {};
+  private _valueMap: Dynaflo.ValueMap = {};
+  private _nameMap: Dynaflo.NameMap = {};
 
   constructor(topLevelAttr: string, itemsToDelete: string[]) {
     this._saveSafeName(topLevelAttr);
@@ -31,11 +31,11 @@ export default class DeleteExpression implements UpdateExpression {
     return 'DELETE ' + this._safeName + ' ' + this._safeValues.join(', ');
   }
 
-  nameMap(): Fluent.NameMap {
+  nameMap(): Dynaflo.NameMap {
     return this._nameMap;
   }
 
-  valueMap(): Fluent.ValueMap {
+  valueMap(): Dynaflo.ValueMap {
     return this._valueMap;
   }
 }

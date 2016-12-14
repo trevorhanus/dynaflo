@@ -1,18 +1,18 @@
-import Fluent from '../../src/';
+import Dynaflo from '../../src/';
 import getTestConfig from '../../src/getTestConfig';
 
-let f: Fluent;
+let d: Dynaflo;
 describe('Query', () => {
 
   beforeAll(done => {
     const testDocs = require('../fixtures/tvShows/tvShows.json').tvShows;
-    f = new Fluent(getTestConfig());
+    d = new Dynaflo(getTestConfig());
     const cft = require('../fixtures/tvShows/tvShows.cloudFormationTemplate.json')
     cft.Properties.TableName = 'TVShows';
-    return f.createTable(cft)
+    return d.createTable(cft)
       .then(data => {
         const promises = testDocs.map(doc => {
-          return f.table('TVShows')
+          return d.table('TVShows')
             .put(doc)
             .run();
         });
@@ -27,7 +27,7 @@ describe('Query', () => {
   });
 
   afterAll(done => {
-    return f.deleteTable('TVShows')
+    return d.deleteTable('TVShows')
       .then(data => {
         done();
       })
@@ -37,7 +37,7 @@ describe('Query', () => {
   });
 
   it('Can query a table with partition key', () => {
-    return f.table('TVShows')
+    return d.table('TVShows')
       .query()
       .whereKey({title: 'Westworld'})
       .run()
@@ -51,9 +51,9 @@ describe('Query', () => {
   });
 
   it('Can query a table with key condition', () => {
-    return f.table('TVShows')
+    return d.table('TVShows')
       .query()
-      .whereKey(f.attr('title').eq('Westworld'))
+      .whereKey(d.attr('title').eq('Westworld'))
       .run()
       .then(data => {
         expect(data.Items[0].network).toBe('hbo');
@@ -65,7 +65,7 @@ describe('Query', () => {
   });
 
   it('Can query a table with hash and range', () => {
-    return f.table('TVShows')
+    return d.table('TVShows')
       .query('genre-network')
       .whereKey({
         genre: 'comedy',
@@ -82,7 +82,7 @@ describe('Query', () => {
   });
 
   xit('Can filter results', () => {
-    return f.table('TVShows')
+    return d.table('TVShows')
       .query('genre-network')
       .whereKey()
       .run()

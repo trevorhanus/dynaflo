@@ -9,7 +9,7 @@ attr(attribute).lt(value)
 **Usage**
 
 ```javascript
-const f = new Fluent(config);
+const d = new Dynaflo(config);
 
 f.table('Movies')
   .query({genre: 'action'})

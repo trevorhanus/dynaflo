@@ -1,10 +1,10 @@
-import Fluent from '..';
+import Dynaflo from '..';
 import {getSafeExpressionName} from '../utils';
 
 export default class Attribute {
   private tokens: string[] = [];
   private safeTokens: string[] = [];
-  private _nameMap: Fluent.NameMap = {};
+  private _nameMap: Dynaflo.NameMap = {};
 
   constructor(attribute: AttributeLike) {
     switch (typeof attribute) {
@@ -25,7 +25,7 @@ export default class Attribute {
     return this.safeTokens.join('.');
   }
 
-  nameMap(): Fluent.NameMap {
+  nameMap(): Dynaflo.NameMap {
     return this._nameMap;
   }
 

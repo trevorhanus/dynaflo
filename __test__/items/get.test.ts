@@ -1,11 +1,11 @@
-import Fluent from '../../src/';
+import Dynaflo from '../../src/';
 import getTestConfig from '../../src/getTestConfig';
 
-let f;
+let d;
 describe('Get', () => {
 
   beforeAll(done => {
-    f = new Fluent(getTestConfig());
+    d = new Dynaflo(getTestConfig());
     done();
   });
 
@@ -20,9 +20,9 @@ describe('Get', () => {
     };
     const cft = require('../fixtures/testTable.cloudFormationTemplate.json')
     cft.Properties.TableName = 'GetTest';
-    return f.createTable(cft)
+    return d.createTable(cft)
       .then(data => {
-        return f.table('GetTest')
+        return d.table('GetTest')
           .put(testDoc)
           .run();
       })
@@ -35,7 +35,7 @@ describe('Get', () => {
   });
 
   afterEach(done => {
-    return f.deleteTable('GetTest')
+    return d.deleteTable('GetTest')
       .then(data => {
         done();
       })
@@ -45,7 +45,7 @@ describe('Get', () => {
   });
 
   it('Can get an Item', () => {
-    return f.table('GetTest')
+    return d.table('GetTest')
       .get({id: '1234'})
       .run()
       .then(data => {

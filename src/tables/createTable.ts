@@ -1,4 +1,4 @@
-import {dynamoDB} from '../Fluent';
+import {dynamoDB} from '../Dynaflo';
 
 export function createTable(cloudFormation: Object) {
   let cft = cloudFormation;

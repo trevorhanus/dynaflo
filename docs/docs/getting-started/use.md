@@ -1,9 +1,9 @@
 **Use**
 
 ```javascript
-import Fluent from 'fluent-for-dynamodb';
+import Dynaflo from 'dynaflo';
 
-const f = new Fluent({
+const d = new Dynaflo({
   region: 'us-west-2',
   endpoint: 'dynamoDB_endpoint',
   accessKeyId: 'aws_access_key_id',

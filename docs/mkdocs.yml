@@ -1,4 +1,4 @@
-site_name: Fluent
+site_name: Dynaflo
 theme: readthedocs
 pages:
   - Home: index.md

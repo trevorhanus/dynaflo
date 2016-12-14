@@ -1,6 +1,6 @@
-import Fluent from '../..';
+import Dynaflo from '../..';
 
 export interface Comparator {
   exprString(safePath?: string): string;
-  valueMap(): Fluent.ValueMap;
+  valueMap(): Dynaflo.ValueMap;
 }

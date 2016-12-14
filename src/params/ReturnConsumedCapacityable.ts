@@ -1,13 +1,13 @@
-import Fluent from '..';
+import Dynaflo from '..';
 
 export function ReturnConsumedCapacityable(constructor: Function) {
-  constructor.option: Fluent.ReturnConsumedCapacity = 'NONE';
+  constructor.option: Dynaflo.ReturnConsumedCapacity = 'NONE';
 
-  constructor.prototype.returnConsumedCapacity(option: Fluent.ReturnConsumedCapacity) {
+  constructor.prototype.returnConsumedCapacity(option: Dynaflo.ReturnConsumedCapacity) {
     this.option = option;
   }
 
-  constructor.prototype.assignReturnConsumedCapacity(params: Fluent.Params) {
+  constructor.prototype.assignReturnConsumedCapacity(params: Dynaflo.Params) {
     params.ReturnConsumedCapacity = this.option;
   }
 }

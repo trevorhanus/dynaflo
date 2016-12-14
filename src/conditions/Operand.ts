@@ -1,4 +1,4 @@
-import Fluent from '../..';
+import Dynaflo from '../..';
 import {getSafeExpressionValue} from '../utils';
 import Condition from './Condition';
 import Attribute from './Attribute';
@@ -6,7 +6,7 @@ import Attribute from './Attribute';
 export default class Operand {
   private safeValue: string;
   private attribute: Attribute;
-  _valueMap: Fluent.ValueMap;
+  _valueMap: Dynaflo.ValueMap;
 
   constructor(value: (number | boolean | string | Condition)) {
     if (value instanceof Condition) {
@@ -26,7 +26,7 @@ export default class Operand {
     }
   }
 
-  valueMap(): Fluent.ValueMap {
+  valueMap(): Dynaflo.ValueMap {
     return this._valueMap;
   }
 }

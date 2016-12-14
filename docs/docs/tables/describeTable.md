@@ -16,11 +16,11 @@ dynamodb.describeTable(params, function(err, data) {
 });
 ```
 
-Fluent
+Dynaflo
 
 ```javascript
-import Fluent from 'fluent-for-dynamodb';
-const f = new Fluent(config);
+import Dynaflo from 'dynaflo';
+const d = new Dynaflo(config);
 
 f.describeTable('Movies')
   .then(table => {
