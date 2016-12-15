@@ -1,4 +1,4 @@
-import DeleteExpression from '../../src/update/DeleteExpression';
+import DeleteExpression from '../../src/updateExpressions/DeleteExpression';
 
 describe('DeleteExpression', () => {
 

@@ -1,12 +1,15 @@
+import applyMixins from '../utils/applyMixins';
 import BaseMethod from './BaseMethod';
 import Condition, {ConditionLike} from '../conditions/Condition';
-import TableNameParam from '../params/TableNameParam';
 import IndexNameParam from '../params/IndexNameParam';
-import KeyConditionParam from '../params/KeyConditionParam';
-import FilterParam from '../params/FilterParam';
-import PluckParam from '../params/PluckParam';
+import WhereKeyable from '../methodTraits/WhereKeyable';
+import Pluckable from '../methodTraits/Pluckable';
+import Filterable from '../methodTraits/Filterable';
+import Limitable from '../methodTraits/Limitable';
+import ConsistentReadable from '../methodTraits/ConsistentReadable';
 
-export default class QueryMethod extends BaseMethod {
+export default class QueryMethod extends BaseMethod implements 
+  Pluckable, Filterable, WhereKeyable, Limitable, ConsistentReadable {
   constructor(tableName: string, indexName?: string) {
     super(tableName, 'query');
     if (indexName) {
@@ -16,20 +19,29 @@ export default class QueryMethod extends BaseMethod {
   }
 
   whereKey(keyConditionOrAttributesToValueMap: ConditionLike): QueryMethod {
-    const keyConditionParam = new KeyConditionParam(keyConditionOrAttributesToValueMap);
-    super.addParam(keyConditionParam);
+    /* WhereKeyable mixin implements this method */
     return this;
   }
 
-  filter(condition: Condition): QueryMethod {
-    const filterParam = new FilterParam(condition);
-    super.addParam(filterParam);
+  filter(condition: Condition): BaseMethod {
+    /* Filterable mixin implements this method */
     return this;
   }
 
-  pluck(...topLevelOrNestedAttributes: (string|any)[]): QueryMethod {
-    const pluckParam = new PluckParam(topLevelOrNestedAttributes);
-    super.addParam(pluckParam);
+  pluck(...topLevelOrNestedAttributes: (string|any)[]): BaseMethod {
+    /* Pluckable mixin implements this method */
+    return this;
+  }
+
+  limit(limit: number): BaseMethod {
+    /* Limitable mixin implements this method */
+    return this;
+  }
+
+  consistentRead(option: boolean): BaseMethod {
+    /* ConsistentReadable mixin implements this method */
     return this;
   }
 }
+
+applyMixins(QueryMethod, [Pluckable, Filterable, WhereKeyable, Limitable, ConsistentReadable]);

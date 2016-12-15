@@ -1,13 +1,15 @@
+
+import applyMixins from '../utils/applyMixins';
 import BaseMethod from './BaseMethod';
 import Condition, {ConditionLike} from '../conditions/Condition';
 import KeyParam from '../params/KeyParam';
-import WhereConditionParam from '../params/WhereConditionParam';
 import UpdateExpressionParam from '../params/UpdateExpressionParam';
 import SetExpression from '../updateExpressions/SetExpression';
 import DeleteExpression from '../updateExpressions/DeleteExpression';
 import RemoveExpression from '../updateExpressions/RemoveExpression';
+import Whenable from '../methodTraits/Whenable';
 
-export default class UpdateMethod extends BaseMethod {
+export default class UpdateMethod extends BaseMethod implements Whenable {
   private updateExpressionParam: UpdateExpressionParam;
 
   constructor(tableName: string, key: any) {
@@ -36,9 +38,10 @@ export default class UpdateMethod extends BaseMethod {
     return this;
   }
 
-  when(conditionOrAttributesToValueMap: ConditionLike): UpdateMethod {
-    const whenConditionParam = new WhereConditionParam(conditionOrAttributesToValueMap);
-    super.addParam(whenConditionParam);
+  when(conditionOrAttributesToValueMap: ConditionLike): BaseMethod {
+    /* Whenable mixin implements this method */
     return this;
   }
 }
+
+applyMixins(UpdateMethod, [Whenable]);
