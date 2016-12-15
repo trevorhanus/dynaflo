@@ -12,7 +12,7 @@ attr(attribute).beginsWith(substring)
 import Dynaflo from 'dynaflo';
 const d = new Dynaflo(config);
 
-f.table('Movies')
+d.table('Movies')
   .query({year: 2015})
   .where(attr('title').beginsWith('Big')))
   .run()

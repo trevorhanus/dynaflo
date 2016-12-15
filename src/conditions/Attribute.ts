@@ -58,7 +58,12 @@ export default class Attribute {
 
 export type AttributeLike = (string | any);
 
-export class AttributeError extends Error {}
+export class AttributeError extends Error {
+  public name = 'AttributeError';
+  constructor(message: string) {
+    super(message);
+  }
+}
 
 
 /*

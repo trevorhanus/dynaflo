@@ -13,7 +13,7 @@ attr(attribute).type(type)
 ```javascript
 const d = new Dynaflo(config);
 
-f.table('Movies')
+d.table('Movies')
   .query({year: 2015})
   .where(attr('actor').type('S')))
   .run()

@@ -14,10 +14,10 @@ import BetweenComparator from './comparators/BetweenComparator';
 import InComparator from './comparators/InComparator';
 
 export default class Condition implements Expression {
-  attribute: Attribute;
-  comparator: Comparator;
-  andConditions: Condition[] = [];
-  orConditions: Condition[] = [];
+  private attribute: Attribute;
+  private comparator: Comparator;
+  private andConditions: Condition[] = [];
+  private orConditions: Condition[] = [];
 
   constructor(topLevelOrNestedAttribute: AttributeLike) {
     this.attribute = new Attribute(topLevelOrNestedAttribute);
@@ -67,7 +67,7 @@ export default class Condition implements Expression {
     return this.concatExpression(expression, andExpression, orExpression);
   }
 
-  andExpr(): string {
+  private andExpr(): string {
     const expressions = this.andConditions.map(condition => {
       return condition.exprString();
     });
@@ -78,7 +78,7 @@ export default class Condition implements Expression {
     }
   }
 
-  orExpr(): string {
+  private orExpr(): string {
     const expressions = this.orConditions.map(condition => {
       return condition.exprString();
     });
@@ -89,7 +89,7 @@ export default class Condition implements Expression {
     }
   }
 
-  concatExpression(expression: string, andExpression: string, orExpression: string): string {
+  private concatExpression(expression: string, andExpression: string, orExpression: string): string {
     if (!expression) { throw new ConditionError('Cannot concat an expression without an expression'); }
     let combined = '(' + expression + andExpression + ')';
     if (orExpression.length > 0) {

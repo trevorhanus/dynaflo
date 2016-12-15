@@ -36,7 +36,7 @@ const d = new Dynaflo(config);
 
 const cloudFormationTemplate = require('myCloudFormationTemplate.json');
 
-f.createTable(cloudFormationTemplate)
+d.createTable(cloudFormationTemplate)
   .then(data => {
     console.log(data);
   })

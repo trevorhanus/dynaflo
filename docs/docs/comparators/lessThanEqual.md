@@ -12,7 +12,7 @@ attr(attribute).le(value)
 import Dynaflo from 'dynaflo';
 const d = new Dynaflo(config);
 
-f.table('Movies')
+d.table('Movies')
   .query({genre: 'action'})
   .where(attr('year').le(2015)))
   .run()

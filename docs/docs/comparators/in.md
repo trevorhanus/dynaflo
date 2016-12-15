@@ -11,7 +11,7 @@ attr(attribute).in([value])
 ```javascript
 const d = new Dynaflo(config);
 
-f.table('Movies')
+d.table('Movies')
   .query({year: 2015})
   .where(attr('actor').in(['Harrison Ford', attr('star_actor')]))
   .run()

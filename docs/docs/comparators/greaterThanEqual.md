@@ -11,7 +11,7 @@ attr(attribute).ge(value)
 ```javascript
 const d = new Dynaflo(config);
 
-f.table('Movies')
+d.table('Movies')
   .query({genre: 'action'})
   .where(attr('year').ge(2015)))
   .run()

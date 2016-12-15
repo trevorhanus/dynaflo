@@ -22,7 +22,7 @@ Dynaflo
 import Dynaflo from 'dynaflo';
 const d = new Dynaflo(config);
 
-f.describeTable('Movies')
+d.describeTable('Movies')
   .then(table => {
     // table is deleted
   });

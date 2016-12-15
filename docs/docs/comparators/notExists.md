@@ -11,7 +11,7 @@ attr(attribute).notExists()
 ```javascript
 const d = new Dynaflo(config);
 
-f.table('Movies')
+d.table('Movies')
   .update({year: 2015})
   .set({title: 'New Title'})
   .when(attr('title').notExists())

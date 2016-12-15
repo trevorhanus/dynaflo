@@ -12,7 +12,7 @@ attr(attribute).between(lowOperand, highOperand)
 import Dynaflo from 'dynaflo';
 const d = new Dynaflo(config);
 
-f.table('Movies')
+d.table('Movies')
   .query({genre: 'action'})
   .where(attr('year').between(2005, 2015)))
   .run()

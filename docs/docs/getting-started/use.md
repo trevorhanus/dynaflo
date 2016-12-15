@@ -10,14 +10,15 @@ const d = new Dynaflo({
   secretAccessKey: 'aws_secret_access_key'
 });
 
-f.table('Movies')
-  .query()
-  .where()
-  .run()
+d.table('Movies') // DynamoDB table name
+  .query() // method
+  .whereKey({title: 'Fantastic Beasts'}) // key condition
+  .pluck('title', {info:{rating: true}}) // only return these attributes
+  .run() // run the query
   .then(data => {
-    console.log(data.Items);
+    console.log(data.Items); // do stuff with data
   })
   .catch(err => {
-    console.error(err);
+    console.error(err); // catch errors
   });
 ```

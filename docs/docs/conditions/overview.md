@@ -20,7 +20,7 @@ table.query()
 import Dynaflo from 'dynaflo';
 const d = new Dynaflo(config);
 
-f.table('Movies')
+d.table('Movies')
   .update({id: '12345'})
   .set({
     shouldRecommend: true

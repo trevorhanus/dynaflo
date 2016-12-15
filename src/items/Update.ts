@@ -46,12 +46,6 @@ export default class Update extends Base {
     return super.run('update');
   }
 
-  // private getUpdateExpression() {
-  //   let exprs: string[] = [];
-  //   exprs.push(this.updateExpression.exprString());
-  //   return exprs.join(' ');
-  // }
-
   private nameMap(): Dynaflo.NameMap {
     let nameMap = {};
     _assign(nameMap, this.updateExpression.nameMap());

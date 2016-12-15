@@ -33,7 +33,7 @@ movies
 Or we could conditionally put an item.
 
 ```javascript
-f.table('Movies')
+d.table('Movies')
   .put({
     id: '1234',
     info: {

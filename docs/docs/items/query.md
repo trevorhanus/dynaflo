@@ -13,7 +13,7 @@ For the primary key, you must provide all of the attributes. For example, with a
 **Usage**
 
 ```javascript
-f.table('Movies')
+d.table('Movies')
   .query([indexName])
   .whereKey(keyCondition)
   .filter()

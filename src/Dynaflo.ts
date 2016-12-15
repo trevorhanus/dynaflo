@@ -43,10 +43,6 @@ export module Dynaflo {
     secretAccessKey: string;
   }
 
-  export interface AttributeLike {
-
-  }
-
   export interface ValueMap {
     [safeValue: string]: (string | boolean | number);
   }

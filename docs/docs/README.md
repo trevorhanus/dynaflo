@@ -152,7 +152,7 @@ docClient.query(params, function(err, data) {
 
 ```javascript
 import * asffrom 'dynaflo';
-f.table('Movies')
+d.table('Movies')
     .query()
     .where({year: 1985})
     .run()
@@ -200,7 +200,7 @@ docClient.query(params, function(err, data) {
 
 ```javascript
 import * asffrom 'dynaflo';
-f.table('Movies')
+d.table('Movies')
     .query()
     .where({year: 1985})
     .between('A', 'L', {key: 'title'})
