@@ -2,6 +2,7 @@ import Dynaflo from '..';
 import {docClient} from '../Dynaflo';
 import {Base} from './Base';
 import Condition, {ConditionLike} from '../conditions/Condition';
+import {NameMap, ValueMap} from '../expression';
 import UpdateExpression from '../update/UpdateExpression';
 import SetExpression from '../update/SetExpression';
 import DeleteExpression from '../update/DeleteExpression';
@@ -46,7 +47,7 @@ export default class Update extends Base {
     return super.run('update');
   }
 
-  private nameMap(): Dynaflo.NameMap {
+  private nameMap(): NameMap {
     let nameMap = {};
     _assign(nameMap, this.updateExpression.nameMap());
     if (this.whenCondition) {
@@ -55,7 +56,7 @@ export default class Update extends Base {
     return nameMap;
   }
 
-  private valueMap(): Dynaflo.ValueMap {
+  private valueMap(): ValueMap {
     let valueMap = {};
     _assign(valueMap, this.updateExpression.valueMap());
     if (this.whenCondition) {

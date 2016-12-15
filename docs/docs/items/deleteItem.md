@@ -42,8 +42,6 @@ This deletes the movie if the rating is less than 5.0.
 **Available Modifiers**
 
 [.when()](/modifiers/when.md) <br>
-[.returnConsumedCapacity()](/params/consumedCapacity.md) <br>
-[.returnValues()]()
 
 **AWS Documentation Links**
 

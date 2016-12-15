@@ -1,5 +1,6 @@
 import Condition from '../conditions/Condition';
 import Attribute from '../conditions/Attribute';
+import {NameMap, ValueMap} from '../expression';
 import UpdateExpression from '../update/UpdateExpression';
 import Dynaflo from '../';
 import {docClient} from '../Dynaflo';
@@ -15,8 +16,8 @@ export abstract class Base {
   private keyCondition?: Condition;
   private updateExpression?: UpdateExpression;
   private pluckAttributes?: Attribute[];
-  abstract nameMap(): Dynaflo.NameMap;
-  abstract valueMap(): Dynaflo.ValueMap;
+  abstract nameMap(): NameMap;
+  abstract valueMap(): ValueMap;
 
   constructor(tableName: string) {
     this.tableName = tableName;
@@ -74,14 +75,14 @@ export abstract class Base {
   }
 
   private _assignExpressionNameMap(params: Dynaflo.Params) {
-    const nameMap: Dynaflo.NameMap = this.nameMap();
+    const nameMap: NameMap = this.nameMap();
     if (Object.keys(nameMap).length > 0) {
       params.ExpressionAttributeNames = nameMap;
     }
   }
 
   private _assignExpressionValueMap(params: Dynaflo.Params) {
-    const valueMap: Dynaflo.ValueMap = this.valueMap();
+    const valueMap: ValueMap = this.valueMap();
     if (Object.keys(valueMap).length > 0) {
       params.ExpressionAttributeValues = valueMap;
     }

@@ -1,4 +1,4 @@
-Creates a new item, or replaces an old item with a new item.
+Creates a new item or replaces an old item with a new item.
 
 **Command Syntax**
 
@@ -50,8 +50,7 @@ d.table('Movies')
 
 **Available Modifiers**
 
-[.when()](/modifiers/where.md) <br>
-[.returnConsumedCapacity()](/params/consumedCapacity.md) <br>
+[.when()](/modifiers/where.md)
 
 **AWS Documentation Links**
 

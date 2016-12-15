@@ -2,6 +2,8 @@ import * as AWS from 'aws-sdk';
 import {DocumentClient} from 'aws-sdk/lib/dynamodb/document_client';
 import {Table} from './items/Table';
 import Condition from './conditions/Condition';
+import {AttributeLike} from './conditions/Attribute';
+import {NameMap, ValueMap} from './expression';
 import {createTable, deleteTable, describeTable} from './tables';
 
 let dynamoDB: AWS.DynamoDB;
@@ -30,7 +32,7 @@ export class Dynaflo {
   deleteTable = deleteTable;
   describeTable = describeTable;
 
-  attr(attribute: Dynaflo.AttributeLike): Condition {
+  attr(attribute: AttributeLike): Condition {
     return new Condition(attribute);
   }
 }
@@ -41,14 +43,6 @@ export module Dynaflo {
     endpoint: string;
     accessKeyId: string;
     secretAccessKey: string;
-  }
-
-  export interface ValueMap {
-    [safeValue: string]: (string | boolean | number);
-  }
-
-  export interface NameMap {
-    [safeName: string]: string;
   }
 
   export interface Params {

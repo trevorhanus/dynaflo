@@ -1,4 +1,4 @@
-Set new attributes or update old ones
+Sets or removes attributes on an item. Also deletes items from top level sets.
 
 **Command Syntax**
 ```

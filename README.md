@@ -59,6 +59,13 @@ run tests
 $ npm test
 ```
 
+## Todo
+- Get docs hosted on Gitlab
+- Verify query method has all modifiers it needs
+- Finish scan method
+- Finish BatchGet
+- Finish BatchWrite
+
 ## Questions for Mike
 
 - I want to use the decorator design pattern to give the methods (delete, get, put, etc) traits. For instance, the filterable trait would allow the method to have the .filter() method. The traits I need would be (filterable, whereable, whenable, pluckable, runable, startAtAble)

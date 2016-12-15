@@ -18,8 +18,6 @@ pages:
     - .pluck(): modifiers/pluck.md
     - .where(): modifiers/where.md
     - .when(): modifiers/when.md
-    - .consistentRead(): params/consistentRead.md
-    - .returnConsumedCapacity(): params/consumedCapacity.md
   - Comparators:
     - .eq(): comparators/equal.md
     - .ne(): comparators/notEqual.md

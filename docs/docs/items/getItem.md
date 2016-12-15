@@ -5,6 +5,8 @@ Returns a set of attributes for the item with the given primary key.
 table.get(key: Object) -> singleDoc
 ```
 
+TODO: find the language used by Dynamo on the key
+
 Where `key` is a pojo that represents the primary key for the item.
 
 For the primary key, you must provide all of the attributes. For example, with a simple primary key, you only need to provide a value for the partition key. For a composite primary key, you must provide values for both the partition key and the sort key.
