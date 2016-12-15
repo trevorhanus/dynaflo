@@ -27,7 +27,7 @@ d.table('Movies')
 
 ## Deeper Dive
 
-Read through the full documentation here.
+Read through the full documentation [here](http://dynaflo-docs.s3-website-us-west-2.amazonaws.com/).
 
 ## Contributing
 
