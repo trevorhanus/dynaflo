@@ -60,7 +60,8 @@ describe('Delete', () => {
   it('Can delete an Item conditionally', () => {
     return d.table('DeleteTest')
       .delete({id: '1234'})
-      .when(d.attr('name').ne('Dino'))
+      .when(d.attr('name').eq('Dino'))
+      .log()
       .run()
       .then(data => {
         // should not get here

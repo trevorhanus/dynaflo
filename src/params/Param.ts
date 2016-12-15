@@ -1,7 +1,8 @@
-export interface Expression {
-  exprString(): string;
-  nameMap(): NameMap;
-  valueMap(): ValueMap;
+export interface Param {
+  key: string;
+  value(): (string | any);
+  safeValueMap(): ValueMap;
+  safeNameMap(): NameMap;
 }
 
 export interface ValueMap {
