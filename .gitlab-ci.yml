@@ -13,7 +13,7 @@ pages:
   - mkdocs build
   - cd ..
   - mkdir public
-  - cp -r /builds/trevorhanus/dynaflo/docs/site/* public
+  - cp -r /builds/gravity-payments/dynaflo/docs/site/* public
   artifacts:
     paths:
     - site
