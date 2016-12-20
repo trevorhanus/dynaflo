@@ -9,9 +9,11 @@ all_tests:
 pages:
   image: devunix/alpine-mkdocs
   script:
+  - cd docs/
   - mkdocs build
+  - cd ..
   - mkdir public
-  - cp -r /builds/trevorhanus/dynaflo/site/* public
+  - cp -r /builds/trevorhanus/dynaflo/docs/site/* public
   artifacts:
     paths:
     - site
