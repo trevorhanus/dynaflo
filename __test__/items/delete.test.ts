@@ -1,12 +1,8 @@
-import Dynaflo from '../../src/';
-import getTestConfig from '../../src/getTestConfig';
+import d from '../dynaflo_test_instance';
 
-let d;
 describe('Delete', () => {
 
   beforeAll(done => {
-    const config = getTestConfig();
-    d = new Dynaflo(config);
     const cft = require('../fixtures/testTable.cloudFormationTemplate.json');
     cft.Properties.TableName = 'DeleteTest';
     return d.createTable(cft)

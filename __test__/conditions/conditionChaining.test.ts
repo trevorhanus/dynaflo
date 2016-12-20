@@ -1,15 +1,8 @@
+import d from '../dynaflo_test_instance'; 
 import * as utils from '../../src/utils';
-import Dynaflo from '../../src/';
 import Condition from '../../src/conditions/Condition';
-import getTestConfig from '../../src/getTestConfig';
 
-let d;
 describe('attr()', () => {
-
-  beforeAll(done => {
-    d = new Dynaflo(getTestConfig());
-    done();
-  });
 
   beforeEach(done => {
     utils.getSafeExpressionName = getSafeExpressionNameMock();

@@ -1,7 +1,5 @@
-import Dynaflo from '../../src/';
-import getTestConfig from '../../src/getTestConfig';
+import d from '../dynaflo_test_instance';
 
-let d;
 const items = [
   {
     id: '1234',
@@ -26,7 +24,6 @@ const items = [
 describe('Update', () => {
 
   beforeAll(done => {
-    d = new Dynaflo(getTestConfig());
     const cft = require('../../__test__/fixtures/testTable.cloudFormationTemplate.json')
     cft.Properties.TableName = 'UpdateTest';
     return d.createTable(cft)

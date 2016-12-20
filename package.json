@@ -19,6 +19,7 @@
   },
   "homepage": "https://gitlab.com/trevorhanus/dynaflo#README",
   "devDependencies": {
+    "dotenv": "^2.0.0",
     "jest-cli": "^17.0.3",
     "typescript": "^2.0.10"
   },
@@ -30,7 +31,7 @@
       "ts",
       "js"
     ],
-    "testRegex": "__test__/.*\\.(ts|js)$"
+    "testRegex": "__test__/.*\\.test\\.(ts|js)$"
   },
   "dependencies": {
     "aws-sdk": "^2.7.4",

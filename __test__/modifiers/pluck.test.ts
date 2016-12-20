@@ -1,11 +1,8 @@
-import Dynaflo from '../../src/';
-import getTestConfig from '../../src/getTestConfig';
+import d from '../dynaflo_test_instance';
 
-let d;
 describe('Pluck', () => {
 
   beforeAll(done => {
-    d = new Dynaflo(getTestConfig());
     const testDoc = {
       id: '1234',
       'my.scalar.key': 14,

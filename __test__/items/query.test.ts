@@ -1,12 +1,9 @@
-import Dynaflo from '../../src/';
-import getTestConfig from '../../src/getTestConfig';
+import d from '../dynaflo_test_instance';
 
-let d: Dynaflo;
 describe('Query', () => {
 
   beforeAll(done => {
     const testDocs = require('../fixtures/tvShows/tvShows.json').tvShows;
-    d = new Dynaflo(getTestConfig());
     const cft = require('../fixtures/tvShows/tvShows.cloudFormationTemplate.json')
     cft.Properties.TableName = 'TVShows';
     return d.createTable(cft)

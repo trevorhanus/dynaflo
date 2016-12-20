@@ -1,12 +1,6 @@
-import Dynaflo from '../src/';
-import getTestConfig from '../src/getTestConfig';
+import d from './dynaflo_test_instance'; 
 
-let d;
 describe('dn', () => {
-  beforeAll(done => {
-    d = new Dynaflo(getTestConfig());
-    done();
-  });
 
   it('has a createTable function', () => {
     expect(typeof d.createTable).toBe('function');

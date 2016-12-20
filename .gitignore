@@ -9,3 +9,5 @@ site/
 
 # Npm debug logs
 npm-debug.log
+
+.env
