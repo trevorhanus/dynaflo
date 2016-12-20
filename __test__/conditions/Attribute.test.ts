@@ -21,6 +21,6 @@ describe('Attribute', () => {
   it('Throws on array in nested path', () => {
     expect(() => {
       const attr = new Attribute({top:{nested:['deeper']}});
-    }).toThrowError(AttributeError);
+    }).toThrow();
   });
 });
