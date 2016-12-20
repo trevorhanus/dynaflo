@@ -19,15 +19,14 @@ describe('Delete', () => {
   });
 
   beforeEach(done => {
-    const testDoc = {
-      id: '1234',
-      name: 'Dino'
-    };
     return d.table('DeleteTest')
-      .put(testDoc)
+      .put({
+        id: '1234',
+        name: 'Dino'
+      })
       .run()
-      .then(data => {
-        done();
+      .then(() => {
+        done()
       })
       .catch(err => {
         done(err);
@@ -49,8 +48,12 @@ describe('Delete', () => {
       .delete({id: '1234'})
       .run()
       .then(data => {
-        // is deleted
-        expect(true).toBe(true);
+        return d.table('DeleteTest')
+          .get({id: '1234'})
+          .run();
+      })
+      .then(data => {
+        expect(data.Item).toBe(undefined);
       })
       .catch(err => {
         throw new Error(err);
@@ -60,8 +63,7 @@ describe('Delete', () => {
   it('Can delete an Item conditionally', () => {
     return d.table('DeleteTest')
       .delete({id: '1234'})
-      .when(d.attr('name').eq('Dino'))
-      .log()
+      .when(d.attr('name').ne('Dino'))
       .run()
       .then(data => {
         // should not get here

@@ -81,13 +81,38 @@ describe('Query', () => {
       });
   });
 
-  xit('Can filter results', () => {
+  it('Can filter results', () => {
     return d.table('TVShows')
       .query('genre-network')
-      .whereKey()
+      .whereKey({
+        genre: 'comedy',
+        network: 'hbo'
+      })
+      .filter(
+        d.attr('title').eq('Entourage')
+      )
       .run()
       .then(data => {
-        expect(data.Items.length).toBe(2);
+        expect(data.Items.length).toBe(1);
+      })
+      .catch(err => {
+        throw new Error(err);
+      });
+  });
+
+  it('Can filter results with attributes value map', () => {
+    return d.table('TVShows')
+      .query('genre-network')
+      .whereKey({
+        genre: 'comedy',
+        network: 'hbo'
+      })
+      .filter({
+        title: 'Entourage'
+      })
+      .run()
+      .then(data => {
+        expect(data.Items.length).toBe(1);
       })
       .catch(err => {
         throw new Error(err);

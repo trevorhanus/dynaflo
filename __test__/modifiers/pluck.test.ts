@@ -86,16 +86,6 @@ describe('Pluck', () => {
     }).toThrow();
   });
 
-  it('Calling twice', () => {
-    expect(() => {
-      return d.table('PluckTest')
-        .get({id: '1234'})
-        .pluck('my.scalar.key')
-        .pluck('myArray')
-        .run()
-    }).toThrow();
-  });
-
   it('Nested object', () => {
     return d.table('PluckTest')
       .get({id: '1234'})

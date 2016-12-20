@@ -1,6 +1,6 @@
 {
   "name": "dynaflo",
-  "version": "0.1.4",
+  "version": "0.2.2",
   "description": "Dynaflo makes working with DynamoDB easier.",
   "main": "build/index.js",
   "types": "build/index",

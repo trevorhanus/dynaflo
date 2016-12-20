@@ -118,9 +118,4 @@ describe('Update', () => {
         throw new Error(err);
       });
   });
-
-  // TODO: should be able to remove, delete, and set in same call
-  xit('Remove, Delete, and Set', () => {
-
-  });
 });

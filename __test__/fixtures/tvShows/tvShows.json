@@ -35,6 +35,15 @@
         "stars": ["Thomas Middleditch", "TJ Miller"],
         "rating": 8.5
       }
+    },
+    {
+      "title": "Entourage",
+      "genre": "comedy",
+      "network": "hbo",
+      "info": {
+        "stars": ["Kevin Connolly", "Kevin Dillon"],
+        "rating": 8.5
+      }
     }
   ]
 }

@@ -3,6 +3,7 @@ import PutMethod from './itemMethods/PutMethod';
 import DeleteMethod from './itemMethods/DeleteMethod';
 import UpdateMethod from './itemMethods/UpdateMethod';
 import QueryMethod from './itemMethods/QueryMethod';
+import ScanMethod from './itemMethods/ScanMethod';
 
 export default class Table {
   private tableName: string;
@@ -23,9 +24,9 @@ export default class Table {
     return new QueryMethod(this.tableName, indexName);
   };
 
-  // scan(): Params {
-  //   return new Params();
-  // };
+  scan(indexName?: string): ScanMethod {
+    return new ScanMethod(this.tableName, indexName);
+  };
 
   update(key: any): UpdateMethod {
     return new UpdateMethod(this.tableName, key);

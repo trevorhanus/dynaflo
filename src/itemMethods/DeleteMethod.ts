@@ -6,7 +6,7 @@ import Whenable from '../methodTraits/Whenable';
 
 export default class DeleteMethod extends BaseMethod implements Whenable {
   constructor(tableName: string, key: any) {
-    super(tableName, 'get');
+    super(tableName, 'delete');
     const keyParam = new KeyParam(key);
     super.addParam(keyParam);
   }

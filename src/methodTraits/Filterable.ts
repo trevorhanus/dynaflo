@@ -1,11 +1,11 @@
 import BaseMethod from '../itemMethods/BaseMethod';
-import Condition, {ConditionLike} from '../conditions/Condition';
+import {ConditionLike} from '../conditions/Condition';
 import FilterParam from '../params/FilterParam';
 
 export default class Filterable extends BaseMethod {
   
-  filter(condition: Condition): BaseMethod {
-    const filterParam = new FilterParam(condition);
+  filter(conditionOrAttributesToValueMap: ConditionLike): BaseMethod {
+    const filterParam = new FilterParam(conditionOrAttributesToValueMap);
     super.addParam(filterParam);
     return this;
   }

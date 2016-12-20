@@ -5,8 +5,12 @@ export default class FilterParam implements Param {
   private filterCondition: Condition;
   key: string = 'FilterExpression';
 
-  constructor(condition: Condition) {
-    this.filterCondition = condition;
+  constructor(conditionOrAttributesToValueMap: ConditionLike) {
+    if (conditionOrAttributesToValueMap instanceof Condition) {
+      this.filterCondition = conditionOrAttributesToValueMap;
+    } else {
+      this.filterCondition = Condition.fromAttributesToValueMap(conditionOrAttributesToValueMap);
+    }
   }
 
   value(): string {

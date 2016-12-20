@@ -1,7 +1,7 @@
 import Dynaflo from '..';
 import Attribute, {AttributeLike} from './Attribute';
 import {assign as _assign, concat as _concat} from 'lodash';
-import {Expression} from '../expression';
+import {Expression, NameMap, ValueMap} from '../expression';
 import createEqualsConditionFromAttributeToValueMap from '../utils/createEqualsConditionFromAttributeToValueMap';
 import {Comparator} from './comparators/Comparator';
 import SymbolComparator from './comparators/SymbolComparator';
@@ -23,8 +23,8 @@ export default class Condition implements Expression {
     this.attribute = new Attribute(topLevelOrNestedAttribute);
   }
 
-  nameMap(): Dynaflo.NameMap {
-    const map: Dynaflo.NameMap = {};
+  nameMap(): NameMap {
+    const map: NameMap = {};
     _assign(map, this.attribute.nameMap());
     this.andConditions.forEach(condition => {
       _assign(map, condition.nameMap());
@@ -35,8 +35,8 @@ export default class Condition implements Expression {
     return map;
   }
 
-  valueMap(): Dynaflo.ValueMap {
-    const map: Dynaflo.ValueMap = {};
+  valueMap(): ValueMap {
+    const map: ValueMap = {};
     if (this.comparator) {
       _assign(map, this.comparator.valueMap());
     }
