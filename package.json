@@ -5,8 +5,8 @@
   "main": "build/index.js",
   "types": "build/index",
   "scripts": {
-    "test": "ENDPOINT=http://localhost:7777 jest --watch",
-    "test-once": "ENDPOINT=http://trevorhanus__dynamodb-local:7777 jest"
+    "test": "jest --watch",
+    "test-once": "jest"
   },
   "repository": {
     "type": "git",
