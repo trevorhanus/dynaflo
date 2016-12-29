@@ -1,10 +1,11 @@
 import Dynaflo from '..';
+import {NameMap} from '../expression';
 import {getSafeExpressionName} from '../utils';
 
 export default class Attribute {
   private tokens: string[] = [];
   private safeTokens: string[] = [];
-  private _nameMap: Dynaflo.NameMap = {};
+  private _nameMap: NameMap = {};
 
   constructor(attribute: AttributeLike) {
     switch (typeof attribute) {
@@ -25,7 +26,7 @@ export default class Attribute {
     return this.safeTokens.join('.');
   }
 
-  nameMap(): Dynaflo.NameMap {
+  nameMap(): NameMap {
     return this._nameMap;
   }
 
@@ -64,40 +65,3 @@ export class AttributeError extends Error {
     super(message);
   }
 }
-
-
-/*
-.where(condition | equalsMap): Condition -> a condition has only one attribute, the value is in the comparator
-.when(condition | equalsMap): Condition
-.pluck(attributeOrNestedAttribute[, attributeOrNestedAttribute[, ...]]) -> has multiple attributes, no values
-attr(attribute)
-
-// equalsMap
-{
-  key1: true,
-  key2: {
-    key3: 'string',
-    key4: ['item1', 'item2']
-  },
-  key5: 10
-}
-
-// attribute
-// can be a string to a topLevel attribute or
-// an object to a nested attribute
-{
-  key1: {
-    key2: {
-      key3: true
-    }
-  }
-}
-
-// Shorthand
-// an attributeDescription is shorthand if one of the values is an array
-{
-  key1: ['key2', 'key3']
-}
-
-Attribute.createMultipleFromMap() // takes a nestedAttributeDescription or shorthand and returns an array of attributes
-*/

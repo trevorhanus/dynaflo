@@ -1,4 +1,5 @@
 import Dynaflo from '../..';
+import {NameMap, ValueMap} from '../expression';
 import {getSafeExpressionValue} from '../utils';
 import Condition from './Condition';
 import Attribute from './Attribute';
@@ -6,7 +7,7 @@ import Attribute from './Attribute';
 export default class Operand {
   private safeValue: string;
   private attribute: Attribute;
-  _valueMap: Dynaflo.ValueMap;
+  _valueMap: ValueMap;
 
   constructor(value: (number | boolean | string | Condition)) {
     if (value instanceof Condition) {
@@ -26,7 +27,7 @@ export default class Operand {
     }
   }
 
-  valueMap(): Dynaflo.ValueMap {
+  valueMap(): ValueMap {
     return this._valueMap;
   }
 }

@@ -1,4 +1,5 @@
 import Dynaflo from '../..';
+import {ValueMap} from '../../expression';
 import {Comparator} from './Comparator';
 import Operand from '../Operand';
 import {assign as _assign} from 'lodash';
@@ -12,7 +13,7 @@ export default class BetweenComparator implements Comparator {
     this.highOperand = new Operand(highOperand);
   }
 
-  valueMap(): Dynaflo.ValueMap {
+  valueMap(): ValueMap {
     let map = {};
     _assign(map, this.lowOperand.valueMap());
     _assign(map, this.highOperand.valueMap());

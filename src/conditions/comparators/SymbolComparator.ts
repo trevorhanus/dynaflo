@@ -1,4 +1,5 @@
 import Dynaflo from '../..';
+import {ValueMap} from '../../expression';
 import {Comparator} from './Comparator';
 import Operand from '../Operand';
 import Condition from '../Condition';
@@ -16,7 +17,7 @@ export default class SymbolComparator implements Comparator {
     return safePath + this.symbol + this.operand.exprString();
   }
 
-  valueMap(): Dynaflo.ValueMap {
+  valueMap(): ValueMap {
     return this.operand.valueMap();
   }
 }

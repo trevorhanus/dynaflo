@@ -10,14 +10,15 @@ import ConsistentReadable from '../methodTraits/ConsistentReadable';
 export default class ScanMethod extends BaseMethod implements 
   Pluckable, Filterable, Limitable, ConsistentReadable {
   constructor(tableName: string, indexName?: string) {
-    super(tableName, 'scan');
+    super('scan');
+    super.addTableNameParam(tableName);
     if (indexName) {
       const indexNameParam = new IndexNameParam(indexName);
       super.addParam(indexNameParam);
     }
   }
 
-  filter(condition: Condition): BaseMethod {
+  filter(conditionOrAttributesToValueMap: ConditionLike): BaseMethod {
     /* Filterable mixin implements this method */
     return this;
   }

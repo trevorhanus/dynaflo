@@ -4,6 +4,7 @@ import DeleteMethod from './itemMethods/DeleteMethod';
 import UpdateMethod from './itemMethods/UpdateMethod';
 import QueryMethod from './itemMethods/QueryMethod';
 import ScanMethod from './itemMethods/ScanMethod';
+import BatchWriteMethod from './itemMethods/BatchWriteMethod';
 
 export default class Table {
   private tableName: string;
@@ -35,4 +36,12 @@ export default class Table {
   delete(key: any): DeleteMethod {
     return new DeleteMethod(this.tableName, key);
   };
+
+  batchPut(items: any[]): BatchWriteMethod {
+    return new BatchWriteMethod(this.tableName, items, []);
+  }
+
+  batchDelete(keysToDelete: any[]): BatchWriteMethod {
+    return new BatchWriteMethod(this.tableName, [], keysToDelete);
+  }
 }

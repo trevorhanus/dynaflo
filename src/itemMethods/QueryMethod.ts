@@ -11,7 +11,8 @@ import ConsistentReadable from '../methodTraits/ConsistentReadable';
 export default class QueryMethod extends BaseMethod implements 
   Pluckable, Filterable, WhereKeyable, Limitable, ConsistentReadable {
   constructor(tableName: string, indexName?: string) {
-    super(tableName, 'query');
+    super('query');
+    super.addTableNameParam(tableName);
     if (indexName) {
       const indexNameParam = new IndexNameParam(indexName);
       super.addParam(indexNameParam);
@@ -23,7 +24,7 @@ export default class QueryMethod extends BaseMethod implements
     return this;
   }
 
-  filter(condition: Condition): BaseMethod {
+  filter(conditionOrAttributesToValueMap: ConditionLike): BaseMethod {
     /* Filterable mixin implements this method */
     return this;
   }

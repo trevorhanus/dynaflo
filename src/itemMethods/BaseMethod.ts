@@ -10,14 +10,17 @@ export default class BaseMethod {
   private shouldLog: boolean;
   private params: Param[] = [];
 
-  constructor(tableName: string, methodName: string) {
+  constructor(methodName: string) {
     this.methodName = methodName;
-    const tableNameParam = new TableNameParam(tableName);
-    this.addParam(tableNameParam);
   }
 
   addParam(param: Param) {
     this.params.push(param);
+  }
+
+  addTableNameParam(tableName: string) {
+    const tableNameParam = new TableNameParam(tableName);
+    this.addParam(tableNameParam);
   }
 
   log(): BaseMethod {

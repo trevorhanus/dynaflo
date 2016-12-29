@@ -7,7 +7,8 @@ import Whenable from '../methodTraits/Whenable';
 
 export default class PutMethod extends BaseMethod {
   constructor(tableName: string, item: any) {
-    super(tableName, 'put');
+    super('put');
+    super.addTableNameParam(tableName);
     const itemParam = new ItemParam(item);
     super.addParam(itemParam);
   }

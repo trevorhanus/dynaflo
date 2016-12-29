@@ -1,4 +1,5 @@
 import Dynaflo from '../..';
+import {ValueMap} from '../../expression';
 import {Comparator} from './Comparator';
 import Operand from '../Operand';
 
@@ -13,7 +14,7 @@ export default class TypeComparator implements Comparator {
     return 'attribute_type(' + safePath + ', ' + this.operand.exprString() + ')';
   }
 
-  valueMap(): Dynaflo.ValueMap {
+  valueMap(): ValueMap {
     return this.operand.valueMap();
   }
 }

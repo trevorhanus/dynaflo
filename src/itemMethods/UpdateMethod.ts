@@ -13,7 +13,8 @@ export default class UpdateMethod extends BaseMethod implements Whenable {
   private updateExpressionParam: UpdateExpressionParam;
 
   constructor(tableName: string, key: any) {
-    super(tableName, 'update');
+    super('update');
+    super.addTableNameParam(tableName);
     const keyParam = new KeyParam(key);
     super.addParam(keyParam);
     this.updateExpressionParam = new UpdateExpressionParam();

@@ -1,4 +1,5 @@
 import Dynaflo from '../..';
+import {ValueMap} from '../../expression';
 import {Comparator} from './Comparator';
 
 export default class ExistsComparator implements Comparator {
@@ -7,7 +8,7 @@ export default class ExistsComparator implements Comparator {
     return 'attribute_exists(' + safePath + ')';
   }
 
-  valueMap(): Dynaflo.ValueMap {
+  valueMap(): ValueMap {
     const noValueMap = {};
     return noValueMap;
   }

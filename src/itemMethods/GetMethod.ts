@@ -7,7 +7,8 @@ import ConsistentReadable from '../methodTraits/ConsistentReadable';
 
 export default class GetMethod extends BaseMethod implements Pluckable, ConsistentReadable {
   constructor(tableName: string, key: any) {
-    super(tableName, 'get');
+    super('get');
+    super.addTableNameParam(tableName);
     const keyParam = new KeyParam(key);
     super.addParam(keyParam);
   }
