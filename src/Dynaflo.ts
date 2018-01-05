@@ -1,10 +1,10 @@
 import * as AWS from 'aws-sdk';
 import {DocumentClient} from 'aws-sdk/lib/dynamodb/document_client';
-import {Table} from './items/Table';
+import Table from './Table';
 import Condition from './conditions/Condition';
 import {AttributeLike} from './conditions/Attribute';
 import {NameMap, ValueMap} from './expression';
-import {createTable, deleteTable, describeTable} from './tables';
+import {createTable, deleteTable, describeTable} from './tableMethods';
 
 let dynamoDB: AWS.DynamoDB;
 let docClient: DocumentClient;
@@ -46,7 +46,7 @@ export module Dynaflo {
   }
 
   export interface Params {
-    TableName: string;
+    TableName?: string;
     IndexName?: string;
     Key?: Object;
     Item?: Object;
@@ -60,6 +60,7 @@ export module Dynaflo {
     ReturnConsumedCapacity?: 'INDEXES' | 'TOTAL' | 'NONE';
     ReturnValues?: 'NONE' | 'ALL_OLD' | 'UPDATED_OLD' | 'ALL_NEW' | 'UPDATED_NEW';
     ReturnItemCollectionMetrics?: 'SIZE' | 'NONE';
+    [paramKey: string]: (string | any);
   }
 
   export type ReturnConsumedCapacity = 'INDEXES' | 'TOTAL' | 'NONE';

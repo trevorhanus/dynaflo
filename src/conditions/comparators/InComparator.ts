@@ -1,4 +1,5 @@
 import Dynaflo from '../..';
+import {ValueMap} from '../../expression';
 import {Comparator} from './Comparator';
 import Operand from '../Operand';
 import Condition from '../Condition';
@@ -13,7 +14,7 @@ export default class InComparator implements Comparator {
     });
   }
 
-  valueMap(): Dynaflo.ValueMap {
+  valueMap(): ValueMap {
     let map = {};
     this.operands.forEach(operand => {
       _assign(map, operand.valueMap);

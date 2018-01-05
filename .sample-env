@@ -1,0 +1,2 @@
+AWS_REGION=us-west-2
+DYNAMODB_ENDPOINT=http://localhost:7777

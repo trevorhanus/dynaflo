@@ -1,12 +1,8 @@
-import Dynaflo from '../../src/';
-import getTestConfig from '../../src/getTestConfig';
+import d from '../dynaflo_test_instance';
 
-let d;
 describe('Delete', () => {
 
   beforeAll(done => {
-    const config = getTestConfig();
-    d = new Dynaflo(config);
     const cft = require('../fixtures/testTable.cloudFormationTemplate.json');
     cft.Properties.TableName = 'DeleteTest';
     return d.createTable(cft)
@@ -19,15 +15,14 @@ describe('Delete', () => {
   });
 
   beforeEach(done => {
-    const testDoc = {
-      id: '1234',
-      name: 'Dino'
-    };
     return d.table('DeleteTest')
-      .put(testDoc)
+      .put({
+        id: '1234',
+        name: 'Dino'
+      })
       .run()
-      .then(data => {
-        done();
+      .then(() => {
+        done()
       })
       .catch(err => {
         done(err);
@@ -49,8 +44,12 @@ describe('Delete', () => {
       .delete({id: '1234'})
       .run()
       .then(data => {
-        // is deleted
-        expect(true).toBe(true);
+        return d.table('DeleteTest')
+          .get({id: '1234'})
+          .run();
+      })
+      .then(data => {
+        expect(data.Item).toBe(undefined);
       })
       .catch(err => {
         throw new Error(err);

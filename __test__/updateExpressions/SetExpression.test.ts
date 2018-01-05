@@ -1,4 +1,4 @@
-import SetExpression from '../../src/update/SetExpression';
+import SetExpression from '../../src/updateExpressions/SetExpression';
 
 describe('SetExpression', () => {
 

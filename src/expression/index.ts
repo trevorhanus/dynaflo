@@ -1,5 +1,3 @@
-import Dynaflo from '..';
-
 export interface Expression {
   exprString(): string;
   nameMap(): NameMap;

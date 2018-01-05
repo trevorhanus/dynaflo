@@ -1,13 +1,6 @@
-import Dynaflo from '../../src/';
-import getTestConfig from '../../src/getTestConfig';
+import d from '../dynaflo_test_instance';
 
-let d;
 describe('Get', () => {
-
-  beforeAll(done => {
-    d = new Dynaflo(getTestConfig());
-    done();
-  });
 
   beforeEach(done => {
     const testDoc = {

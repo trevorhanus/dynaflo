@@ -1,6 +1,7 @@
 # Typescript Source files
 /src
 tsconfig.json
+preprocessor.js
 
 # Docs
 /Docs

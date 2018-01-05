@@ -1,11 +1,8 @@
-import Dynaflo from '../../src/';
-import getTestConfig from '../../src/getTestConfig';
+import d from '../dynaflo_test_instance';
 
-let d;
 describe('Put', () => {
 
   beforeAll(done => {
-    d = new Dynaflo(getTestConfig());
     const cft = require('../fixtures/testTable.cloudFormationTemplate.json');
     cft.Properties.TableName = 'PutTest'
     return d.createTable(cft)

@@ -1,12 +1,9 @@
-import Dynaflo from '../../src/';
-import getTestConfig from '../../src/getTestConfig';
+import d from '../dynaflo_test_instance';
 
-let d: Dynaflo;
 describe('Query', () => {
 
   beforeAll(done => {
     const testDocs = require('../fixtures/tvShows/tvShows.json').tvShows;
-    d = new Dynaflo(getTestConfig());
     const cft = require('../fixtures/tvShows/tvShows.cloudFormationTemplate.json')
     cft.Properties.TableName = 'TVShows';
     return d.createTable(cft)
@@ -81,13 +78,38 @@ describe('Query', () => {
       });
   });
 
-  xit('Can filter results', () => {
+  it('Can filter results', () => {
     return d.table('TVShows')
       .query('genre-network')
-      .whereKey()
+      .whereKey({
+        genre: 'comedy',
+        network: 'hbo'
+      })
+      .filter(
+        d.attr('title').eq('Entourage')
+      )
       .run()
       .then(data => {
-        expect(data.Items.length).toBe(2);
+        expect(data.Items.length).toBe(1);
+      })
+      .catch(err => {
+        throw new Error(err);
+      });
+  });
+
+  it('Can filter results with attributes value map', () => {
+    return d.table('TVShows')
+      .query('genre-network')
+      .whereKey({
+        genre: 'comedy',
+        network: 'hbo'
+      })
+      .filter({
+        title: 'Entourage'
+      })
+      .run()
+      .then(data => {
+        expect(data.Items.length).toBe(1);
       })
       .catch(err => {
         throw new Error(err);

@@ -11,7 +11,7 @@ pages:
     - Update: items/updateItem.md
     - Delete: items/deleteItem.md
     - Query: items/query.md
-    - Batch Write (future): items/batchWrite.md
+    - Batch Write: items/batchWrite.md
     - Batch Get (future): items/batchGet.md
   - Modifiers:
     - Overview: params/overview.md
