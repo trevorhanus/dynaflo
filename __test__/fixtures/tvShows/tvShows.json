@@ -6,7 +6,8 @@
       "network": "fox",
       "info": {
         "stars": ["Andy Samberg", "Terry Crews"],
-        "rating": 8.5
+        "rating": 8.5,
+        "foo": "bar"
       }
     },
     {

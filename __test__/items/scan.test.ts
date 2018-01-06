@@ -1,4 +1,6 @@
 import d from '../dynaflo_test_instance';
+import {DocumentClient} from 'aws-sdk/lib/dynamodb/document_client';
+import * as AWS from 'aws-sdk';
 
 describe('Scan', () => {
 
@@ -97,6 +99,63 @@ describe('Scan', () => {
         expect(data.Items[0].genre).toBe(undefined);
         expect(data.Items[0].info.rating).toBe(undefined);
         expect(data.Items[0].info.stars).toBeDefined();
+      })
+      .catch(err => {
+        throw new Error(err);
+      });
+  });
+
+  it('Can filter results', () => {
+    return d.table('ScanTest')
+      .scan()
+      .filter(d.attr('network').eq('hbo'))
+      .run()
+      .then((data: any) => {
+        expect(data.Items.length).toBe(3);
+      })
+      .catch(err => {
+        throw new Error(err);
+      });
+  });
+
+  it('filter with docClient', () => {
+    // using this to figure out why scaning a nested attribute wasn't working.
+    const config = {
+      region: 'us-west-2',
+      endpoint: 'http://localhost:7777'
+    };
+
+    AWS.config.update(config);
+
+    const docClient = new AWS.DynamoDB.DocumentClient();
+
+    const params = { 
+      TableName: 'ScanTest',
+      FilterExpression: '(contains(#hyjEbaDW.#f, :fKWnrgmu))',
+      ExpressionAttributeValues: { ':fKWnrgmu': 'b' },
+      ExpressionAttributeNames: { 
+        '#hyjEbaDW': 'info',
+        '#f': 'foo'
+      },
+    };
+
+    docClient.scan(params, (err, data) => {
+      if (err) {
+        console.log('Error! ', err);
+      } else {
+        console.log('data: ', data);
+      }
+    });
+  });
+
+  it('Can filter nested attribute', () => {
+    return d.table('ScanTest')
+      .scan()
+      .filter(d.attr({info:{foo: true}}).contains('bar'))
+      .log()
+      .run()
+      .then((data: any) => {
+        expect(data.Items.length).toBe(1);
       })
       .catch(err => {
         throw new Error(err);
