@@ -2,23 +2,21 @@ site_name: Dynaflo
 theme: readthedocs
 pages:
   - Home: index.md
-  - Getting Started:
-    - Install: getting-started/install.md
-    - Use: getting-started/use.md
-  - Working with Items:
-    - Get: items/getItem.md
-    - Put: items/putItem.md
-    - Update: items/updateItem.md
-    - Delete: items/deleteItem.md
-    - Query: items/query.md
-    - Batch Write: items/batchWrite.md
-    - Batch Get (future): items/batchGet.md
-  - Modifiers:
+  - Quick Start: quickStart.md
+  - Methods:
+    - Get: methods/getItem.md
+    - Put: methods/putItem.md
+    - Update: methods/updateItem.md
+    - Delete: methods/deleteItem.md
+    - Query: methods/query.md
+    - Batch Write: methods/batchWrite.md
+    - Batch Get (future): methods/batchGet.md
+  - Method Modifiers:
     - Overview: params/overview.md
     - .pluck(): modifiers/pluck.md
     - .where(): modifiers/where.md
     - .when(): modifiers/when.md
-  - Comparators:
+  - Conditions:
     - .eq(): comparators/equal.md
     - .ne(): comparators/notEqual.md
     - .lt(): comparators/lessThan.md
@@ -33,7 +31,7 @@ pages:
     - .beginsWith(): comparators/beginsWith.md
     - .contains(): comparators/contains.md
     - .size() (future): comparators/size.md
-  - Tables:
+  - Working with Tables:
     - Create Table: tables/createTable.md
     - Delete Table: tables/deleteTable.md
     - Describe Table: tables/describeTable.md

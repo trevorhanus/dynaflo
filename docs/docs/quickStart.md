@@ -1,3 +1,9 @@
+**Install**
+
+```bash
+$ npm install --save dynaflo
+```
+
 **Use**
 
 ```javascript
