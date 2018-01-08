@@ -1,3 +1,3 @@
-import {Dynaflo} from './Dynaflo';
+import { Dynaflo } from './Dynaflo';
 
 export default Dynaflo;

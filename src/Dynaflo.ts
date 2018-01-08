@@ -11,7 +11,9 @@ let docClient: DocumentClient;
 
 export {
     docClient,
-    dynamoDB
+    dynamoDB,
+    NameMap,
+    ValueMap,
 }
 
 export class Dynaflo {
