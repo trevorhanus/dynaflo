@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Update - Dynaflo</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/highlight.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Update";
+    var mkdocs_page_input_path = "methods/updateItem.md";
+    var mkdocs_page_url = "/methods/updateItem/";
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js"></script>
+  <script src="../../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Dynaflo</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../..">Home</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../../quickStart/">Quick Start</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <ul class="subnav">
+    <li><span>Methods</span></li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../getItem/">Get</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../putItem/">Put</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 current">
+        <a class="current" href="./">Update</a>
+        
+            <ul>
+            
+            </ul>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../deleteItem/">Delete</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../query/">Query</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../batchWrite/">Batch Write</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../batchGet/">Batch Get (future)</a>
+        
+    </li>
+
+        
+    </ul>
+<li>
+          
+            <li>
+    <ul class="subnav">
+    <li><span>Method Modifiers</span></li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../params/overview/">Overview</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../modifiers/pluck/">.pluck()</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../modifiers/where/">.where()</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../modifiers/when/">.when()</a>
+        
+    </li>
+
+        
+    </ul>
+<li>
+          
+            <li>
+    <ul class="subnav">
+    <li><span>Conditions</span></li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../comparators/equal/">.eq()</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../comparators/notEqual/">.ne()</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../comparators/lessThan/">.lt()</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../comparators/lessThanEqual/">.le()</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../comparators/greaterThan/">.gt()</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../comparators/greaterThanEqual/">.ge()</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../comparators/between/">.between()</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../comparators/in/">.in()</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../comparators/exists/">.exists()</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../comparators/notExists/">.notExists()</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../comparators/type/">.type()</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../comparators/beginsWith/">.beginsWith()</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../comparators/contains/">.contains()</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../comparators/size/">.size() (future)</a>
+        
+    </li>
+
+        
+    </ul>
+<li>
+          
+            <li>
+    <ul class="subnav">
+    <li><span>Working with Tables</span></li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../tables/createTable/">Create Table</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../tables/deleteTable/">Delete Table</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../tables/describeTable/">Describe Table</a>
+        
+    </li>
+
+        
+    </ul>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Dynaflo</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Methods &raquo;</li>
+        
+      
+    
+    <li>Update</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <p>Sets or removes attributes on an item. Also deletes items from top level sets.</p>
+<p><strong>Command Syntax</strong></p>
+<pre><code>table.update(key: Object)
+  .set(item: Object)
+  .remove(keyName | {nested: path}[, keyName | {nested: path}])
+  .delete(topLevelKeyName, [itemsToDelete])
+</code></pre>
+
+<p>Where <code>key</code> is a pojo that represents the primary key to be deleted.</p>
+<p>For the primary key, you must provide all of the attributes. For example, with a simple primary key, you only need to provide a value for the partition key. For a composite primary key, you must provide values for both the partition key and the sort key.</p>
+<p><strong>Usage</strong></p>
+<p>Set</p>
+<pre><code class="javascript">const d = new Dynaflo(config);
+
+const movies = new d.Table('Movies');
+movies.update({year: 2015, title: 'The Big New Movie'})
+  .set({
+    info: {
+      rating: 5.5,
+      plot: 'Everything happens all at once',
+      actors: ['Larry', 'Moe', 'Curly']
+    }
+  })
+  .run()
+  .then(data =&gt; {
+    // movie is updated
+  });
+</code></pre>
+
+<p>Conditionally set an item</p>
+<pre><code class="javascript">import dn, {attr} from 'dynaflo';
+
+const movies = new d.Table('Movies');
+movies.update({id: '1234'})
+  .set({
+    info: {
+      rating: 5.5,
+      plot: 'Everything happens all at once',
+      actors: ['Larry', 'Moe', 'Curly']
+    }
+  })
+  .when(attr({info:{plot:true}}).startsWith('Every'))
+  .run()
+  .then(data =&gt; {
+    // will update if the plot starts with the substring 'Every'. So in this case 
+    // it will update
+  });
+</code></pre>
+
+<p>Delete items from a set.</p>
+<pre><code class="javascript">import dn, {attr} from 'dynaflo';
+
+const movies = new d.Table('Movies');
+movies.update({id: '1234'})
+  .delete('topLevelSet', ['Item3'])
+  .run()
+  .then(data =&gt; {
+    // deletes 'item3' from the top level set named 'topLevelSet' 
+  });
+</code></pre>
+
+<p><em>Note: delete only works with sets and top level attributes.</em></p>
+<p>Remove attributes from items</p>
+<pre><code class="javascript">import dn, {attr} from 'dynaflo';
+
+const movies = new d.Table('Movies');
+movies.update({id: '1234'})
+  .remove('topLevelKey', {info:{rating:true}})
+  .run()
+  .then(data =&gt; {
+    // removed attribute 'topLevelKey' and the info.rating attribute 
+  });
+</code></pre>
+
+<p><strong>Available Modifiers</strong></p>
+<p><a href="../../modifiers/when/">.when()</a> <br></p>
+<p>For more see the <a href="http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateItem.html">AWS Docs</a></p>
+<p>AWS SDK</p>
+<pre><code class="javascript">var docClient = new AWS.DynamoDB.DocumentClient()
+
+var table = &quot;Movies&quot;;
+
+var year = 2015;
+var title = &quot;The Big New Movie&quot;;
+
+var params = {
+    TableName:table,
+    Key:{
+        &quot;year&quot;: year,
+        &quot;title&quot;: title
+    },
+    UpdateExpression: &quot;set info.rating = :r, info.plot=:p, info.actors=:a&quot;,
+    ExpressionAttributeValues:{
+        &quot;:r&quot;:5.5,
+        &quot;:p&quot;:&quot;Everything happens all at once.&quot;,
+        &quot;:a&quot;:[&quot;Larry&quot;, &quot;Moe&quot;, &quot;Curly&quot;]
+    },
+    ReturnValues:&quot;UPDATED_NEW&quot;
+};
+
+docClient.update(params, function(err, data) {
+    if (err) {
+        console.error(&quot;Unable to update item. Error JSON:&quot;, JSON.stringify(err, null, 2));
+    } else {
+        console.log(&quot;UpdateItem succeeded:&quot;, JSON.stringify(data, null, 2));
+    }
+});
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../deleteItem/" class="btn btn-neutral float-right" title="Delete">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../putItem/" class="btn btn-neutral" title="Put"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+    
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../putItem/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../deleteItem/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script src="../../js/theme.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>.when() - Dynaflo</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/highlight.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = ".when()";
+    var mkdocs_page_input_path = "modifiers/when.md";
+    var mkdocs_page_url = "/modifiers/when/";
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js"></script>
+  <script src="../../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Dynaflo</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../..">Home</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../../quickStart/">Quick Start</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <ul class="subnav">
+    <li><span>Methods</span></li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../methods/getItem/">Get</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../methods/putItem/">Put</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../methods/updateItem/">Update</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../methods/deleteItem/">Delete</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../methods/query/">Query</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../methods/batchWrite/">Batch Write</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../methods/batchGet/">Batch Get (future)</a>
+        
+    </li>
+
+        
+    </ul>
+<li>
+          
+            <li>
+    <ul class="subnav">
+    <li><span>Method Modifiers</span></li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../params/overview/">Overview</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../pluck/">.pluck()</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../where/">.where()</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 current">
+        <a class="current" href="./">.when()</a>
+        
+            <ul>
+            
+            </ul>
+        
+    </li>
+
+        
+    </ul>
+<li>
+          
+            <li>
+    <ul class="subnav">
+    <li><span>Conditions</span></li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../comparators/equal/">.eq()</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../comparators/notEqual/">.ne()</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../comparators/lessThan/">.lt()</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../comparators/lessThanEqual/">.le()</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../comparators/greaterThan/">.gt()</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../comparators/greaterThanEqual/">.ge()</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../comparators/between/">.between()</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../comparators/in/">.in()</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../comparators/exists/">.exists()</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../comparators/notExists/">.notExists()</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../comparators/type/">.type()</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../comparators/beginsWith/">.beginsWith()</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../comparators/contains/">.contains()</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../comparators/size/">.size() (future)</a>
+        
+    </li>
+
+        
+    </ul>
+<li>
+          
+            <li>
+    <ul class="subnav">
+    <li><span>Working with Tables</span></li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../tables/createTable/">Create Table</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../tables/deleteTable/">Delete Table</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../tables/describeTable/">Describe Table</a>
+        
+    </li>
+
+        
+    </ul>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Dynaflo</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Method Modifiers &raquo;</li>
+        
+      
+    
+    <li>.when()</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <p>To write data to a table, you use operations such as .put(), .update() and .delete(). Sometimes, you may only want to write the data when certain conditions are met. 
+To do this, use the .when() modifier. Under the hood, .when() is setting the <a href="http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.SpecifyingConditions.html#ConditionExpressionReference">Condition Expression Param</a>.</p>
+<p><strong>Example</strong></p>
+<p>Say you are representing a movie in DynamoDB like this...</p>
+<pre><code class="javascript">{
+  id: '12345',
+  title: 'Fantastic Beast and Where to Find Them',
+  info: {
+    rating: 5,
+    should: 'climb'
+  },
+  shouldRecommend: false,
+  stars: ['Red headed dude', 'Johnny Depp']
+}
+</code></pre>
+
+<p>and you only want to update the <code>shouldRecommend</code> attribute when the rating = 5</p>
+<pre><code class="javascript">d.table('Movies')
+  .update({id: '12345'})
+  .set({
+    shouldRecommend: true
+  })
+  .when({
+    info: {rating: 5}
+  })
+  .run();
+</code></pre>
+
+<p>For more complicated conditions, you can use condition statements</p>
+<pre><code class="javascript">const positiveRating = attr({info:{rating:true}}).gt(5);
+const harryOrFanMovie = attr('title').startsWith('Harry').or(
+    attr('title').startsWith('Fan');
+  );
+
+d.table('Movies')
+  .update({id: '12345'})
+  .set({
+    shouldRecommend: true
+  })
+  .when(positiveRating.and(harryOrFanMovie))
+  .run();
+</code></pre>
+
+<p>This sets the shouldRecommend attribute when the rating is greater than 5 and the title starts with either 'Fan' or 'Harry'</p>
+<p>See the <a href="../../comparators/equal/">Comparators</a> section for a complete list</p>
+<p>This gets translated into the following params that are passed to the AWS DocumentClient.</p>
+<p><em>AWS DocumentClient</em></p>
+<pre><code class="javascript">const params = {
+  ConditionExpression: '#r = :rating',
+  ExpressionAttributeNames: {
+    '#r': 'info.rating',
+  },
+  ExpressionAttributeValues: {
+    ':rating': 5
+  }
+}
+</code></pre>
+
+<p><strong>AWS Documentation Links</strong></p>
+<p><a href="http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.SpecifyingConditions.html">Condition Expression Operators and Functions</a> <br>
+<a href="http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.SpecifyingConditions.html#ConditionExpressionReference">Condition Expression</a> <br>
+<a href="">Expression Attribute Names</a></p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../../comparators/equal/" class="btn btn-neutral float-right" title=".eq()">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../where/" class="btn btn-neutral" title=".where()"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+    
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../where/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../../comparators/equal/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script src="../../js/theme.js"></script>
+
+</body>
+</html>

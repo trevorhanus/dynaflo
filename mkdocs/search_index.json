@@ -1,0 +1,154 @@
+{
+    "docs": [
+        {
+            "location": "/", 
+            "text": "Dynaflo is a DynamoDB client for node that was inspired by RethinkDB's fluent query syntax. It was \nbuilt and is maintained by the team at Gravity Labs but we always welcome pull requests.\n\n\nWe built Dynaflo out of the frustration that came from working with AWS's DynamoDB SDK.\nThere are other DynamoDB clients out there, but we felt they were missing functionality or \nare simply not being maintained.\n\n\nOur goal for Dynaflo is to make working with DynamoDB more familiar to JavaScript developers. We \nthink you will enjoy the syntax and the Promises.\n\n\nUseful Links\n\n\nAWS DynamoDB DocumentClient SDK\n \n\n\nAWS DynamoDB Docs\n \n\n\nDynamoDB API", 
+            "title": "Home"
+        }, 
+        {
+            "location": "/quickStart/", 
+            "text": "Install\n\n\n$ npm install --save dynaflo\n\n\n\n\nUse\n\n\nimport Dynaflo from 'dynaflo';\n\nconst d = new Dynaflo({\n  region: 'us-west-2',\n  endpoint: 'dynamoDB_endpoint',\n  accessKeyId: 'aws_access_key_id',\n  secretAccessKey: 'aws_secret_access_key'\n});\n\nd.table('Movies') // DynamoDB table name\n  .query() // method\n  .whereKey({title: 'Fantastic Beasts'}) // key condition\n  .pluck('title', {info:{rating: true}}) // only return these attributes\n  .run() // run the query\n  .then(data =\n {\n    console.log(data.Items); // do stuff with data\n  })\n  .catch(err =\n {\n    console.error(err); // catch errors\n  });", 
+            "title": "Quick Start"
+        }, 
+        {
+            "location": "/methods/getItem/", 
+            "text": "Returns a set of attributes for the item with the given primary key.\n\n\nCommand Syntax\n\n\ntable.get(key: Object) -\n singleDoc\n\n\n\n\nTODO: find the language used by Dynamo on the key\n\n\nWhere \nkey\n is a pojo that represents the primary key for the item.\n\n\nFor the primary key, you must provide all of the attributes. For example, with a simple primary key, you only need to provide a value for the partition key. For a composite primary key, you must provide values for both the partition key and the sort key.\n\n\nUsage\n\n\nd.table('Movies')\n  .get({year: 2015, title: 'The Big New Movie'})\n  .pluck('year', 'title', 'rating') // optional. defaults to everything\n  .run()\n  .then(data =\n {\n    console.log(data.Item); // Item will only have year, title, and rating attributes\n  });\n\n\n\n\nAvailable Modifiers\n\n\n.pluck()\n \n\n\nAWS Documentation Links\n\n\nDocumentClient.get()\n \n\n\nDynamoDB API GetItem", 
+            "title": "Get"
+        }, 
+        {
+            "location": "/methods/putItem/", 
+            "text": "Creates a new item or replaces an old item with a new item.\n\n\nCommand Syntax\n\n\ntable.put(item: Object)\n\n\n\n\nWhere \nitem\n is a pojo that represents the doc to be inserted.\n\n\nUsage\n\n\nimport Dynaflo from 'dynaflo';\nconst d = new Dynaflo(config);\n\nconst movies = new d.Table('Movies');\nmovies\n  .put({\n    year: 2013,\n    title: 'Turn It Down, Or Else!',\n    info: {\n      plot: 'Nothing happens at all.',\n      rating: 0\n    }\n  })\n  .run()\n  .then(data =\n {\n    // Inserted a new item\n  });\n\n\n\n\nOr we could conditionally put an item.\n\n\nd.table('Movies')\n  .put({\n    id: '1234',\n    info: {\n      plot: 'Nothing happens at all.',\n      rating: 0\n    }\n  })\n  .when(d.attr('id').notExists())\n  .run()\n  .then(data =\n {\n    // Only inserts the item if there is not a doc with id = '1234' already\n  });\n\n\n\n\nAvailable Modifiers\n\n\n.when()\n\n\nAWS Documentation Links\n\n\nDocumentClient.put()\n \n\n\nDynamoDB API PutItem", 
+            "title": "Put"
+        }, 
+        {
+            "location": "/methods/updateItem/", 
+            "text": "Sets or removes attributes on an item. Also deletes items from top level sets.\n\n\nCommand Syntax\n\n\ntable.update(key: Object)\n  .set(item: Object)\n  .remove(keyName | {nested: path}[, keyName | {nested: path}])\n  .delete(topLevelKeyName, [itemsToDelete])\n\n\n\n\nWhere \nkey\n is a pojo that represents the primary key to be deleted.\n\n\nFor the primary key, you must provide all of the attributes. For example, with a simple primary key, you only need to provide a value for the partition key. For a composite primary key, you must provide values for both the partition key and the sort key.\n\n\nUsage\n\n\nSet\n\n\nconst d = new Dynaflo(config);\n\nconst movies = new d.Table('Movies');\nmovies.update({year: 2015, title: 'The Big New Movie'})\n  .set({\n    info: {\n      rating: 5.5,\n      plot: 'Everything happens all at once',\n      actors: ['Larry', 'Moe', 'Curly']\n    }\n  })\n  .run()\n  .then(data =\n {\n    // movie is updated\n  });\n\n\n\n\nConditionally set an item\n\n\nimport dn, {attr} from 'dynaflo';\n\nconst movies = new d.Table('Movies');\nmovies.update({id: '1234'})\n  .set({\n    info: {\n      rating: 5.5,\n      plot: 'Everything happens all at once',\n      actors: ['Larry', 'Moe', 'Curly']\n    }\n  })\n  .when(attr({info:{plot:true}}).startsWith('Every'))\n  .run()\n  .then(data =\n {\n    // will update if the plot starts with the substring 'Every'. So in this case \n    // it will update\n  });\n\n\n\n\nDelete items from a set.\n\n\nimport dn, {attr} from 'dynaflo';\n\nconst movies = new d.Table('Movies');\nmovies.update({id: '1234'})\n  .delete('topLevelSet', ['Item3'])\n  .run()\n  .then(data =\n {\n    // deletes 'item3' from the top level set named 'topLevelSet' \n  });\n\n\n\n\nNote: delete only works with sets and top level attributes.\n\n\nRemove attributes from items\n\n\nimport dn, {attr} from 'dynaflo';\n\nconst movies = new d.Table('Movies');\nmovies.update({id: '1234'})\n  .remove('topLevelKey', {info:{rating:true}})\n  .run()\n  .then(data =\n {\n    // removed attribute 'topLevelKey' and the info.rating attribute \n  });\n\n\n\n\nAvailable Modifiers\n\n\n.when()\n \n\n\nFor more see the \nAWS Docs\n\n\nAWS SDK\n\n\nvar docClient = new AWS.DynamoDB.DocumentClient()\n\nvar table = \nMovies\n;\n\nvar year = 2015;\nvar title = \nThe Big New Movie\n;\n\nvar params = {\n    TableName:table,\n    Key:{\n        \nyear\n: year,\n        \ntitle\n: title\n    },\n    UpdateExpression: \nset info.rating = :r, info.plot=:p, info.actors=:a\n,\n    ExpressionAttributeValues:{\n        \n:r\n:5.5,\n        \n:p\n:\nEverything happens all at once.\n,\n        \n:a\n:[\nLarry\n, \nMoe\n, \nCurly\n]\n    },\n    ReturnValues:\nUPDATED_NEW\n\n};\n\ndocClient.update(params, function(err, data) {\n    if (err) {\n        console.error(\nUnable to update item. Error JSON:\n, JSON.stringify(err, null, 2));\n    } else {\n        console.log(\nUpdateItem succeeded:\n, JSON.stringify(data, null, 2));\n    }\n});", 
+            "title": "Update"
+        }, 
+        {
+            "location": "/methods/deleteItem/", 
+            "text": "Deletes the item with the given primary key.\n\n\nCommand Syntax\n\n\ntable.delete(key: Object)\n\n\n\n\nWhere \nkey\n is a pojo that represents the primary key to be deleted.\n\n\nFor the primary key, you must provide all of the attributes. For example, with a simple primary key, you only need to provide a value for the partition key. For a composite primary key, you must provide values for both the partition key and the sort key.\n\n\nUsage\n\n\nd.table('Movies')\n  .delete({year: 2015, title: 'The Big New Movie'})\n  .run()\n  .then(data =\n {\n    console.log(movie.title);\n  });\n\n\n\n\nHere \nyear\n is the partion key and \ntitle\n is the sort key.\n\n\nWe can also conditionally delete items.\n\n\nd.table('Movies')\n  .delete({year: 2015, title: 'The Big New Movie'})\n  .when(d.attr({info:{rating:true}}).lt(5.0))\n  .run()\n  .then(data =\n {\n    // movie was deleted\n  })\n  .catch(err =\n {\n    // the movie was not deleted\n  });\n\n\n\n\nThis deletes the movie if the rating is less than 5.0.\n\n\nAvailable Modifiers\n\n\n.when()\n \n\n\nAWS Documentation Links\n\n\nDocumentClient.delete()\n \n\n\nDynamoDB API DeleteItem", 
+            "title": "Delete"
+        }, 
+        {
+            "location": "/methods/query/", 
+            "text": "Queries the primary key of a table or a secondary index to directly access items from that table or index.\n\n\nCommand Syntax\n\n\ntable.query([indexName: string])\n  .whereKey(key: Object)\n\n\n\n\nWhere \nkey\n is a pojo that represents the primary key for the item.\n\n\nFor the primary key, you must provide all of the attributes. For example, with a simple primary key, you only need to provide a value for the partition key. For a composite primary key, you must provide values for both the partition key and the sort key.\n\n\nUsage\n\n\nd.table('Movies')\n  .query([indexName])\n  .whereKey(keyCondition)\n  .filter() // filter condition to perform after the query has executed, but before the items are returned from DynamoDB\n  .pluck('year', 'title', 'rating') // optional. defaults to everything\n  .limit()\n  .run()\n  .then(data =\n {\n    console.log(data.Items); // Items will only have year, title, and rating attributes\n  });\n\n\n\n\nAvailable Modifiers\n\n\n.filter()\n \n\n\n.pluck()\n \n\n\n.limit()\n\n\nAWS Docs Links\n\n\nDocumentClient.query()\n \n\n\nDynamoDB API Query", 
+            "title": "Query"
+        }, 
+        {
+            "location": "/methods/batchWrite/", 
+            "text": "Puts and/or deletes multiple items in a table.\n\n\nCommand Syntax\n\n\nd.table('TableName')\n  .batchPut(items: Object[])\n  .batchDelete(keys: Object[])\n\n\n\n\nUsage\n\n\nimport Dynaflo from 'dynaflo';\nconst d = new Dynaflo(config);\n\nconst movies = new d.Table('Movies');\nmovies\n  .batchPut([\n    {\n      year: 2013,\n      title: 'Turn It Down, Or Else!',\n      info: {\n        plot: 'Nothing happens at all.',\n        rating: 9\n      }\n    },\n    {\n      year: 2016,\n      title: 'Passengers',\n      info: {\n        plot: 'Two passengers are awakened 90 years early on an unmanned spacecraft.',\n        rating: 7.0\n      }\n    }\n  ])\n  .run()\n  .then(data =\n {\n    // Inserted two new items\n  });\n\n\n\n\nOr we could delete multiple items.\n\n\nd.table('Movies')\n  .batchDelete([\n    { year: '2013', title: 'Turn It Down, Or Else!'},\n    { year: '2013', title: 'Turn It Down, Or Else!'}\n  ])\n  .run()\n  .then(data =\n {\n    // deleted the two items\n  });\n\n\n\n\nOr we could put and delete items in the same request\n\n\nd.table('Movies')\n  .batchDelete([\n    { year: '2013', title: 'Turn It Down, Or Else!'},\n    { year: '2013', title: 'Turn It Down, Or Else!'}\n  ])\n  .batchPut(items)\n  .run()\n  .then(data =\n {\n\n  });\n\n\n\n\nAvailable Modifiers\n\n\nnone\n\n\nAWS Documentation Links\n\n\nDocumentClient.batchWrite()\n \n\n\nDynamoDB API BatchWriteItem", 
+            "title": "Batch Write"
+        }, 
+        {
+            "location": "/methods/batchGet/", 
+            "text": ":(\n\n\nThis feature is not currently supported, but we are encouraging pull requests!\n\n\nHere is a link to the AWS DocumentClient Docs for batchWrite", 
+            "title": "Batch Get (future)"
+        }, 
+        {
+            "location": "/params/overview/", 
+            "text": "All of the Table methods (.get(), .put(), .query(), etc) have certian modifiers that can be applied after the call to the method. These modifiers link directly to a dynamoDb parameter. The available modifiers are listed and explained here. Each explanation has a link back to the AWS docs where it is defined.", 
+            "title": "Overview"
+        }, 
+        {
+            "location": "/modifiers/pluck/", 
+            "text": "To read data from a table, you use operations such as .get(), .query() and .scan(). By default, DynamoDB returns all of the item attributes. \nTo get just some of the attributes, rather than all of them, use .pluck(). Under the hood, .pluck() is setting the \nprojection expression param\n.\n\n\nExample\n\n\nsay you have a DynamoDB doc like this...\n\n\n{\n  My.Scalar.Key: 10,\n  MyMap: {\n    MyKey: 'derp',\n    MyKey2: 'climb'\n  },\n  MyArray: ['item1', 'item2']\n}\n\n\n\n\nTop Level Attributes\n\n\nJust get top level attributes. this will return everything under the keys\n\n\n.pluck('My.Scalar.Key', 'MyArray');\n\n\n\n\nNested Attributes\n\n\nMaybe we want to get nested objects\n\n\n.pluck('My.Scalar,Key', {'MyMap': {'MyKey': true, 'MyKey2': true}}, 'MyArray');\n\n\n\n\nShorthand for Nested Attributes\n\n\nThis can get pretty verbose, so we can use the shorthand\n\n\n.pluck('My.Scalar.Key', {'MyMap': ['MyKey', 'MyKey2']}, 'MyArray');\n// same as above\n\n\n\n\nUnder the hood, this gets translated into the following params that are passed to the AWS DocumentClient \n\n\nAWS DocumentClient\n\n\nconst params = {\n  ProjectionExpression: '#msk, #mm.#mk, #ma',\n  ExpressionAttributeNames: {\n    '#msk': 'My.Scalar.Key',\n    '#mm': 'MyMap',\n    '#mk': 'MyKey',\n    '#ma': 'MyArray'\n  }\n}\n\n\n\n\nAWS Documentation Link\n\n\nProjection Expression\n \n\n\nExpression Attribute Names", 
+            "title": ".pluck()"
+        }, 
+        {
+            "location": "/modifiers/where/", 
+            "text": "To find data in a table, you use the operations .query() and .scan(). Sometimes, you may only want to write the data if certain conditions are met. \nTo do this, use the .where() modifier. Under the hood, .where() is setting the \nCondition Expression Param\n.\n\n\nExample\n\n\nSay you are representing a movie in DynamoDB like this...\n\n\n{\n  id: '12345',\n  title: 'Fantastic Beast and Where to Find Them',\n  info: {\n    rating: 5,\n    should: 'climb'\n  },\n  shouldRecommend: false,\n  stars: ['Red headed dude', 'Johnny Depp']\n}\n\n\n\n\nand you only want to update the \nshouldRecommend\n attribute if the rating = 5\n\n\nd.table('Movies')\n  .update({id: '12345'})\n  .set({\n    shouldRecommend: true\n  })\n  .where({\n    info: {rating: 5}\n  })\n  .run();\n\n\n\n\nFor more complicated conditions, you can use condition statements\n\n\nconst positiveRating = attr({info:{rating:true}}).gt(5);\nconst harryOrFanMovie = attr('title').startsWith('Harry').or(\n    attr('title').startsWith('Fan');\n  );\n\nd.table('Movies')\n  .update({id: '12345'})\n  .set({\n    shouldRecommend: true\n  })\n  .where(positiveRating.and(harryOrFanMovie))\n  .run();\n\n\n\n\nThis sets the shouldRecommend attribute if the rating is greater than 5 and the title starts with either 'Fan' or 'Harry'\n\n\nSee the \nComparators\n section for a complete list\n\n\nThis gets translated into the following params that are passed to the AWS DocumentClient.\n\n\nAWS DocumentClient\n\n\nconst params = {\n  ConditionExpression: '#r = :rating',\n  ExpressionAttributeNames: {\n    '#r': 'info.rating',\n  },\n  ExpressionAttributeValues: {\n    ':rating': 5\n  }\n}\n\n\n\n\nAWS Documentation Links\n\n\nCondition Expression Operators and Functions\n \n\n\nCondition Expression\n \n\n\nExpression Attribute Names", 
+            "title": ".where()"
+        }, 
+        {
+            "location": "/modifiers/when/", 
+            "text": "To write data to a table, you use operations such as .put(), .update() and .delete(). Sometimes, you may only want to write the data when certain conditions are met. \nTo do this, use the .when() modifier. Under the hood, .when() is setting the \nCondition Expression Param\n.\n\n\nExample\n\n\nSay you are representing a movie in DynamoDB like this...\n\n\n{\n  id: '12345',\n  title: 'Fantastic Beast and Where to Find Them',\n  info: {\n    rating: 5,\n    should: 'climb'\n  },\n  shouldRecommend: false,\n  stars: ['Red headed dude', 'Johnny Depp']\n}\n\n\n\n\nand you only want to update the \nshouldRecommend\n attribute when the rating = 5\n\n\nd.table('Movies')\n  .update({id: '12345'})\n  .set({\n    shouldRecommend: true\n  })\n  .when({\n    info: {rating: 5}\n  })\n  .run();\n\n\n\n\nFor more complicated conditions, you can use condition statements\n\n\nconst positiveRating = attr({info:{rating:true}}).gt(5);\nconst harryOrFanMovie = attr('title').startsWith('Harry').or(\n    attr('title').startsWith('Fan');\n  );\n\nd.table('Movies')\n  .update({id: '12345'})\n  .set({\n    shouldRecommend: true\n  })\n  .when(positiveRating.and(harryOrFanMovie))\n  .run();\n\n\n\n\nThis sets the shouldRecommend attribute when the rating is greater than 5 and the title starts with either 'Fan' or 'Harry'\n\n\nSee the \nComparators\n section for a complete list\n\n\nThis gets translated into the following params that are passed to the AWS DocumentClient.\n\n\nAWS DocumentClient\n\n\nconst params = {\n  ConditionExpression: '#r = :rating',\n  ExpressionAttributeNames: {\n    '#r': 'info.rating',\n  },\n  ExpressionAttributeValues: {\n    ':rating': 5\n  }\n}\n\n\n\n\nAWS Documentation Links\n\n\nCondition Expression Operators and Functions\n \n\n\nCondition Expression\n \n\n\nExpression Attribute Names", 
+            "title": ".when()"
+        }, 
+        {
+            "location": "/comparators/equal/", 
+            "text": "Tests if an attribute equals the given value.\n\n\nCommand Syntax\n\n\nattr(attribute).eq(value)\n\n\n\n\nUsage\n\n\nconst d = new Dynaflo(config);\n\nd.table('Movies')\n  .query({year: 2015})\n  .where(attr('title').eq('Fantastic Beasts'))\n  .run()\n  .then(data =\n {\n    // returns all movies with year = 2015 and title = 'Fantastic Beasts'\n  });\n\n\n\n\nAWS Doc Links\n\n\nCondition Expressions", 
+            "title": ".eq()"
+        }, 
+        {
+            "location": "/comparators/notEqual/", 
+            "text": "Tests if an attribute does not equal the given value.\n\n\nCommand Syntax\n\n\nattr(attribute).ne(value)\n\n\n\n\nUsage\n\n\nimport Dynaflo from 'dynaflo';\nconst d = new Dynaflo(config);\n\nd.table('Movies')\n  .query({year: 2015})\n  .where(attr('title').ne('Fantastic Beasts'))\n  .run()\n  .then(data =\n {\n    // returns all movies with year = 2015 and title not equal to 'Fantastic Beasts'\n  });\n\n\n\n\nAWS Doc Links\n\n\nCondition Expressions", 
+            "title": ".ne()"
+        }, 
+        {
+            "location": "/comparators/lessThan/", 
+            "text": "Tests if an attribute is less than the given value.\n\n\nCommand Syntax\n\n\nattr(attribute).lt(value)\n\n\n\n\nUsage\n\n\nconst d = new Dynaflo(config);\n\nd.table('Movies')\n  .query({genre: 'action'})\n  .where(attr('year').lt(2015)))\n  .run()\n  .then(data =\n {\n    // returns all action movies made before 2015\n  });\n\n\n\n\nAWS Doc Links\n\n\nCondition Expressions", 
+            "title": ".lt()"
+        }, 
+        {
+            "location": "/comparators/lessThanEqual/", 
+            "text": "Tests if an attribute is less than or equal to the given value.\n\n\nCommand Syntax\n\n\nattr(attribute).le(value)\n\n\n\n\nUsage\n\n\nimport Dynaflo from 'dynaflo';\nconst d = new Dynaflo(config);\n\nd.table('Movies')\n  .query({genre: 'action'})\n  .where(attr('year').le(2015)))\n  .run()\n  .then(data =\n {\n    // returns all action movies made in or before 2015\n  });\n\n\n\n\nAWS Doc Links\n\n\nCondition Expressions", 
+            "title": ".le()"
+        }, 
+        {
+            "location": "/comparators/greaterThan/", 
+            "text": "Tests if an attribute is greater than the given value.\n\n\nCommand Syntax\n\n\nattr(attribute).gt(value)\n\n\n\n\nUsage\n\n\nimport Dynaflo from 'dynaflo';\nconst d = new Dynaflo(config);\n\nd.table('Movies')\n  .query({genre: 'action'})\n  .where(attr('year').gt(2015)))\n  .run()\n  .then(data =\n {\n    // returns all action movies made after 2015\n  });\n\n\n\n\nAWS Doc Links\n\n\nCondition Expressions", 
+            "title": ".gt()"
+        }, 
+        {
+            "location": "/comparators/greaterThanEqual/", 
+            "text": "Tests if an attribute is greater than or equal to the given value.\n\n\nCommand Syntax\n\n\nattr(attribute).ge(value)\n\n\n\n\nUsage\n\n\nconst d = new Dynaflo(config);\n\nd.table('Movies')\n  .query({genre: 'action'})\n  .where(attr('year').ge(2015)))\n  .run()\n  .then(data =\n {\n    // returns all action movies made in or after 2015\n  });\n\n\n\n\nAWS Doc Links\n\n\nCondition Expressions", 
+            "title": ".ge()"
+        }, 
+        {
+            "location": "/comparators/between/", 
+            "text": "Tests if an attribute is between two values.\n\n\nCommand Syntax\n\n\nattr(attribute).between(lowOperand, highOperand)\n\n\n\n\nUsage\n\n\nimport Dynaflo from 'dynaflo';\nconst d = new Dynaflo(config);\n\nd.table('Movies')\n  .query({genre: 'action'})\n  .where(attr('year').between(2005, 2015)))\n  .run()\n  .then(data =\n {\n    // returns movies with genre = 'action' and made between 2005 and 2015\n  });\n\n\n\n\nAWS Doc Links\n\n\nCondition Expressions", 
+            "title": ".between()"
+        }, 
+        {
+            "location": "/comparators/in/", 
+            "text": "Tests if an attribute equals the given value.\n\n\nCommand Syntax\n\n\nattr(attribute).in([value])\n\n\n\n\nUsage\n\n\nconst d = new Dynaflo(config);\n\nd.table('Movies')\n  .query({year: 2015})\n  .where(attr('actor').in(['Harrison Ford', attr('star_actor')]))\n  .run()\n  .then(data =\n {\n    // returns all movies with year = 2015 and title = to either 'Harrison Ford' or the value at star_actor\n  });\n\n\n\n\nAWS Doc Links\n\n\nCondition Expressions", 
+            "title": ".in()"
+        }, 
+        {
+            "location": "/comparators/exists/", 
+            "text": "Tests if an attribute exists in a document.\n\n\nCommand Syntax\n\n\nattr(attribute).exists()\n\n\n\n\nUsage\n\n\nconst d = new Dynaflo(config);\n\nd.table('Movies')\n  .update({year: 2015})\n  .set({title: 'New Title'})\n  .when(attr('title').exists())\n  .run()\n  .then(data =\n {\n    // only updates the title when the document has a title attribute\n  });\n\n\n\n\nAWS Doc Links\n\n\nCondition Expressions", 
+            "title": ".exists()"
+        }, 
+        {
+            "location": "/comparators/notExists/", 
+            "text": "Tests if an attribute does not exist in a document.\n\n\nCommand Syntax\n\n\nattr(attribute).notExists()\n\n\n\n\nUsage\n\n\nconst d = new Dynaflo(config);\n\nd.table('Movies')\n  .update({year: 2015})\n  .set({title: 'New Title'})\n  .when(attr('title').notExists())\n  .run()\n  .then(data =\n {\n    // only updates the title when the document does not have a title attribute\n  });\n\n\n\n\nAWS Doc Links\n\n\nCondition Expressions", 
+            "title": ".notExists()"
+        }, 
+        {
+            "location": "/comparators/type/", 
+            "text": "Tests if an attribute is of a certain type.\n\n\nCommand Syntax\n\n\nattr(attribute).type(type)\n\n// types: 'S' | 'SS' | 'N' | 'NS' | 'B' | 'BS' | 'BOOL' | 'NULL' | 'L' | 'M'\n\n\n\n\nUsage\n\n\nconst d = new Dynaflo(config);\n\nd.table('Movies')\n  .query({year: 2015})\n  .where(attr('actor').type('S')))\n  .run()\n  .then(data =\n {\n    // returns movies with year = 2015 and actor attribute that is a string\n  });\n\n\n\n\nAWS Doc Links\n\n\nCondition Expressions", 
+            "title": ".type()"
+        }, 
+        {
+            "location": "/comparators/beginsWith/", 
+            "text": "Tests if an attribute begins with a substring.\n\n\nCommand Syntax\n\n\nattr(attribute).beginsWith(substring)\n\n\n\n\nUsage\n\n\nimport Dynaflo from 'dynaflo';\nconst d = new Dynaflo(config);\n\nd.table('Movies')\n  .query({year: 2015})\n  .where(attr('title').beginsWith('Big')))\n  .run()\n  .then(data =\n {\n    // returns movies with year = 2015 with title beginning with the substring 'Big'\n  });\n\n\n\n\nAWS Doc Links\n\n\nCondition Expressions", 
+            "title": ".beginsWith()"
+        }, 
+        {
+            "location": "/comparators/contains/", 
+            "text": "Tests if a string or an array contains a certain string.\n\n\nCommand Syntax\n\n\nattr(attribute).contains(operand)\n\n\n\n\nNote: operand must be a string\n\n\nUsage\n\n\nconst d = new Dynaflo(config);\n\nd.table('Movies')\n  .query({year: 2015})\n  .where(attr('title').contains('Big')))\n  .run()\n  .then(data =\n {\n    // returns movies with year = 2015 with title containing the substring 'Big'\n  });\n\n\n\n\nAWS Doc Links\n\n\nCondition Expressions", 
+            "title": ".contains()"
+        }, 
+        {
+            "location": "/comparators/size/", 
+            "text": "This feature is not complete yet.", 
+            "title": ".size() (future)"
+        }, 
+        {
+            "location": "/tables/createTable/", 
+            "text": "AWS SDK\n\n\nvar dynamodb = new AWS.DynamoDB();\n\nvar params = {\n    TableName : \nMovies\n,\n    KeySchema: [       \n        { AttributeName: \nyear\n, KeyType: \nHASH\n},  //Partition key\n        { AttributeName: \ntitle\n, KeyType: \nRANGE\n }  //Sort key\n    ],\n    AttributeDefinitions: [       \n        { AttributeName: \nyear\n, AttributeType: \nN\n },\n        { AttributeName: \ntitle\n, AttributeType: \nS\n }\n    ],\n    ProvisionedThroughput: {       \n        ReadCapacityUnits: 10, \n        WriteCapacityUnits: 10\n    }\n};\n\ndynamodb.createTable(params, function(err, data) {\n    if (err) {\n        console.error(\nUnable to create table. Error JSON:\n, JSON.stringify(err, null, 2));\n    } else {\n        console.log(\nCreated table. Table description JSON:\n, JSON.stringify(data, null, 2));\n    }\n});\n\n\n\n\nDynaflo\n\n\nimport Dynaflo from 'dynaflo';\nconst d = new Dynaflo(config);\n\nconst cloudFormationTemplate = require('myCloudFormationTemplate.json');\n\nd.createTable(cloudFormationTemplate)\n  .then(data =\n {\n    console.log(data);\n  })\n  .catch(err =\n {\n    console.error(err);\n  });", 
+            "title": "Create Table"
+        }, 
+        {
+            "location": "/tables/deleteTable/", 
+            "text": "AWS SDK\n\n\nvar dynamodb = new AWS.DynamoDB();\n\nvar params = {\n    TableName : \nMovies\n\n};\n\ndynamodb.deleteTable(params, function(err, data) {\n    if (err) {\n        console.error(\nUnable to create table. Error JSON:\n, JSON.stringify(err, null, 2));\n    } else {\n        console.log(\nCreated table. Table description JSON:\n, JSON.stringify(data, null, 2));\n    }\n});\n\n\n\n\nDynaflo\n\n\nimport Dynaflo from 'dynaflo';\nconst d = new Dynaflo(config);\n\nd.deleteTable('Movies')\n  .then(data =\n {\n    // table is deleted\n  });", 
+            "title": "Delete Table"
+        }, 
+        {
+            "location": "/tables/describeTable/", 
+            "text": "AWS SDK\n\n\nvar dynamodb = new AWS.DynamoDB();\n\nvar params = {\n    TableName : \nMovies\n\n};\n\ndynamodb.describeTable(params, function(err, data) {\n    if (err) {\n        console.error(\nUnable to create table. Error JSON:\n, JSON.stringify(err, null, 2));\n    } else {\n        console.log(\nCreated table. Table description JSON:\n, JSON.stringify(data, null, 2));\n    }\n});\n\n\n\n\nDynaflo\n\n\nimport Dynaflo from 'dynaflo';\nconst d = new Dynaflo(config);\n\nd.describeTable('Movies')\n  .then(table =\n {\n    // table is deleted\n  });", 
+            "title": "Describe Table"
+        }
+    ]
+}
