@@ -1,23 +1,23 @@
 {
-  "compileOnSave": true,
-  "compilerOptions": {
-    "module": "commonjs",
-    "noImplicitAny": true,
-    "removeComments": true,
-    "experimentalDecorators": true,
-    "preserveConstEnums": true,
-    "outDir": "./build",
-    "sourceMap": true,
-    "pretty": true,
-    "declaration": true,
-    "typeRoots": [
-      "node_modules/@types"
+    "compileOnSave": true,
+    "compilerOptions": {
+        "module": "commonjs",
+        "noImplicitAny": false,
+        "removeComments": true,
+        "experimentalDecorators": true,
+        "preserveConstEnums": true,
+        "outDir": "./build",
+        "sourceMap": true,
+        "pretty": true,
+        "declaration": true,
+        "typeRoots": [
+            "node_modules/@types"
+        ]
+    },
+    "include": [
+        "src/**/*"
+    ],
+    "exclude": [
+        "node_modules"
     ]
-  },
-  "include": [
-    "src/**/*"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
 }

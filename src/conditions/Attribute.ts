@@ -1,5 +1,5 @@
 import Dynaflo from '..';
-import {NameMap} from '../expression';
+import {NameMap} from '../interfaces';
 import {getSafeExpressionName} from '../utils';
 
 export default class Attribute {

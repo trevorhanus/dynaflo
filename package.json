@@ -1,45 +1,45 @@
 {
-  "name": "dynaflo",
-  "version": "0.2.5",
-  "description": "Dynaflo makes working with DynamoDB easier.",
-  "main": "build/index.js",
-  "types": "build/index",
-  "scripts": {
-    "test": "jest --watch",
-    "test-once": "jest"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@gitlab.com/trevorhanus/dynaflo.git"
-  },
-  "author": "Gravity Labs",
-  "license": "BSD",
-  "bugs": {
-    "url": "https://gitlab.com/trevorhanus/dynaflo/issues"
-  },
-  "homepage": "https://gitlab.com/trevorhanus/dynaflo#README",
-  "devDependencies": {
-    "dotenv": "^2.0.0",
-    "jest-cli": "^17.0.3",
-    "typescript": "^2.0.10"
-  },
-  "jest": {
-    "transform": {
-      ".*": "<rootDir>/preprocessor.js"
+    "name": "dynaflo",
+    "version": "0.4.0",
+    "description": "Dynaflo makes working with DynamoDB easier.",
+    "main": "build/index.js",
+    "types": "build/index",
+    "scripts": {
+        "test": "jest --watch",
+        "test-once": "jest"
     },
-    "moduleFileExtensions": [
-      "ts",
-      "js"
-    ],
-    "testRegex": "__test__/.*\\.test\\.(ts|js)$"
-  },
-  "dependencies": {
-    "aws-sdk": "^2.7.4",
-    "lodash": "^4.17.2",
-    "randomstring": "^1.1.5",
-    "@types/es6-promise": "0.0.32",
-    "@types/jest": "^16.0.0",
-    "@types/lodash": "^4.14.39",
-    "@types/node": "^6.0.48"
-  }
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/trevorhanus/dynaflo.git"
+    },
+    "author": "Trevor Hanus",
+    "license": "BSD",
+    "bugs": {
+        "url": "https://gitlab.com/trevorhanus/dynaflo/issues"
+    },
+    "homepage": "https://gitlab.com/trevorhanus/dynaflo#README",
+    "devDependencies": {
+        "dotenv": "^2.0.0",
+        "jest-cli": "^17.0.3",
+        "typescript": "^2.0.10"
+    },
+    "jest": {
+        "transform": {
+            ".*": "<rootDir>/preprocessor.js"
+        },
+        "moduleFileExtensions": [
+            "ts",
+            "js"
+        ],
+        "testRegex": "__test__/.*\\.test\\.(ts|js)$"
+    },
+    "dependencies": {
+        "aws-sdk": "^2.7.4",
+        "lodash": "^4.17.2",
+        "randomstring": "^1.1.5",
+        "@types/es6-promise": "0.0.32",
+        "@types/jest": "^16.0.0",
+        "@types/lodash": "^4.14.39",
+        "@types/node": "^6.0.48"
+    }
 }

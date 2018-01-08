@@ -1,33 +1,32 @@
-import Dynaflo from '../..';
-import {NameMap, ValueMap} from '../expression';
-import {getSafeExpressionValue} from '../utils';
+import { ValueMap } from '../interfaces';
+import { getSafeExpressionValue } from '../utils';
 import Condition from './Condition';
 import Attribute from './Attribute';
 
 export default class Operand {
-  private safeValue: string;
-  private attribute: Attribute;
-  _valueMap: ValueMap;
+    private safeValue: string;
+    private attribute: Attribute;
+    _valueMap: ValueMap;
 
-  constructor(value: (number | boolean | string | Condition)) {
-    if (value instanceof Condition) {
-      this.attribute = value.attribute;
-    } else {
-      this.safeValue = getSafeExpressionValue();
-      this._valueMap = {};
-      this._valueMap[this.safeValue] = value;
+    constructor(value: (number | boolean | string | Condition)) {
+        if (value instanceof Condition) {
+            this.attribute = value.attribute;
+        } else {
+            this.safeValue = getSafeExpressionValue();
+            this._valueMap = {};
+            this._valueMap[this.safeValue] = value;
+        }
     }
-  }
 
-  exprString(): string {
-    if (this.attribute) {
-      return this.attribute.safePath();
-    } else {
-      return this.safeValue;
+    exprString(): string {
+        if (this.attribute) {
+            return this.attribute.safePath();
+        } else {
+            return this.safeValue;
+        }
     }
-  }
 
-  valueMap(): ValueMap {
-    return this._valueMap;
-  }
+    valueMap(): ValueMap {
+        return this._valueMap;
+    }
 }

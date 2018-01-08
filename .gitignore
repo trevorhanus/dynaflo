@@ -11,3 +11,4 @@ site/
 npm-debug.log
 
 .env
+.idea/

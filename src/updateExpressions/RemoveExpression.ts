@@ -1,5 +1,5 @@
 import {getSafeExpressionName, getSafeExpressionValue} from '../utils';
-import {NameMap, ValueMap, Expression} from '../expression';
+import {NameMap, ValueMap, Expression} from '../interfaces';
 import NestedAttribute from '../utils/NestedAttribute';
 import {assign as _assign} from 'lodash';
 import {concat as _concat} from 'lodash';

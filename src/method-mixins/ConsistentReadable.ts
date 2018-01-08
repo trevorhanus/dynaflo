@@ -1,4 +1,4 @@
-import BaseMethod from '../itemMethods/BaseMethod';
+import BaseMethod from '../methods/BaseMethod';
 import ConsistentReadParam from '../params/ConsistentReadParam';
 
 export default class ConsistentReadable extends BaseMethod {

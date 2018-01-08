@@ -1,47 +1,47 @@
-import GetMethod from './itemMethods/GetMethod';
-import PutMethod from './itemMethods/PutMethod';
-import DeleteMethod from './itemMethods/DeleteMethod';
-import UpdateMethod from './itemMethods/UpdateMethod';
-import QueryMethod from './itemMethods/QueryMethod';
-import ScanMethod from './itemMethods/ScanMethod';
-import BatchWriteMethod from './itemMethods/BatchWriteMethod';
+import GetMethod from './methods/GetMethod';
+import PutMethod from './methods/PutMethod';
+import DeleteMethod from './methods/DeleteMethod';
+import UpdateMethod from './methods/UpdateMethod';
+import QueryMethod from './methods/QueryMethod';
+import ScanMethod from './methods/ScanMethod';
+import BatchWriteMethod from './methods/BatchWriteMethod';
 
 export default class Table {
-  private tableName: string;
+    private tableName: string;
 
-  constructor(tableName: string) {
-    this.tableName = tableName;
-  }
+    constructor(tableName: string) {
+        this.tableName = tableName;
+    }
 
-  put(item: any): PutMethod {
-    return new PutMethod(this.tableName, item);
-  };
+    put(item: any): PutMethod {
+        return new PutMethod(this.tableName, item);
+    };
 
-  get(key: any): GetMethod {
-    return new GetMethod(this.tableName, key);
-  };
+    get(key: any): GetMethod {
+        return new GetMethod(this.tableName, key);
+    };
 
-  query(indexName?: string): QueryMethod {
-    return new QueryMethod(this.tableName, indexName);
-  };
+    query(indexName?: string): QueryMethod {
+        return new QueryMethod(this.tableName, indexName);
+    };
 
-  scan(indexName?: string): ScanMethod {
-    return new ScanMethod(this.tableName, indexName);
-  };
+    scan(indexName?: string): ScanMethod {
+        return new ScanMethod(this.tableName, indexName);
+    };
 
-  update(key: any): UpdateMethod {
-    return new UpdateMethod(this.tableName, key);
-  };
+    update(key: any): UpdateMethod {
+        return new UpdateMethod(this.tableName, key);
+    };
 
-  delete(key: any): DeleteMethod {
-    return new DeleteMethod(this.tableName, key);
-  };
+    delete(key: any): DeleteMethod {
+        return new DeleteMethod(this.tableName, key);
+    };
 
-  batchPut(items: any[]): BatchWriteMethod {
-    return new BatchWriteMethod(this.tableName, items, []);
-  }
+    batchPut(items: any[]): BatchWriteMethod {
+        return new BatchWriteMethod(this.tableName, items, []);
+    }
 
-  batchDelete(keysToDelete: any[]): BatchWriteMethod {
-    return new BatchWriteMethod(this.tableName, [], keysToDelete);
-  }
+    batchDelete(keysToDelete: any[]): BatchWriteMethod {
+        return new BatchWriteMethod(this.tableName, [], keysToDelete);
+    }
 }

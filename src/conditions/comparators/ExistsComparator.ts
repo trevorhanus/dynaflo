@@ -1,5 +1,5 @@
 import Dynaflo from '../..';
-import {ValueMap} from '../../expression';
+import {ValueMap} from '../../interfaces';
 import {Comparator} from './Comparator';
 
 export default class ExistsComparator implements Comparator {

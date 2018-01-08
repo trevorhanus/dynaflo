@@ -1,4 +1,4 @@
-import {Expression, ValueMap, NameMap} from '../expression';
+import {Expression, ValueMap, NameMap} from '../interfaces';
 import {getSafeExpressionName, getSafeExpressionValue} from '../utils';
 
 export default class DeleteExpression implements Expression {

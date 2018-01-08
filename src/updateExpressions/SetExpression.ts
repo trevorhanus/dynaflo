@@ -1,5 +1,5 @@
 import {ValueMap, NameMap} from '../params/Param';
-import {Expression} from '../expression';
+import {Expression} from '../interfaces';
 import {getSafeExpressionName, getSafeExpressionValue} from '../utils';
 
 export default class SetExpression implements Expression {

@@ -1,5 +1,5 @@
 import {Param, NameMap, ValueMap} from './Param';
-import {Expression} from '../expression';
+import {Expression} from '../interfaces';
 import {assign as _assign} from 'lodash';
 
 export default class UpdateExpressionParam implements Param {

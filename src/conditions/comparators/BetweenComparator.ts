@@ -1,5 +1,5 @@
 import Dynaflo from '../..';
-import {ValueMap} from '../../expression';
+import {ValueMap} from '../../interfaces';
 import {Comparator} from './Comparator';
 import Operand from '../Operand';
 import {assign as _assign} from 'lodash';

@@ -1,4 +1,4 @@
-import BaseMethod from '../itemMethods/BaseMethod';
+import BaseMethod from '../methods/BaseMethod';
 import Condition, {ConditionLike} from '../conditions/Condition';
 import KeyConditionParam from '../params/KeyConditionParam';
 
