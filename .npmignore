@@ -8,3 +8,11 @@ preprocessor.js
 
 # Tests
 /__tests__
+
+/.idea
+
+yarn.lock
+.sample-env
+.env
+
+node_modules/
