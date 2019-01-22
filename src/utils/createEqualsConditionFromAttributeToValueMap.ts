@@ -45,7 +45,7 @@ export function nestedAttributeFromPath(path: string[]) {
     }, true);
 }
 
-export function createEqualsCondition(pathToValue: Object) {
+export function createEqualsCondition(pathToValue: any) {
     const condition = new Condition(pathToValue.nestedObject);
     condition.eq(pathToValue.value);
     return condition;

@@ -1,27 +1,34 @@
 {
     "name": "dynaflo",
-    "version": "0.4.0",
+    "version": "0.5.0",
     "description": "Dynaflo makes working with DynamoDB easier.",
-    "main": "build/index.js",
-    "types": "build/index",
-    "scripts": {
-        "test": "jest --watch",
-        "test-once": "jest"
-    },
+    "author": "Trevor Hanus",
+    "license": "BSD",
+    "homepage": "https://dynaflo.js.org/",
     "repository": {
         "type": "git",
         "url": "https://github.com/trevorhanus/dynaflo.git"
     },
-    "author": "Trevor Hanus",
-    "license": "BSD",
-    "bugs": {
-        "url": "https://gitlab.com/trevorhanus/dynaflo/issues"
+    "main": "build/index.js",
+    "types": "build/index",
+    "scripts": {
+        "build": "./node_modules/typescript/bin/tsc -p tsconfig.json",
+        "test": "jest --watch",
+        "test-once": "jest"
     },
-    "homepage": "https://gitlab.com/trevorhanus/dynaflo#README",
+    "bugs": {
+        "url": "https://github.com/trevorhanus/dynaflo/issues"
+    },
+    "dependencies": {
+        "aws-sdk": "^2.7.4",
+        "lodash": "^4.17.2",
+        "randomstring": "^1.1.5"
+    },
     "devDependencies": {
+        "@types/node": "^10.12.18",
         "dotenv": "^2.0.0",
         "jest-cli": "^17.0.3",
-        "typescript": "^2.0.10"
+        "typescript": "^3.2.4"
     },
     "jest": {
         "transform": {
@@ -32,14 +39,5 @@
             "js"
         ],
         "testRegex": "__test__/.*\\.test\\.(ts|js)$"
-    },
-    "dependencies": {
-        "aws-sdk": "^2.7.4",
-        "lodash": "^4.17.2",
-        "randomstring": "^1.1.5",
-        "@types/es6-promise": "0.0.32",
-        "@types/jest": "^16.0.0",
-        "@types/lodash": "^4.14.39",
-        "@types/node": "^6.0.48"
     }
 }
