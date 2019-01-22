@@ -1,5 +1,5 @@
 {
-    "compileOnSave": true,
+    "compileOnSave": false,
     "compilerOptions": {
         "module": "commonjs",
         "noImplicitAny": false,
@@ -10,14 +10,12 @@
         "sourceMap": true,
         "pretty": true,
         "declaration": true,
-        "typeRoots": [
-            "node_modules/@types"
+        "lib": [
+            "esnext",
+            "dom"
         ]
     },
     "include": [
         "src/**/*"
-    ],
-    "exclude": [
-        "node_modules"
     ]
 }

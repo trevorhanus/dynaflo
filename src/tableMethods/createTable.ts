@@ -1,6 +1,6 @@
 import {dynamoDB} from '../Dynaflo';
 
-export function createTable(cloudFormation: Object) {
+export function createTable(cloudFormation: any) {
   let cft = cloudFormation;
   if (cloudFormation.hasOwnProperty('Properties')) {
     cft = cloudFormation.Properties;
