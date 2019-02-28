@@ -1,6 +1,6 @@
 {
     "name": "dynaflo",
-    "version": "0.5.0-alpha",
+    "version": "0.5.1-alpha",
     "description": "Dynaflo makes working with DynamoDB easier.",
     "author": "Trevor Hanus",
     "license": "BSD",
