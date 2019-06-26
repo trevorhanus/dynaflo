@@ -46,7 +46,7 @@ export default class BaseMethod {
         });
     }
 
-    private buildParams(): any {
+    buildParams(): any {
         let valueMap: ValueMap = {};
         let nameMap: NameMap = {};
         let params: Dynaflo.Params = {

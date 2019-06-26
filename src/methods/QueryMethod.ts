@@ -7,6 +7,7 @@ import Pluckable from '../method-mixins/Pluckable';
 import Filterable from '../method-mixins/Filterable';
 import Limitable from '../method-mixins/Limitable';
 import ConsistentReadable from '../method-mixins/ConsistentReadable';
+import { ScanIndexForwardParam } from '../params/ScanIndexForwardParam';
 
 export default class QueryMethod extends BaseMethod implements Pluckable, Filterable, WhereKeyable, Limitable, ConsistentReadable {
     constructor(tableName: string, indexName?: string) {
@@ -41,6 +42,24 @@ export default class QueryMethod extends BaseMethod implements Pluckable, Filter
     consistentRead(option: boolean): QueryMethod {
         /* ConsistentReadable mixin implements this method */
         return this;
+    }
+
+    scanIndexForward(): QueryMethod {
+        super.addParam(new ScanIndexForwardParam(true));
+        return this;
+    }
+
+    scanIndexBackward(): QueryMethod {
+        super.addParam(new ScanIndexForwardParam(false));
+        return this;
+    }
+
+    asc(): QueryMethod {
+        return this.scanIndexForward();
+    }
+
+    desc(): QueryMethod {
+        return this.scanIndexBackward();
     }
 }
 
