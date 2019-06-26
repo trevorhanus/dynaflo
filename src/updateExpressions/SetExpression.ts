@@ -1,6 +1,7 @@
 import {ValueMap, NameMap} from '../params/Param';
 import {Expression} from '../interfaces';
 import {getSafeExpressionName, getSafeExpressionValue} from '../utils';
+import { isEmpty } from 'lodash';
 
 export default class SetExpression implements Expression {
   _valueMap: ValueMap = {};
@@ -16,11 +17,14 @@ export default class SetExpression implements Expression {
       const safeKey = getSafeExpressionName();
       this._nameMap[safeKey] = key;
       const value: any = item[key];
+
       const isArray: boolean = Array.isArray(value);
       const isString: boolean = typeof value === 'string';
       const isBoolean: boolean = typeof value === 'boolean';
       const isNumber: boolean = typeof value === 'number';
-      if (isArray || isString || isBoolean || isNumber) {
+      const isEmptyObject = isEmpty(value);
+
+      if (isArray || isString || isBoolean || isNumber || isEmptyObject) {
         const safeValue = getSafeExpressionValue();
         this._valueMap[safeValue] = value;
         const pathExpression = this._getFullPathExpression(safeKeys.concat(safeKey), safeValue);
